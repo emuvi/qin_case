@@ -33,7 +33,7 @@ export class QinMenu extends QinColumn {
             button.styleAsMaxWidth(100);
             button.putAsColumn();
             button.addActionMain((_) => {
-                this.qinpel.chief.newJobber(
+                this.qinpel.window.newFrame(
                     item.module.title,
                     item.module.appName,
                     QinTools.newQinSetupOption(item.module, item.expect)
@@ -65,7 +65,7 @@ export class QinMenu extends QinColumn {
 }
 
 export function qinMenuStartUp(menus: QinMenuItem<any>[]): QinBase {
-    const qinSetup = Qine.qinpel.jobbed.getOption(Qine.qinpel.our.names.QinSetup) as QinSetup;
+    const qinSetup = Qine.qinpel.frame.getOption(Qine.qinpel.ours.consts.QIN_SETUP) as QinSetup;
     if (qinSetup && qinSetup.module) {
         for (const menu of menus) {
             if (QinTools.isSameModule(menu.module, qinSetup.module)) {

@@ -1,14 +1,14 @@
-import { QinJobberPopup } from "qin_desk/types/qin-jobber-popup";
+import { QinFramePopup } from "qin_desk/types/qin-frame-popup";
 import { QinBounds } from "qin_soul";
 import { QinBase } from "./qin-base";
 import { QinPanel } from "./qin-panel";
 import { Qine } from "./qin-tools";
 
 export class QinPopup {
-    private _qinMain: QinJobberPopup;
+    private _qinMain: QinFramePopup;
 
     public constructor(contents: QinPanel) {
-        this._qinMain = Qine.qinpel.jobbed.newPopup(contents.castedQine());
+        this._qinMain = Qine.qinpel.frame.newPopup(contents.castedQine());
     }
 
     public show() {

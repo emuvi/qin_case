@@ -1,12 +1,12 @@
 import {
-  QinActionableStyles,
-  QinArms,
-  QinFilesNature,
-  QinFoot,
-  QinNature,
-  QinSkin,
-  QinSoul,
-  QinStylesPicker,
+    QinActionableStyles,
+    QinArms,
+    QinFilesNature,
+    QinFoot,
+    QinNature,
+    QinSkin,
+    QinSoul,
+    QinStylesPicker,
 } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
@@ -81,13 +81,13 @@ export class QinFileView extends QinEdit<string[]> {
                     let itemRoot = QinSoul.foot.getParent(itemPath);
                     let itemName = QinSoul.foot.getStem(itemPath);
                     if (itemRoot !== folderRoot) {
-                        this.qinpel.jobbed.statusError(
+                        this.qinpel.frame.statusError(
                             `The item '${itemPath}' is not on the root '${folderRoot}'.`,
                             "{qin_case}(ErrCode-000001)"
                         );
                     } else {
                         if (!this.select(itemName)) {
-                            this.qinpel.jobbed.statusError(
+                            this.qinpel.frame.statusError(
                                 `Does not have the item '${itemName}' on the folder '${folderRoot}'`,
                                 "{qin_case}(ErrCode-000002)"
                             );
@@ -205,7 +205,7 @@ export class QinFileView extends QinEdit<string[]> {
                 }
             })
             .catch((err) => {
-                this.qinpel.jobbed.statusError(err, "{qinpel-cps}(ErrCode-000003)");
+                this.qinpel.frame.statusError(err, "{qinpel-cps}(ErrCode-000003)");
             });
     }
 

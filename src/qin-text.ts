@@ -65,6 +65,10 @@ export class QinText extends QinEdit<string> {
         return !this.castedQine().readOnly;
     }
 
+    public clear(): void {
+        this.castedQine().value = "";
+    }
+
     public insertAtCursor(data: string) {
         if (!data) return;
         let startPos = this.castedQine().selectionStart;

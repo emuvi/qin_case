@@ -40,7 +40,7 @@ function isSameModule(one: QinModule, two: QinModule): boolean {
 
 function newQinSetupOption(module: QinModule, expect?: QinExpect) {
     let result = {};
-    result[refQinpel.our.names.QinSetup] = newQinSetup(module, expect);
+    result[refQinpel.ours.consts.QIN_SETUP] = newQinSetup(module, expect);
     return result;
 }
 

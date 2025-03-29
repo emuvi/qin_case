@@ -13,7 +13,7 @@ export abstract class QinBase extends QinBaseStyle {
         if (qined instanceof QinBase) {
             qined.qinedHTML.id = qindred + qined.qinedHTML.id;
         } else {
-            qined.id = Qine.qinpel.our.soul.body.makeQindredUID(qindred);
+            qined.id = Qine.qinpel.ours.soul.body.makeQindredUID(qindred);
         }
         this._qined = qined;
     }

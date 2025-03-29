@@ -15,10 +15,10 @@ export class UseParams extends QinRow {
         this._qinGet.install(this);
         this._qinValue.install(this);
         this._qinGet.addActionMain((_) => {
-            this.qinpel.talk.param
-                .get(this._qinName.value, "default")
+            this.qinpel.talk.utils
+                .getParam(this._qinName.value, "default")
                 .then((val) => (this._qinValue.value = val))
-                .catch((err) => this.qinpel.jobbed.showError(err, "{qin_case}(ErrCode-000003)"));
+                .catch((err) => this.qinpel.frame.showError(err, "{qin_case}(ErrCode-000003)"));
         });
     }
 }

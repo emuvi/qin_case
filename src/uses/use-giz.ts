@@ -32,27 +32,28 @@ export class UseGiz extends QinColumn {
         this.qinpel.talk.giz
             .list()
             .then((res) => {
+                this._qinListText.clear();
                 for (let line of res) {
                     this._qinListText.appendLine(line);
                 }
             })
-            .catch((err) => this.qinpel.jobbed.showError(err, "{qin_case}(ErrCode-000004)"));
+            .catch((err) => this.qinpel.frame.showError(err, "{qin_case}(ErrCode-000004)"));
     };
 
     private _qinRunActMain: QinAction = (_) => {
         this.qinpel.talk.giz
             .run({ exec: "test.giz" })
             .then((res) => {
-                this.qinpel.talk.issued
+                this.qinpel.talk.utils.issued
                     .askWhenDone({
                         token: res,
                         askOutLines: true,
                     })
                     .then((res) => (this._qinRunOut.value = res.outLines))
                     .catch((err) =>
-                        this.qinpel.jobbed.showError(err, "{qin_case}(ErrCode-000006)")
+                        this.qinpel.frame.showError(err, "{qin_case}(ErrCode-000006)")
                     );
             })
-            .catch((err) => this.qinpel.jobbed.showError(err, "{qin_case}(ErrCode-000005)"));
+            .catch((err) => this.qinpel.frame.showError(err, "{qin_case}(ErrCode-000005)"));
     };
 }
