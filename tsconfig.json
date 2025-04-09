@@ -9,6 +9,6 @@
     "removeComments": true,
     "outDir": "build"
   },
-  "files": ["src/all.ts", "src/index.ts"],
+  "files": ["src/all.ts"],
   "exclude": ["node_modules", "**/node_modules/*"]
 }
