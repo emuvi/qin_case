@@ -28,6 +28,6 @@ export function qinUrlAsset(url: string): QinAsset {{
         f.write(ts_content)
 
 if __name__ == "__main__" or __name__ == "builder":
-    assets_directory = "../qin_desk/public/assets"
-    output_typescript_file = "src/qin-assets.ts"
-    generate_qin_assets(assets_directory, output_typescript_file)
+    input_assets_folder = "../qin_desk/public/assets"
+    output_assets_file = "src/qin-assets.ts"
+    generate_qin_assets(input_assets_folder, output_assets_file)
