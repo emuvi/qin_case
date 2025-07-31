@@ -11,6 +11,7 @@ import {
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
+import { PathKind } from "qin_desk/types/qin-talker-dir";
 
 type OnFileViewLoad = (loaded: string) => void;
 
@@ -166,39 +167,27 @@ export class QinFileView extends QinEdit<string[]> {
 
     public load(folder: string, onLoad?: OnFileViewLoad) {
         this.clean();
-        this.qinpel.talk
-            .post("/dir/list", { path: folder })
+        this.qinpel.talk.dir
+            .dirList({ path: folder })
             .then((res) => {
                 this._folderActual = folder;
-                for (let line of QinSoul.body.getTextLines(res.data)) {
-                    let lineValue = line.substring(3);
-                    if (!lineValue) {
-                        continue;
-                    }
-                    if (line.startsWith("P: ")) {
-                        this._folderServer = lineValue;
-                        if (onLoad) {
-                            onLoad(lineValue);
+                this._folderServer = res.path;
+                for (let inside of res.list) {
+                    if (inside.kind === PathKind.FOLDER) {
+                        if (this._nature == QinFilesNature.BOTH ||
+                            this._nature == QinFilesNature.DIRECTORIES) {
+                            this.newDir(inside.name);
                         }
-                    } else if (line.startsWith("D: ")) {
-                        if (
-                            this._nature == QinFilesNature.BOTH ||
-                            this._nature == QinFilesNature.DIRECTORIES
-                        ) {
-                            this.newDir(lineValue);
-                        }
-                    } else if (line.startsWith("F: ")) {
-                        if (
-                            this._nature == QinFilesNature.BOTH ||
-                            this._nature == QinFilesNature.FILES
-                        ) {
-                            let extension = QinSoul.foot.getFileExtension(lineValue);
+                    } else if (inside.kind === PathKind.FILE) {
+                        if (this._nature == QinFilesNature.BOTH ||
+                            this._nature == QinFilesNature.FILES) {
+                            let extension = QinSoul.foot.getFileExtension(inside.name);
                             let passedExtension = true;
                             if (this._extensions && this._extensions.length > 0) {
                                 passedExtension = this._extensions.indexOf(extension) > -1;
                             }
                             if (passedExtension) {
-                                this.newFile(lineValue, extension);
+                                this.newFile(inside.name, extension);
                             }
                         }
                     }
