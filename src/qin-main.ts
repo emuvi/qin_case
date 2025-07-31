@@ -1,10 +1,11 @@
 import { Qinpel } from "qin_desk/types/qinpel";
 import { QinWaiters } from "qin_soul";
 import { QinAsset } from "./qin-assets";
-const refQinpel = (window.frameElement as any).qinpel as Qinpel;
+
+const _mainQinpel = (window.frameElement as any).qinpel as Qinpel;
 
 export const Qine = {
-    qinpel: refQinpel,
+    qinpel: _mainQinpel,
 };
 
 export type QinModule = {
@@ -40,7 +41,7 @@ function isSameModule(one: QinModule, two: QinModule): boolean {
 
 function newQinSetupOption(module: QinModule, expect?: QinExpect) {
     let result = {};
-    result[refQinpel.ours.consts.QIN_SETUP] = newQinSetup(module, expect);
+    result[_mainQinpel.ours.consts.QIN_SETUP] = newQinSetup(module, expect);
     return result;
 }
 
