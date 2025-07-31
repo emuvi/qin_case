@@ -1,7 +1,7 @@
 import { Qinpel } from "qin_desk/types/qinpel";
 import { QinAction, QinArms, QinBody, QinSkin } from "qin_soul";
 import { QinBaseStyle } from "./qin-base-style";
-import { Qine } from "./qin-tools";
+import { Qine } from "./qin-main";
 
 export abstract class QinBase extends QinBaseStyle {
     private _qindred: string;

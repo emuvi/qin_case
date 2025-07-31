@@ -1,5 +1,5 @@
 import { QinScroll } from "./qin-scroll";
-import { Qine } from "./qin-tools";
+import { Qine } from "./qin-main";
 
 export class QinTable extends QinScroll {
     private _elTable = document.createElement("table");

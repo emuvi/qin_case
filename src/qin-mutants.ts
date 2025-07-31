@@ -10,7 +10,7 @@ import { QinInteger } from "./qin-integer";
 import { QinNumeric } from "./qin-numeric";
 import { QinString } from "./qin-string";
 import { QinSuggestion } from "./qin-suggestion";
-import { Qine } from "./qin-tools";
+import { Qine } from "./qin-main";
 
 export enum QinMutants {
     BOOLEAN = "boolean",
