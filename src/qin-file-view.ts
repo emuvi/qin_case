@@ -1,4 +1,5 @@
 import {
+    PathKind,
     QinActionableStyles,
     QinArms,
     QinFilesNature,
@@ -11,7 +12,6 @@ import {
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
-import { PathKind } from "qin_desk/types/qin-talker-dir";
 
 type OnFileViewLoad = (loaded: string) => void;
 
