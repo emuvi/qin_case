@@ -7,22 +7,22 @@ import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 
 export class QinTabs extends QinColumn {
-    private _qinTabs = new QinLine();
-    private _qinPanel = new QinPanel();
+    private _buttonsLine = new QinLine();
+    private _bodyPanel = new QinPanel();
 
-    private _tabs: QinTabRef[] = [];
+    private _tabsRef: QinTabRef[] = [];
 
     public constructor(options?: QinTabsSet, isQindred?: string) {
         super(null, (isQindred ? isQindred + "_" : "") + "tabs");
-        this._qinTabs.install(this);
-        this._qinPanel.install(this);
-        this._qinTabs.styleAsMargin(0);
-        this._qinTabs.styleAsPaddingLeft(5);
-        this._qinPanel.styleAsMargin(0);
-        this._qinPanel.styleAsBorder(1, QinStyles.ColorForeground);
-        this._qinPanel.styleAsBorderRadius(3);
-        this._qinPanel.styleAsPadding(5);
-        this._qinPanel.styled({
+        this._buttonsLine.install(this);
+        this._bodyPanel.install(this);
+        this._buttonsLine.styleAsMargin(0);
+        this._buttonsLine.styleAsPaddingLeft(5);
+        this._bodyPanel.styleAsMargin(0);
+        this._bodyPanel.styleAsBorder(1, QinStyles.ColorForeground);
+        this._bodyPanel.styleAsBorderRadius(3);
+        this._bodyPanel.styleAsPadding(5);
+        this._bodyPanel.styled({
             minWidth: "fit-content",
             minHeight: "fit-content",
         });
@@ -33,58 +33,61 @@ export class QinTabs extends QinColumn {
         }
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinTabs {
-        super.styled(styles);
-        return this;
+    public get buttonsLine(): QinLine {
+        return this._buttonsLine;
     }
 
-    public get qinTabs(): QinLine {
-        return this._qinTabs;
+    public get bodyPanel(): QinPanel {
+        return this._bodyPanel;
     }
 
-    public get qinPanel(): QinPanel {
-        return this._qinPanel;
-    }
-
-    public addTab(tab: QinTab) {
-        const button = new QinButtonPick({ label: new QinLabel(tab.title) });
+    public addTab(tab: QinTab): QinTabs {
+        const button = new QinButtonPick({label: new QinLabel(tab.title)});
         button.styleAsMargin(0);
         button.styleAsMarginRight(1);
         button.styleAsBorderBottomRightRadius(0);
         button.styleAsBorderBottomLeftRadius(0);
         button.addActionMain((_) => this.showViewer(tab.viewer));
-        button.install(this._qinTabs);
-        let first = this._tabs.length == 0;
+        button.install(this._buttonsLine);
+        let first = this._tabsRef.length == 0;
         let tabRef = {
             title: tab.title,
             viewer: tab.viewer,
             button,
         };
-        this._tabs.push(tabRef);
+        this._tabsRef.push(tabRef);
         if (first) {
             this.showViewer(tab.viewer);
         }
+        return this;
     }
 
-    public showTab(title: string) {
-        for (const tab of this._tabs) {
+    public showTab(title: string): QinTabs {
+        for (const tab of this._tabsRef) {
             if (tab.title == title) {
                 this.showViewer(tab.viewer);
                 break;
             }
         }
+        return this;
     }
 
-    public showViewer(viewer: QinBase) {
-        this._qinPanel.unInstallChildren();
-        viewer.install(this._qinPanel);
-        for (const tab of this._tabs) {
+    public showViewer(viewer: QinBase): QinTabs {
+        this._bodyPanel.unInstallChildren();
+        viewer.install(this._bodyPanel);
+        for (const tab of this._tabsRef) {
             if (tab.viewer == viewer) {
                 tab.button.pick();
             } else {
                 tab.button.unPick();
             }
         }
+        return this;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinTabs {
+        super.styled(styles);
+        return this;
     }
 }
 
