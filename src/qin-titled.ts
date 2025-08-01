@@ -20,9 +20,12 @@ export class QinTitled extends QinColumn {
         }
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinTitled {
-        super.styled(styles);
-        return this;
+    public get title(): string {
+        return this._qinTitle.title;
+    }
+
+    public set title(title: string) {
+        this._qinTitle.title = title;
     }
 
     public override put(item: QinBase): QinTitled {
@@ -30,28 +33,27 @@ export class QinTitled extends QinColumn {
         return this;
     }
 
-    public override addChild(child: QinBase) {
+    public override addChild(child: QinBase): QinTitled {
         if (child === this._qinBody || child === this._qinHead) {
             super.addChild(child);
         } else {
             this._qinBody.addChild(child);
         }
+        return this;
     }
 
-    public override delChild(child: QinBase) {
+    public override delChild(child: QinBase): QinTitled  {
         if (child === this._qinBody || child === this._qinHead) {
             super.delChild(child);
         } else {
             this._qinBody.delChild(child);
         }
+        return this;
     }
 
-    public get title(): string {
-        return this._qinTitle.title;
-    }
-
-    public set title(title: string) {
-        this._qinTitle.title = title;
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinTitled {
+        super.styled(styles);
+        return this;
     }
 }
 

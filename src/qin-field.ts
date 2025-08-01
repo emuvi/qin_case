@@ -58,7 +58,8 @@ export class QinField<T> extends QinColumn {
         this._qinEdit.addOnChanged(waiter);
     }
 
-    public focus() {
+    public focus(): QinField<T> {
         this._qinEdit.focus();
+        return this;
     }
 }

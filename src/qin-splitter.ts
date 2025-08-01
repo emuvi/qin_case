@@ -65,58 +65,6 @@ export class QinSplitter extends QinBase {
         }
     }
 
-    private balance(grow: HTMLDivElement, fall: HTMLDivElement) {
-        let related = this._isHorizontal ? "width" : "height";
-        let growAt = parseInt(grow.style[related]);
-        let fallAt = parseInt(fall.style[related]);
-        if (fallAt <= 10) {
-            return;
-        }
-        grow.style[related] = growAt + 10 + "%";
-        fall.style[related] = fallAt - 10 + "%";
-        let sideA = parseInt(this._elSideA.style[related]);
-        let sideB = parseInt(this._elSideB.style[related]);
-        this._changedWaiters.send({ sideA, sideB });
-    }
-
-    public override castedQine(): HTMLDivElement {
-        return this.qinedHTML as HTMLDivElement;
-    }
-
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinSplitter {
-        super.styled(styles);
-        return this;
-    }
-
-    public override addChild(child: QinBase) {
-        if (this._qinSideA === null) {
-            this._qinSideA = child;
-            this._elSideA.appendChild(child.qinedHTML);
-        } else {
-            if (this._qinSideB !== null) {
-                this._qinSideB.unInstall();
-                this._qinSideB = null;
-            }
-            this._qinSideB = child;
-            this._elSideB.appendChild(child.qinedHTML);
-        }
-        this._baseChildren.push(child);
-    }
-
-    public override delChild(child: QinBase) {
-        let index = this._baseChildren.indexOf(child);
-        if (index > -1) {
-            this._baseChildren.splice(index, 1);
-        }
-        if (this._qinSideA === child) {
-            this._elSideA.removeChild(child.qinedHTML);
-            this._qinSideA = null;
-        } else if (this._qinSideB === child) {
-            this._elSideB.removeChild(child.qinedHTML);
-            this._qinSideB = null;
-        }
-    }
-
     public setHorizontal() {
         this.qinedHTML.style.flexDirection = "row";
         this._elMover.style.flexDirection = "row";
@@ -175,6 +123,46 @@ export class QinSplitter extends QinBase {
         this._elSideB.appendChild(side.qinedHTML);
     }
 
+    public override castedQine(): HTMLDivElement {
+        return this.qinedHTML as HTMLDivElement;
+    }
+
+    public override addChild(child: QinBase): QinSplitter {
+        if (this._qinSideA === null) {
+            this._qinSideA = child;
+            this._elSideA.appendChild(child.qinedHTML);
+        } else {
+            if (this._qinSideB !== null) {
+                this._qinSideB.unInstall();
+                this._qinSideB = null;
+            }
+            this._qinSideB = child;
+            this._elSideB.appendChild(child.qinedHTML);
+        }
+        this._baseChildren.push(child);
+        return this;
+    }
+
+    public override delChild(child: QinBase): QinSplitter {
+        let index = this._baseChildren.indexOf(child);
+        if (index > -1) {
+            this._baseChildren.splice(index, 1);
+        }
+        if (this._qinSideA === child) {
+            this._elSideA.removeChild(child.qinedHTML);
+            this._qinSideA = null;
+        } else if (this._qinSideB === child) {
+            this._elSideB.removeChild(child.qinedHTML);
+            this._qinSideB = null;
+        }
+        return this;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinSplitter {
+        super.styled(styles);
+        return this;
+    }
+
     public addOnChanged(waiter: QinWaiter<QinSplitterBalance>) {
         this._changedWaiters.put(waiter);
     }
@@ -183,6 +171,20 @@ export class QinSplitter extends QinBase {
         let related = this._isHorizontal ? "width" : "height";
         this._elSideA.style[related] = balance.sideA + "%";
         this._elSideB.style[related] = balance.sideB + "%";
+    }
+
+    private balance(grow: HTMLDivElement, fall: HTMLDivElement) {
+        let related = this._isHorizontal ? "width" : "height";
+        let growAt = parseInt(grow.style[related]);
+        let fallAt = parseInt(fall.style[related]);
+        if (fallAt <= 10) {
+            return;
+        }
+        grow.style[related] = growAt + 10 + "%";
+        fall.style[related] = fallAt - 10 + "%";
+        let sideA = parseInt(this._elSideA.style[related]);
+        let sideB = parseInt(this._elSideB.style[related]);
+        this._changedWaiters.send({ sideA, sideB });
     }
 }
 

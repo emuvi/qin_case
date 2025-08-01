@@ -15,13 +15,13 @@ export class QinPanel extends QinBase {
         return this.qinedHTML as HTMLDivElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinPanel {
-        super.styled(styles);
+    public override put(item: QinBase): QinPanel {
+        item.install(this);
         return this;
     }
 
-    public override put(item: QinBase): QinPanel {
-        item.install(this);
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinPanel {
+        super.styled(styles);
         return this;
     }
 }

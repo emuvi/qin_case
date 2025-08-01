@@ -6,21 +6,17 @@ export class QinStack extends QinPanel {
         super(options, (isQindred ? isQindred + "_" : "") + "stack");
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinStack {
-        super.styled(styles);
-        return this;
-    }
-
     public override put(item: QinBase): QinStack {
         item.install(this);
         return this;
     }
 
-    public override addChild(child: QinBase): void {
+    public override addChild(child: QinBase): QinStack {
         this.children().forEach((inChild) => {
             inChild.unDisplay();
         });
         super.addChild(child);
+        return this;
     }
 
     public stack(child: QinBase): QinStack {
@@ -35,5 +31,10 @@ export class QinStack extends QinPanel {
                 inChild.unDisplay();
             }
         });
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinStack {
+        super.styled(styles);
+        return this;
     }
 }
