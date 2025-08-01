@@ -45,15 +45,15 @@ export abstract class QinEdit<T> extends QinBase {
     private _exitedWaiters = new QinWaiters<T>();
 
     protected sendEntered() {
-        this._enteredWaiters.sendWaiters(this.getData());
+        this._enteredWaiters.send(this.getData());
     }
 
     protected sendChanged() {
-        this._changedWaiters.sendWaiters(this.getData());
+        this._changedWaiters.send(this.getData());
     }
 
     protected sendExited() {
-        this._exitedWaiters.sendWaiters(this.getData());
+        this._exitedWaiters.send(this.getData());
     }
 
     public getChangeable(): HTMLElement[] {
@@ -61,14 +61,14 @@ export abstract class QinEdit<T> extends QinBase {
     }
 
     public addOnEntered(waiter: QinWaiter<T>) {
-        this._enteredWaiters.addWaiter(waiter);
+        this._enteredWaiters.put(waiter);
     }
 
     public addOnChanged(waiter: QinWaiter<T>) {
-        this._changedWaiters.addWaiter(waiter);
+        this._changedWaiters.put(waiter);
     }
 
     public addOnExited(waiter: QinWaiter<T>) {
-        this._exitedWaiters.addWaiter(waiter);
+        this._exitedWaiters.put(waiter);
     }
 }

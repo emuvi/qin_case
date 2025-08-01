@@ -76,7 +76,7 @@ export class QinSplitter extends QinBase {
         fall.style[related] = fallAt - 10 + "%";
         let sideA = parseInt(this._elSideA.style[related]);
         let sideB = parseInt(this._elSideB.style[related]);
-        this._changedWaiters.sendWaiters({ sideA, sideB });
+        this._changedWaiters.send({ sideA, sideB });
     }
 
     public override castedQine(): HTMLDivElement {
@@ -176,7 +176,7 @@ export class QinSplitter extends QinBase {
     }
 
     public addOnChanged(waiter: QinWaiter<QinSplitterBalance>) {
-        this._changedWaiters.addWaiter(waiter);
+        this._changedWaiters.put(waiter);
     }
 
     public setBalance(balance: QinSplitterBalance) {
