@@ -136,11 +136,7 @@ export class QinBaseStyle {
         this._el.style.paddingRight = this.getPixelsOrInitial(padding);
     }
 
-    public styleAsBorder(
-        thick: number,
-        color: string = QinSkin.styles.ColorForeground,
-        style: string = "solid"
-    ) {
+    public styleAsBorder(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
         if (thick) {
             this._el.style.border = thick + "px " + style + " " + color;
         } else {
@@ -148,11 +144,7 @@ export class QinBaseStyle {
         }
     }
 
-    public styleAsBorderTop(
-        thick: number,
-        color: string = QinSkin.styles.ColorForeground,
-        style: string = "solid"
-    ) {
+    public styleAsBorderTop(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
         if (thick) {
             this._el.style.borderTop = thick + "px " + style + " " + color;
         } else {
@@ -160,11 +152,7 @@ export class QinBaseStyle {
         }
     }
 
-    public styleAsBorderBottom(
-        thick: number,
-        color: string = QinSkin.styles.ColorForeground,
-        style: string = "solid"
-    ) {
+    public styleAsBorderBottom(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
         if (thick) {
             this._el.style.borderBottom = thick + "px " + style + " " + color;
         } else {
@@ -172,11 +160,7 @@ export class QinBaseStyle {
         }
     }
 
-    public styleAsBorderLeft(
-        thick: number,
-        color: string = QinSkin.styles.ColorForeground,
-        style: string = "solid"
-    ) {
+    public styleAsBorderLeft( thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
         if (thick) {
             this._el.style.borderLeft = thick + "px " + style + " " + color;
         } else {
@@ -184,11 +168,7 @@ export class QinBaseStyle {
         }
     }
 
-    public styleAsBorderRight(
-        thick: number,
-        color: string = QinSkin.styles.ColorForeground,
-        style: string = "solid"
-    ) {
+    public styleAsBorderRight( thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
         if (thick) {
             this._el.style.borderRight = thick + "px " + style + " " + color;
         } else {
@@ -244,8 +224,8 @@ export class QinBaseStyle {
         this._el.style.position = "relative";
     }
 
-    public styleAsPositionSthicky() {
-        this._el.style.position = "sthicky";
+    public styleAsPositionSticky() {
+        this._el.style.position = "sticky";
     }
 
     public styleAsPositionInitial() {
@@ -410,7 +390,7 @@ export class QinBaseStyle {
     }
 
     public styleAsBackAsset(asset: QinAsset) {
-        this._el.style.backgroundImage = "url('/app/qinpel-app/assets/" + asset + "')";
+        this._el.style.backgroundImage = "url('/pub/qin-desk/assets/" + asset + "')";
     }
 
     public styleAsBackInitial() {

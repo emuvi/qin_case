@@ -14,8 +14,6 @@ export class QinTabs extends QinColumn {
 
     public constructor(options?: QinTabsSet, isQindred?: string) {
         super(null, (isQindred ? isQindred + "_" : "") + "tabs");
-        this._buttonsLine.install(this);
-        this._bodyPanel.install(this);
         this._buttonsLine.styleAsMargin(0);
         this._buttonsLine.styleAsPaddingLeft(5);
         this._bodyPanel.styleAsMargin(0);
@@ -31,6 +29,8 @@ export class QinTabs extends QinColumn {
                 this.addTab(tab);
             }
         }
+        this._buttonsLine.install(this);
+        this._bodyPanel.install(this);
     }
 
     public get buttonsLine(): QinLine {
