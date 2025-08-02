@@ -23,8 +23,7 @@ export class QinBaseStyle {
     }
 
     public styleAsWhole() {
-        this.styleAsPositionAbsolute();
-        this.styleAsBounds(0, 0, 0, 0);
+        QinSkin.styleAsWhole(this._el)
     }
 
     public styleAsBase() {

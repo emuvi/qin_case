@@ -20,10 +20,6 @@ export class QinTabs extends QinColumn {
         this._bodyPanel.styleAsBorder(1, QinStyles.ColorForeground);
         this._bodyPanel.styleAsBorderRadius(3);
         this._bodyPanel.styleAsPadding(5);
-        this._bodyPanel.styled({
-            minWidth: "fit-content",
-            minHeight: "fit-content",
-        });
         if (options?.initial) {
             for (const tab of options?.initial) {
                 this.addTab(tab);
@@ -88,6 +84,11 @@ export class QinTabs extends QinColumn {
     public override styled(styles: Partial<CSSStyleDeclaration>): QinTabs {
         super.styled(styles);
         return this;
+    }
+
+    public override styleAsWhole() {
+        super.styleAsWhole();
+        this._bodyPanel.styleAsWhole();
     }
 }
 
