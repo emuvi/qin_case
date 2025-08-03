@@ -275,35 +275,35 @@ export class QinBaseStyle {
     }
 
     public styleAsJustifyContentFlexStart() {
-        this._el.style.alignItems = "flex-start";
+        this._el.style.justifyContent = "flex-start";
     }
 
     public styleAsJustifyContentFlexEnd() {
-        this._el.style.alignItems = "flex-end";
+        this._el.style.justifyContent = "flex-end";
     }
 
     public styleAsJustifyContentCenter() {
-        this._el.style.alignItems = "center";
+        this._el.style.justifyContent = "center";
     }
 
     public styleAsJustifyContentSpaceBetween() {
-        this._el.style.alignItems = "space-between";
+        this._el.style.justifyContent = "space-between";
     }
 
     public styleAsJustifyContentSpaceAround() {
-        this._el.style.alignItems = "space-around";
+        this._el.style.justifyContent = "space-around";
     }
 
     public styleAsJustifyContentSpaceEvenly() {
-        this._el.style.alignItems = "space-evenly";
+        this._el.style.justifyContent = "space-evenly";
     }
 
     public styleAsJustifyContentInitial() {
-        this._el.style.alignItems = "initial";
+        this._el.style.justifyContent = "initial";
     }
 
     public styleAsJustifyContentInherit() {
-        this._el.style.alignItems = "inherit";
+        this._el.style.justifyContent = "inherit";
     }
 
     public styleAsAlignItemsStretch() {
