@@ -95,43 +95,43 @@ export class QinBaseStyle {
         this._el.style.overflow = "auto";
     }
 
-    public styleAsMargin(margin?: number) {
+    public styleAsMargin(margin: number) {
         this._el.style.margin = this.getPixelsOrInitial(margin);
     }
 
-    public styleAsMarginTop(margin?: number) {
+    public styleAsMarginTop(margin: number) {
         this._el.style.marginTop = this.getPixelsOrInitial(margin);
     }
 
-    public styleAsMarginBottom(margin?: number) {
+    public styleAsMarginBottom(margin: number) {
         this._el.style.marginBottom = this.getPixelsOrInitial(margin);
     }
 
-    public styleAsMarginLeft(margin?: number) {
+    public styleAsMarginLeft(margin: number) {
         this._el.style.marginLeft = this.getPixelsOrInitial(margin);
     }
 
-    public styleAsMarginRight(margin?: number) {
+    public styleAsMarginRight(margin: number) {
         this._el.style.marginRight = this.getPixelsOrInitial(margin);
     }
 
-    public styleAsPadding(padding?: number) {
+    public styleAsPadding(padding: number) {
         this._el.style.padding = this.getPixelsOrInitial(padding);
     }
 
-    public styleAsPaddingTop(padding?: number) {
+    public styleAsPaddingTop(padding: number) {
         this._el.style.paddingTop = this.getPixelsOrInitial(padding);
     }
 
-    public styleAsPaddingBottom(padding?: number) {
+    public styleAsPaddingBottom(padding: number) {
         this._el.style.paddingBottom = this.getPixelsOrInitial(padding);
     }
 
-    public styleAsPaddingLeft(padding?: number) {
+    public styleAsPaddingLeft(padding: number) {
         this._el.style.paddingLeft = this.getPixelsOrInitial(padding);
     }
 
-    public styleAsPaddingRight(padding?: number) {
+    public styleAsPaddingRight(padding: number) {
         this._el.style.paddingRight = this.getPixelsOrInitial(padding);
     }
 
