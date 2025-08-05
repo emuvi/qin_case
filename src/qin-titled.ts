@@ -4,20 +4,23 @@ import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
 
 export class QinTitled extends QinColumn {
-    private _qinTitle = new QinLabel();
-    private _qinHead = new QinLine({ items: [this._qinTitle] });
+    private _qinTitle: QinLabel;
+    private _qinHead = new QinLine();
     private _qinBody = new QinLine();
 
     public constructor(options?: QinTitledSet, isQindred?: string) {
         super(null, (isQindred ? isQindred + "_" : "") + "titled");
-        if (options?.title) {
-            this._qinTitle.title = options.title;
+        if (options?.label) {
+            this._qinTitle = options.label;
+        } else {
+            this._qinTitle = new QinLabel();
+        }
+        this._qinTitle.install(this._qinHead);
+        if (options?.items) {
+            options.items.forEach((item) => item.install(this._qinBody));
         }
         this._qinHead.install(this);
         this._qinBody.install(this);
-        if (options?.items) {
-            options.items.forEach((item) => item.install(this));
-        }
     }
 
     public get title(): string {
@@ -29,7 +32,7 @@ export class QinTitled extends QinColumn {
     }
 
     public override put(item: QinBase): QinTitled {
-        item.install(this);
+        item.install(this._qinBody);
         return this;
     }
 
@@ -58,6 +61,6 @@ export class QinTitled extends QinColumn {
 }
 
 export type QinTitledSet = {
-    title?: string;
+    label?: QinLabel;
     items?: QinBase[];
 };
