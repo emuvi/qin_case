@@ -1,4 +1,4 @@
-import { QinNature } from "qin_soul";
+import { QinNature, QinSoul } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
 export class QinText extends QinEdit<string> {
@@ -90,6 +90,10 @@ export class QinText extends QinEdit<string> {
         }
         buffer += line;
         this.castedQine().value = buffer;
+    }
+
+    public getLines(): string[] {
+        return QinSoul.body.getTextLines(this.castedQine().value);
     }
 }
 
