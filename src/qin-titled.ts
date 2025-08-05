@@ -17,10 +17,14 @@ export class QinTitled extends QinColumn {
         }
         this._qinTitle.install(this._qinHead);
         if (options?.items) {
-            options.items.forEach((item) => item.install(this._qinBody));
+            options.items.forEach((item) => {
+                item.install(this._qinBody);
+                this._qinTitle.qinLink(item);
+            });
         }
         this._qinHead.install(this);
         this._qinBody.install(this);
+        this.styleAsMarginRight(3);
     }
 
     public get title(): string {
@@ -33,6 +37,7 @@ export class QinTitled extends QinColumn {
 
     public override put(item: QinBase): QinTitled {
         item.install(this._qinBody);
+        this._qinTitle.qinLink(item);
         return this;
     }
 
@@ -42,6 +47,7 @@ export class QinTitled extends QinColumn {
         } else {
             this._qinBody.addChild(child);
         }
+        this._qinTitle.qinLink(child);
         return this;
     }
 
