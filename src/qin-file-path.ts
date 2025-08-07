@@ -10,9 +10,7 @@ import { QinString } from "./qin-string";
 
 export class QinFilePath extends QinEdit<string> {
     private _qinPath = new QinString();
-    private _qinSearch = new QinButton({
-        icon: new QinIcon(QinAsset.FaceFolder),
-    });
+    private _qinSearch = new QinButton({icon: new QinIcon(QinAsset.FaceFolder)});
     private _qinPicker: QinFilePick;
     private _qinPopup: QinFramePopup;
     private _readOnly = false;
@@ -28,9 +26,7 @@ export class QinFilePath extends QinEdit<string> {
         this._qinPopup = this.qinpel.frame.newPopup(this._qinPicker.castedQine().castedQine());
         this._qinPath.install(this.qinedBase);
         this._qinSearch.install(this.qinedBase);
-        this._qinSearch.addActionMain((_) => {
-            this._qinPopup.showOnParent(this._qinSearch.castedQine());
-        });
+        this._qinSearch.addActionMain((_) => this._qinPopup.show());
         this._qinPicker.addChosen((chosen) => {
             if (chosen && chosen.length > 0) {
                 this._qinPath.value = chosen[0];

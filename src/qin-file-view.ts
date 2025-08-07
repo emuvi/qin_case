@@ -54,11 +54,6 @@ export class QinFileView extends QinEdit<string[]> {
         return this.qinedBase as QinPanel;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinFileView {
-        super.styled(styles);
-        return this;
-    }
-
     public getNature(): QinNature {
         return QinNature.CHARS;
     }
@@ -242,6 +237,11 @@ export class QinFileView extends QinEdit<string[]> {
         }
     }
 
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinFileView {
+        super.styled(styles);
+        return this;
+    }
+
     private newDir(name: string) {
         this.newItem(name, "explorer-dir.png");
     }
@@ -265,7 +265,7 @@ export type QinFileExplorerSet = {
 };
 
 class Item {
-    private _dad: QinFileView;
+    private _view: QinFileView;
     private _styles: QinActionableStyles;
     private _divItem = document.createElement("div");
     private _divBody = document.createElement("div");
@@ -276,8 +276,8 @@ class Item {
     private _iconName: string;
     private _picked: boolean = false;
 
-    public constructor(dad: QinFileView, fileName: string, iconName: string) {
-        this._dad = dad;
+    public constructor(view: QinFileView, fileName: string, iconName: string) {
+        this._view = view;
         this._styles = {
             ColorForeground: QinStylesPicker.ColorPickerForeground,
             ColorAccentAct: QinStylesPicker.ColorPickerAccentAct,
@@ -290,19 +290,19 @@ class Item {
     }
 
     private initItem() {
-        styles.applyOnDivItem(this._divItem, this._styles);
         this._divItem.tabIndex = 0;
+        styles.applyOnDivItem(this._divItem, this._styles);
         styles.applyOnDivBody(this._divBody);
         this._divItem.appendChild(this._divBody);
         styles.applyOnSpanIcon(this._spanIcon);
         this._divBody.appendChild(this._spanIcon);
-        this._imgIcon.src = "/app/qinpel-app/assets/" + this._iconName;
+        this._imgIcon.src = "/pub/qin_desk/assets/" + this._iconName;
         this._spanIcon.appendChild(this._imgIcon);
         this._spanText.innerText = this._fileName;
         styles.applyOnSpanText(this._spanText);
         this._divBody.appendChild(this._spanText);
-        QinArms.addActionMain(this._divItem, (_) => {
-            if (this._dad.isEditable()) {
+        QinArms.addActionMain(this._divItem, (evt) => {
+            if (this._view.isEditable()) {
                 this._divItem.focus();
                 this.toggle();
             }
@@ -314,16 +314,16 @@ class Item {
     }
 
     public toggle() {
-        if (this._dad.singleSelection) {
-            this._dad.cleanSelection();
+        if (this._view.singleSelection) {
+            this._view.cleanSelection();
         }
         this._picked = !this._picked;
         this.updateStyles();
     }
 
     public pick() {
-        if (this._dad.singleSelection) {
-            this._dad.cleanSelection();
+        if (this._view.singleSelection) {
+            this._view.cleanSelection();
         }
         this._picked = true;
         this.updateStyles();
