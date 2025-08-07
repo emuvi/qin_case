@@ -6,6 +6,7 @@ import { Qine } from "./qin-main";
 export abstract class QinBase extends QinBaseStyle {
     private _qindred: string;
     private _qined: HTMLElement | QinBase;
+    private _bodyBase: QinBase = null;
 
     public constructor(qindred: string, qined: HTMLElement | QinBase) {
         super(qined);
@@ -19,6 +20,10 @@ export abstract class QinBase extends QinBaseStyle {
     }
 
     public abstract castedQine(): HTMLElement | QinBase;
+
+    public get qinpel(): Qinpel {
+        return Qine.qinpel;
+    }
 
     public get qinedHTML(): HTMLElement {
         if (this._qined instanceof QinBase) {
@@ -40,8 +45,12 @@ export abstract class QinBase extends QinBaseStyle {
         return this._qindred;
     }
 
-    public get qinpel(): Qinpel {
-        return Qine.qinpel;
+    public get bodyBase(): QinBase {
+        return this._bodyBase;
+    }
+
+    public set bodyBase(base: QinBase) {
+        this._bodyBase = base;
     }
 
     public get id(): string {
@@ -143,17 +152,25 @@ export abstract class QinBase extends QinBaseStyle {
     }
 
     public addChild(child: QinBase): QinBase {
-        this._baseChildren.push(child);
-        this.qinedHTML.appendChild(child.qinedHTML);
+        if (this._bodyBase) {
+            this._bodyBase.addChild(child);
+        } else {
+            this._baseChildren.push(child);
+            this.qinedHTML.appendChild(child.qinedHTML);
+        }
         return this;
     }
 
     public delChild(child: QinBase): QinBase {
-        let index = this._baseChildren.indexOf(child);
-        if (index > -1) {
-            this._baseChildren.splice(index, 1);
+        if (this._bodyBase) {
+            this._bodyBase.addChild(child);
+        } else {
+            let index = this._baseChildren.indexOf(child);
+            if (index > -1) {
+                this._baseChildren.splice(index, 1);
+            }
+            this.qinedHTML.removeChild(child.qinedHTML);
         }
-        this.qinedHTML.removeChild(child.qinedHTML);
         return this;
     }
 

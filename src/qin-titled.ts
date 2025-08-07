@@ -4,58 +4,55 @@ import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
 
 export class QinTitled extends QinColumn {
-    private _qinTitle: QinLabel;
-    private _qinHead = new QinLine();
-    private _qinBody = new QinLine();
+    private _titleLabel: QinLabel;
+    private _headLine = new QinLine();
+    private _bodyLine = new QinLine();
 
     public constructor(options?: QinTitledSet, isQindred?: string) {
         super(null, (isQindred ? isQindred + "_" : "") + "titled");
         if (options?.label) {
-            this._qinTitle = options.label;
+            this._titleLabel = options.label;
         } else {
-            this._qinTitle = new QinLabel();
+            this._titleLabel = new QinLabel();
         }
-        this._qinTitle.install(this._qinHead);
+        this._titleLabel.install(this._headLine);
         if (options?.items) {
             options.items.forEach((item) => {
-                item.install(this._qinBody);
-                this._qinTitle.qinLink(item);
+                item.install(this._bodyLine);
+                this._titleLabel.qinLink(item);
             });
         }
-        this._qinHead.install(this);
-        this._qinBody.install(this);
+        this._headLine.install(this);
+        this._bodyLine.install(this);
+        this.bodyBase = this._bodyLine;
         this.styleAsMarginRight(3);
     }
 
     public get title(): string {
-        return this._qinTitle.title;
+        return this._titleLabel.title;
     }
 
     public set title(title: string) {
-        this._qinTitle.title = title;
+        this._titleLabel.title = title;
     }
 
     public override put(item: QinBase): QinTitled {
-        item.install(this._qinBody);
-        this._qinTitle.qinLink(item);
+        item.install(this._bodyLine);
+        this._titleLabel.qinLink(item);
         return this;
     }
 
     public override addChild(child: QinBase): QinTitled {
-        if (child === this._qinBody || child === this._qinHead) {
-            super.addChild(child);
-        } else {
-            this._qinBody.addChild(child);
-        }
-        this._qinTitle.qinLink(child);
+        super.addChild(child);
+        this._titleLabel.qinLink(child);
         return this;
     }
 
     public override delChild(child: QinBase): QinTitled  {
-        if (child === this._qinBody || child === this._qinHead) {
+        if (child === this._bodyLine || child === this._headLine) {
             super.delChild(child);
         } else {
-            this._qinBody.delChild(child);
+            this._bodyLine.delChild(child);
         }
         return this;
     }
