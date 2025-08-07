@@ -1,5 +1,5 @@
 import { QinFramePopup } from "qin_desk/types/qin-frame-popup";
-import { QinFilesDescriptor, QinFilesNature, QinFilesOperation, QinNature } from "qin_soul";
+import { FilesDescriptor, FilesNature, FilesOperation, QinNature } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
 import { QinEdit } from "./qin-edit";
@@ -27,7 +27,7 @@ export class QinFilePath extends QinEdit<string> {
         this._qinPath.install(this.qinedBase);
         this._qinSearch.install(this.qinedBase);
         this._qinSearch.addActionMain((_) => this._qinPopup.show());
-        this._qinPicker.addChosen((chosen) => {
+        this._qinPicker.addOnChosen((chosen) => {
             if (chosen && chosen.length > 0) {
                 this._qinPath.value = chosen[0];
             }
@@ -100,8 +100,8 @@ export class QinFilePath extends QinEdit<string> {
 
 export type QinFilePathSet = {
     initial?: string;
-    nature?: QinFilesNature;
-    operation?: QinFilesOperation;
-    descriptors?: QinFilesDescriptor[];
+    nature?: FilesNature;
+    operation?: FilesOperation;
+    descriptors?: FilesDescriptor[];
     readOnly?: boolean;
 };

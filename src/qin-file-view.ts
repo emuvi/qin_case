@@ -1,37 +1,27 @@
-import {
-    PathKind,
-    QinActionableStyles,
-    QinArms,
-    QinFilesNature,
-    QinFoot,
-    QinNature,
-    QinSkin,
-    QinSoul,
-    QinStylesPicker,
-} from "qin_soul";
+import { PathKind, QinActionableStyles, FilesNature, QinNature, QinSoul, QinStylesPicker} from "qin_soul";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 
-type OnFileViewLoad = (loaded: string) => void;
-
 export class QinFileView extends QinEdit<string[]> {
-    private _nature: QinFilesNature;
+    private _nature: FilesNature;
     private _extensions: string[];
     private _singleSelection: boolean;
+    private _canNavigate: boolean;
+    private _readOnly = false;
 
-    private _folderActual: string = "";
-    private _folderServer: string = "";
+    private _onLoaded: OnFileViewLoaded[] = [];
+
+    private _folderSelected: string = "";
 
     private _items: Item[] = [];
 
-    private _readOnly = false;
-
-    public constructor(options?: QinFileExplorerSet, isQindred?: string) {
+    public constructor(options?: QinFileViewSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "file-view", new QinLine());
-        this._nature = options?.nature ? options.nature : QinFilesNature.BOTH;
+        this._nature = options?.nature ? options.nature : FilesNature.BOTH;
         this._extensions = options?.extensions ? options.extensions : [];
         this._singleSelection = options?.singleSelection ?? false;
+        this._canNavigate = options?.canNavigate ?? false;
         this.initMain();
         if (options?.readOnly) {
             this.turnReadOnly();
@@ -62,7 +52,7 @@ export class QinFileView extends QinEdit<string[]> {
         let result = [];
         this._items.forEach((item) => {
             if (item.isPicked()) {
-                result.push(QinSoul.foot.getPathJoin(this._folderServer, item.getName()));
+                result.push(QinSoul.foot.getPathJoin(this._folderSelected, item.getName()));
             }
         });
         return result;
@@ -71,20 +61,20 @@ export class QinFileView extends QinEdit<string[]> {
     protected override setData(data: string[]) {
         this.clean();
         if (data && data.length > 0) {
-            let folderRoot = QinSoul.foot.getParent(data[0]);
-            this.load(folderRoot, (_) => {
+            let dataFolder = QinSoul.foot.getParent(data[0]);
+            this.load(dataFolder, (_) => {
                 for (const itemPath of data) {
                     let itemRoot = QinSoul.foot.getParent(itemPath);
                     let itemName = QinSoul.foot.getStem(itemPath);
-                    if (itemRoot !== folderRoot) {
+                    if (itemRoot !== dataFolder) {
                         this.qinpel.frame.statusError(
-                            `The item '${itemPath}' is not on the root '${folderRoot}'.`,
+                            `The item '${itemPath}' is not on the root '${dataFolder}'.`,
                             "{qin_case}(ErrCode-000001)"
                         );
                     } else {
                         if (!this.select(itemName)) {
                             this.qinpel.frame.statusError(
-                                `Does not have the item '${itemName}' on the folder '${folderRoot}'`,
+                                `Does not have the item '${itemName}' on the folder '${dataFolder}'`,
                                 "{qin_case}(ErrCode-000002)"
                             );
                         }
@@ -112,11 +102,11 @@ export class QinFileView extends QinEdit<string[]> {
         return !this._readOnly;
     }
 
-    public get nature(): QinFilesNature {
+    public get nature(): FilesNature {
         return this._nature;
     }
 
-    public set nature(value: QinFilesNature) {
+    public set nature(value: FilesNature) {
         this._nature = value;
     }
 
@@ -137,45 +127,28 @@ export class QinFileView extends QinEdit<string[]> {
         this.updateSingleSelection();
     }
 
-    public get folderActual(): string {
-        return this._folderActual;
+    public get folderSelected(): string {
+        return this._folderSelected;
     }
 
-    public get folderServer(): string {
-        return this._folderServer;
+    public addOnLoaded(onLoaded: OnFileViewLoaded): QinFileView {
+        this._onLoaded.push(onLoaded);
+        return this;
     }
 
-    private updateSingleSelection() {
-        if (this._singleSelection) {
-            let alreadyHas = false;
-            for (const item of this._items) {
-                if (item.isPicked()) {
-                    if (alreadyHas) {
-                        item.unPick();
-                    } else {
-                        alreadyHas = true;
-                    }
-                }
-            }
-        }
-    }
-
-    public load(folder: string, onLoad?: OnFileViewLoad) {
+    public load(folder: string, onLoaded?: OnFileViewLoaded) {
         this.clean();
         this.qinpel.talk.dir
             .dirList({ path: folder })
             .then((res) => {
-                this._folderActual = folder;
-                this._folderServer = res.path;
+                this._folderSelected = res.path;
                 for (let inside of res.list) {
                     if (inside.kind === PathKind.FOLDER) {
-                        if (this._nature == QinFilesNature.BOTH ||
-                            this._nature == QinFilesNature.DIRECTORIES) {
+                        if (this._nature == FilesNature.BOTH || this._nature == FilesNature.DIRECTORIES) {
                             this.newDir(inside.name);
                         }
                     } else if (inside.kind === PathKind.FILE) {
-                        if (this._nature == QinFilesNature.BOTH ||
-                            this._nature == QinFilesNature.FILES) {
+                        if (this._nature == FilesNature.BOTH || this._nature == FilesNature.FILES) {
                             let extension = QinSoul.foot.getFileExtension(inside.name);
                             let passedExtension = true;
                             if (this._extensions && this._extensions.length > 0) {
@@ -187,28 +160,26 @@ export class QinFileView extends QinEdit<string[]> {
                         }
                     }
                 }
+                this.sendOnLoaded(onLoaded);
             })
-            .catch((err) => {
-                this.qinpel.frame.statusError(err, "{qinpel-cps}(ErrCode-000003)");
-            });
+            .catch((err) => this.qinpel.frame.statusError(err, "{qin_case}(ErrCode-000003)"));
     }
 
-    public reload(onLoad?: OnFileViewLoad) {
-        this.load(this._folderServer, onLoad);
+    public reload(onLoaded?: OnFileViewLoaded) {
+        this.load(this._folderSelected, onLoaded);
     }
 
-    public goFolderUp(onLoad?: OnFileViewLoad) {
-        let parent = QinFoot.getParent(this._folderServer);
+    public goFolderUp(onLoaded?: OnFileViewLoaded) {
+        let parent = QinSoul.foot.getParent(this._folderSelected);
         if (parent) {
-            this.load(parent, onLoad);
+            this.load(parent, onLoaded);
         }
     }
 
     public clean() {
         this.qinedHTML.innerHTML = "";
         this._items = [];
-        this._folderActual = "";
-        this._folderServer = "";
+        this._folderSelected = "";
     }
 
     public cleanSelection() {
@@ -243,40 +214,67 @@ export class QinFileView extends QinEdit<string[]> {
     }
 
     private newDir(name: string) {
-        this.newItem(name, "explorer-dir.png");
+        this.newItem(name, IconName.EXPLORER_DIR);
     }
 
     private newFile(name: string, extension: string) {
         this.newItem(name, getIconName(extension));
     }
 
-    private newItem(name: string, icon: string) {
+    private newItem(name: string, icon: IconName) {
         const item = new Item(this, name, icon);
         item.install(this.qinedHTML);
         this._items.push(item);
     }
+
+    private sendOnLoaded(onLoaded?: OnFileViewLoaded) {
+        if (onLoaded) {
+            onLoaded(this._folderSelected);
+        }
+        for (const funOnLoaded of this._onLoaded) {
+            funOnLoaded(this._folderSelected);
+        }
+    }
+
+    private updateSingleSelection() {
+        if (this._singleSelection) {
+            let alreadyHas = false;
+            for (const item of this._items) {
+                if (item.isPicked()) {
+                    if (alreadyHas) {
+                        item.unPick();
+                    } else {
+                        alreadyHas = true;
+                    }
+                }
+            }
+        }
+    }
 }
 
-export type QinFileExplorerSet = {
-    nature?: QinFilesNature;
+export type QinFileViewSet = {
+    nature?: FilesNature;
     extensions?: string[];
     singleSelection?: boolean;
     readOnly?: boolean;
+    canNavigate?: boolean;
 };
+
+export type OnFileViewLoaded = (loadedPath: string) => void;
 
 class Item {
     private _view: QinFileView;
     private _styles: QinActionableStyles;
-    private _divItem = document.createElement("div");
-    private _divBody = document.createElement("div");
-    private _spanIcon = document.createElement("span");
-    private _imgIcon = document.createElement("img");
-    private _spanText = document.createElement("span");
+    private _itemDiv = document.createElement("div");
+    private _bodyDiv = document.createElement("div");
+    private _iconSpan = document.createElement("span");
+    private _iconImg = document.createElement("img");
+    private _textSpan = document.createElement("span");
     private _fileName: string;
-    private _iconName: string;
+    private _iconName: IconName;
     private _picked: boolean = false;
 
-    public constructor(view: QinFileView, fileName: string, iconName: string) {
+    public constructor(view: QinFileView, fileName: string, iconName: IconName) {
         this._view = view;
         this._styles = {
             ColorForeground: QinStylesPicker.ColorPickerForeground,
@@ -290,27 +288,30 @@ class Item {
     }
 
     private initItem() {
-        this._divItem.tabIndex = 0;
-        styles.applyOnDivItem(this._divItem, this._styles);
-        styles.applyOnDivBody(this._divBody);
-        this._divItem.appendChild(this._divBody);
-        styles.applyOnSpanIcon(this._spanIcon);
-        this._divBody.appendChild(this._spanIcon);
-        this._imgIcon.src = "/pub/qin_desk/assets/" + this._iconName;
-        this._spanIcon.appendChild(this._imgIcon);
-        this._spanText.innerText = this._fileName;
-        styles.applyOnSpanText(this._spanText);
-        this._divBody.appendChild(this._spanText);
-        QinArms.addActionMain(this._divItem, (evt) => {
+        this._itemDiv.tabIndex = 0;
+        styles.applyOnItemDiv(this._itemDiv, this._styles);
+        styles.applyOnItemBodyDiv(this._bodyDiv);
+        this._itemDiv.appendChild(this._bodyDiv);
+        styles.applyOnItemIconSpan(this._iconSpan);
+        this._bodyDiv.appendChild(this._iconSpan);
+        this._iconImg.src = "/pub/qin_desk/assets/" + this._iconName;
+        this._iconSpan.appendChild(this._iconImg);
+        this._textSpan.innerText = this._fileName;
+        styles.applyOnItemTextSpan(this._textSpan);
+        this._bodyDiv.appendChild(this._textSpan);
+        QinSoul.arms.addActionMain(this._itemDiv, (ev) => {
             if (this._view.isEditable()) {
-                this._divItem.focus();
+                this._itemDiv.focus();
                 this.toggle();
+                if (ev.isMaster) {
+                    // | TODO | implement navigate
+                }
             }
         });
     }
 
     public install(on: HTMLElement) {
-        on.appendChild(this._divItem);
+        on.appendChild(this._itemDiv);
     }
 
     public toggle() {
@@ -341,10 +342,10 @@ class Item {
         this._styles.ColorActiveAct = this._picked
             ? QinStylesPicker.ColorPickedActiveAct
             : QinStylesPicker.ColorUnPickedActiveAct;
-        if (this._divItem == document.activeElement) {
-            this._divItem.style.backgroundColor = this._styles.ColorActiveAct;
+        if (this._itemDiv == document.activeElement) {
+            this._itemDiv.style.backgroundColor = this._styles.ColorActiveAct;
         } else {
-            this._divItem.style.backgroundColor = this._styles.ColorInactiveAct;
+            this._itemDiv.style.backgroundColor = this._styles.ColorInactiveAct;
         }
     }
 
@@ -357,24 +358,36 @@ class Item {
     }
 }
 
-function getIconName(fromExtension: string): string {
-    let result = "explorer-file.png";
+enum IconName {
+    EXPLORER_DIR = "explorer-dir.png",
+    EXPLORER_FILE = "explorer-file.png",
+    EXPLORER_APPS = "explorer-apps.png",
+    EXPLORER_CMDS = "explorer-cmds.png",
+    EXPLORER_EXEC = "explorer-exec.png",
+    EXPLORER_IMAGE = "explorer-image.png",
+    EXPLORER_MUSIC = "explorer-music.png",
+    EXPLORER_MOVIE = "explorer-movie.png",
+    EXPLORER_ZIPPED = "explorer-zipped.png"
+}
+
+function getIconName(fromExtension: string): IconName {
+    let result = IconName.EXPLORER_FILE;
     if (QinSoul.foot.isFileApp(fromExtension)) {
-        result = "explorer-apps.png";
+        result = IconName.EXPLORER_APPS;
     } else if (QinSoul.foot.isFileCmd(fromExtension)) {
-        result = "explorer-cmds.png";
+        result = IconName.EXPLORER_CMDS;
     } else if (QinSoul.foot.isFileExec(fromExtension)) {
-        result = "explorer-exec.png";
+        result = IconName.EXPLORER_EXEC;
     } else if (QinSoul.foot.isFileImage(fromExtension)) {
-        result = "explorer-image.png";
+        result = IconName.EXPLORER_IMAGE;
     } else if (QinSoul.foot.isFileVector(fromExtension)) {
-        result = "explorer-image.png";
+        result = IconName.EXPLORER_IMAGE;
     } else if (QinSoul.foot.isFileMusic(fromExtension)) {
-        result = "explorer-music.png";
+        result = IconName.EXPLORER_MUSIC;
     } else if (QinSoul.foot.isFileMovie(fromExtension)) {
-        result = "explorer-movie.png";
+        result = IconName.EXPLORER_MOVIE;
     } else if (QinSoul.foot.isFileZipped(fromExtension)) {
-        result = "explorer-zipped.png";
+        result = IconName.EXPLORER_ZIPPED;
     }
     return result;
 }
@@ -386,23 +399,23 @@ const styles = {
         el.style.minHeight = "160px";
         el.tabIndex = 0;
     },
-    applyOnDivItem: (el: HTMLElement, styles: QinActionableStyles) => {
-        QinSkin.styleAsActionable(el, styles);
+    applyOnItemDiv: (el: HTMLElement, styles: QinActionableStyles) => {
+        QinSoul.skin.styleAsActionable(el, styles);
         el.style.margin = "2px";
         el.style.padding = "9px";
         el.style.maxHeight = "fit-content";
         el.style.display = "inline-block";
     },
-    applyOnDivBody: (el: HTMLElement) => {
+    applyOnItemBodyDiv: (el: HTMLElement) => {
         el.style.display = "flex";
         el.style.flexDirection = "column";
         el.style.width = "96px";
         el.style.maxHeight = "fit-content";
     },
-    applyOnSpanIcon: (el: HTMLElement) => {
+    applyOnItemIconSpan: (el: HTMLElement) => {
         el.style.textAlign = "center";
     },
-    applyOnSpanText: (el: HTMLElement) => {
+    applyOnItemTextSpan: (el: HTMLElement) => {
         el.style.textAlign = "center";
         el.style.wordWrap = "break-word";
     },
