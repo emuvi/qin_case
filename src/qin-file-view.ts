@@ -1,9 +1,14 @@
+
 import { PathKind, QinActionableStyles, FilesNature, QinNature, QinSoul, QinStylesPicker} from "qin_soul";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
+import { QinColumn } from "./qin-column";
 
 export class QinFileView extends QinEdit<string[]> {
+    private _qinBody = new QinLine();
+    private _qinStretch = new QinPanel();
+
     private _nature: FilesNature;
     private _extensions: string[];
     private _singleSelection: boolean;
@@ -17,7 +22,7 @@ export class QinFileView extends QinEdit<string[]> {
     private _items: Item[] = [];
 
     public constructor(options?: QinFileViewSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "file-view", new QinLine());
+        super((isQindred ? isQindred + "_" : "") + "file-view", new QinColumn());
         this._nature = options?.nature ? options.nature : FilesNature.BOTH;
         this._extensions = options?.extensions ? options.extensions : [];
         this._singleSelection = options?.singleSelection ?? false;
@@ -27,6 +32,10 @@ export class QinFileView extends QinEdit<string[]> {
             this.turnReadOnly();
         }
         this.prepareEdit();
+        this._qinStretch.styleAsWhole();
+        this._qinBody.install(this);
+        this._qinStretch.install(this);
+        this.bodyBase = this._qinBody;
     }
 
     private initMain() {
@@ -127,6 +136,10 @@ export class QinFileView extends QinEdit<string[]> {
         this.updateSingleSelection();
     }
 
+    public get canNavigate(): boolean {
+        return this._canNavigate;
+    }
+
     public get folderSelected(): string {
         return this._folderSelected;
     }
@@ -142,6 +155,9 @@ export class QinFileView extends QinEdit<string[]> {
             .dirList({ path: folder })
             .then((res) => {
                 this._folderSelected = res.path;
+                if (this._canNavigate) {
+                    this.newDir("..");
+                }
                 for (let inside of res.list) {
                     if (inside.kind === PathKind.FOLDER) {
                         if (this._nature == FilesNature.BOTH || this._nature == FilesNature.DIRECTORIES) {
@@ -169,15 +185,20 @@ export class QinFileView extends QinEdit<string[]> {
         this.load(this._folderSelected, onLoaded);
     }
 
-    public goFolderUp(onLoaded?: OnFileViewLoaded) {
-        let parent = QinSoul.foot.getParent(this._folderSelected);
-        if (parent) {
-            this.load(parent, onLoaded);
+    public goFolder(name: string, onLoaded?: OnFileViewLoaded) {
+        if (name == "..") {
+            this.goFolderUp();
+        } else {
+            this.load(QinSoul.foot.getPathJoin(this._folderSelected, name), onLoaded);
         }
     }
 
+    public goFolderUp(onLoaded?: OnFileViewLoaded) {
+        this.load(QinSoul.foot.getParent(this._folderSelected), onLoaded);
+    }
+
     public clean() {
-        this.qinedHTML.innerHTML = "";
+        this._qinBody.qinedHTML.innerHTML = "";
         this._items = [];
         this._folderSelected = "";
     }
@@ -223,7 +244,7 @@ export class QinFileView extends QinEdit<string[]> {
 
     private newItem(name: string, icon: IconName) {
         const item = new Item(this, name, icon);
-        item.install(this.qinedHTML);
+        item.install(this._qinBody.qinedHTML);
         this._items.push(item);
     }
 
@@ -272,6 +293,7 @@ class Item {
     private _textSpan = document.createElement("span");
     private _fileName: string;
     private _iconName: IconName;
+    private _isFolder: boolean;
     private _picked: boolean = false;
 
     public constructor(view: QinFileView, fileName: string, iconName: IconName) {
@@ -284,6 +306,7 @@ class Item {
         };
         this._fileName = fileName;
         this._iconName = iconName;
+        this._isFolder = this._iconName == IconName.EXPLORER_DIR;
         this.initItem();
     }
 
@@ -304,7 +327,10 @@ class Item {
                 this._itemDiv.focus();
                 this.toggle();
                 if (ev.isMaster) {
-                    // | TODO | implement navigate
+                    this.pick();
+                    if (this._isFolder && this._view.canNavigate) {
+                        this._view.goFolder(this._fileName);
+                    }
                 }
             }
         });
