@@ -12,6 +12,12 @@ export class QinCombo extends QinEdit<string> {
                 this.addItem(item);
             }
         }
+        if (options?.ofEnum) {
+            for (const title in options.ofEnum) {
+                const value = options.ofEnum[title];
+                this.addItem({title, value});
+            }
+        }
         if (options?.selected) {
             this.setData(options.selected);
         }
@@ -101,6 +107,7 @@ export class QinCombo extends QinEdit<string> {
 
 export type QinComboSet = {
     items?: QinComboItem[];
+    ofEnum?: object;
     selected?: string;
     readOnly?: boolean;
 };
