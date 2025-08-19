@@ -1,4 +1,4 @@
-import { QinNature } from "qin_soul";
+import { Nature } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
@@ -41,8 +41,8 @@ export class QinBoolean extends QinEdit<boolean> {
         return this;
     }
 
-    public override getNature(): QinNature {
-        return QinNature.BOOL;
+    public override getNature(): Nature {
+        return Nature.BOOL;
     }
 
     protected override getData(): boolean {

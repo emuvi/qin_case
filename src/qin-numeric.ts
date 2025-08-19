@@ -1,4 +1,4 @@
-import { QinNature, QinSkin } from "qin_soul";
+import { Nature, QinSkin } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
 export class QinNumeric extends QinEdit<number> {
@@ -28,8 +28,8 @@ export class QinNumeric extends QinEdit<number> {
         return this;
     }
 
-    public override getNature(): QinNature {
-        return QinNature.NUMERIC;
+    public override getNature(): Nature {
+        return Nature.NUMERIC;
     }
 
     protected override getData(): number {

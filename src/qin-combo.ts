@@ -1,4 +1,4 @@
-import { QinNature, QinSkin } from "qin_soul";
+import { Nature, QinSkin } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit<string> {
@@ -36,8 +36,8 @@ export class QinCombo extends QinEdit<string> {
         return this;
     }
 
-    public getNature(): QinNature {
-        return QinNature.CHARS;
+    public getNature(): Nature {
+        return Nature.CHARS;
     }
 
     protected override getData(): string {

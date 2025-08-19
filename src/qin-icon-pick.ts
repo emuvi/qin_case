@@ -1,4 +1,4 @@
-import { QinNature } from "qin_soul";
+import { Nature } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
@@ -39,8 +39,8 @@ export class QinIconPick extends QinEdit<QinAsset> {
         return this;
     }
 
-    public override getNature(): QinNature {
-        return QinNature.CHARS;
+    public override getNature(): Nature {
+        return Nature.CHARS;
     }
 
     protected override getData(): QinAsset {

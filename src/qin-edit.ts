@@ -1,4 +1,4 @@
-import { QinNature, QinWaiter, QinWaiters } from "qin_soul";
+import { Nature, QinWaiter, QinWaiters } from "qin_soul";
 import { QinBase } from "./qin-base";
 
 export abstract class QinEdit<T> extends QinBase {
@@ -6,7 +6,7 @@ export abstract class QinEdit<T> extends QinBase {
         super(qindred + "_" + "edit", qined);
     }
 
-    public abstract getNature(): QinNature;
+    public abstract getNature(): Nature;
 
     protected abstract getData(): T;
     protected abstract setData(data: T): void;

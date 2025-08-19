@@ -1,5 +1,5 @@
 
-import { PathKind, QinActionableStyles, FilesNature, QinNature, QinSoul, QinStylesPicker} from "qin_soul";
+import { PathKind, QinActionableStyles, FilesNature, Nature, QinSoul, QinStylesPicker} from "qin_soul";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
@@ -53,8 +53,8 @@ export class QinFileView extends QinEdit<string[]> {
         return this.qinedBase as QinPanel;
     }
 
-    public getNature(): QinNature {
-        return QinNature.CHARS;
+    public getNature(): Nature {
+        return Nature.CHARS;
     }
 
     protected override getData(): string[] {

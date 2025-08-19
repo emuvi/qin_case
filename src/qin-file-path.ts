@@ -1,5 +1,5 @@
 import { QinFramePopup } from "qin_desk/types/qin-frame-popup";
-import { FilesDescriptor, FilesNature, FilesOperation, QinNature } from "qin_soul";
+import { FilesDescriptor, FilesNature, FilesOperation, Nature } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
 import { QinEdit } from "./qin-edit";
@@ -51,8 +51,8 @@ export class QinFilePath extends QinEdit<string> {
         return this;
     }
 
-    public getNature(): QinNature {
-        return QinNature.CHARS;
+    public getNature(): Nature {
+        return Nature.CHARS;
     }
 
     protected override getData(): string {

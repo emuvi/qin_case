@@ -1,4 +1,4 @@
-import { FilesDescriptor, FilesNature, FilesOperation, QinNature } from "qin_soul";
+import { FilesDescriptor, FilesNature, FilesOperation, Nature } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinButton } from "./qin-button";
 import { QinColumn } from "./qin-column";
@@ -108,8 +108,8 @@ export class QinFilePick extends QinEdit<string[]> {
         return this.qinedBase as QinColumn;
     }
 
-    public override getNature(): QinNature {
-        return QinNature.CHARS;
+    public override getNature(): Nature {
+        return Nature.CHARS;
     }
 
     protected override getData(): string[] {

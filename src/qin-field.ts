@@ -1,4 +1,4 @@
-import { QinNature, QinWaiter } from "qin_soul";
+import { Nature, QinWaiter } from "qin_soul";
 import { QinColumn } from "./qin-column";
 import { QinEdit } from "./qin-edit";
 import { QinLabel } from "./qin-label";
@@ -30,7 +30,7 @@ export class QinField<T> extends QinColumn {
         return this._qinEdit;
     }
 
-    public getNature(): QinNature {
+    public getNature(): Nature {
         return this._qinEdit.getNature();
     }
 
