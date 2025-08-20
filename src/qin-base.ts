@@ -84,7 +84,7 @@ export abstract class QinBase extends QinBaseStyle {
     protected _baseDisplay: string = null;
     protected _baseVisibility: string = null;
 
-    public put(item: QinBase): QinBase {
+    public put<T extends QinBase>(item: T): QinBase {
         item.install(this);
         return this;
     }
