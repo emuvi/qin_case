@@ -4,6 +4,7 @@ import { QinBase } from "./qin-base";
 export abstract class QinEdit<T> extends QinBase {
     public constructor(qindred: string, qined: HTMLElement | QinBase) {
         super(qindred + "_" + "edit", qined);
+        this.styleAsEditable();
     }
 
     public abstract getNature(): Nature;

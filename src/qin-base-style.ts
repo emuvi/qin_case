@@ -1,4 +1,4 @@
-import { QinSkin } from "qin_soul";
+import { QinActionableStyles, QinSkin, QinStyles } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
@@ -34,63 +34,16 @@ export class QinBaseStyle {
         QinSkin.styleAsSpaced(this._el);
     }
 
-    private _styledAsEditableFocusEvent = null;
-    private _styledAsEditableFocusoutEvent = null;
-    private _styledAsReadOnlyFocusEvent = null;
-    private _styledAsReadOnlyFocusoutEvent = null;
-
     public styleAsEditable() {
-        this._el.style.backgroundColor = QinSkin.styles.ColorInactive;
-        this._el.style.border = "1px solid " + QinSkin.styles.ColorForeground;
-        this._el.style.borderRadius = "3px";
-        this._el.style.outline = "none";
-        if (!this._styledAsEditableFocusEvent) {
-            this._styledAsEditableFocusEvent = () => {
-                this._el.style.backgroundColor = QinSkin.styles.ColorActive;
-                this._el.style.border = "1px solid " + QinSkin.styles.ColorAccent;
-            };
-        }
-        if (!this._styledAsEditableFocusoutEvent) {
-            this._styledAsEditableFocusoutEvent = () => {
-                this._el.style.backgroundColor = QinSkin.styles.ColorInactive;
-                this._el.style.border = "1px solid " + QinSkin.styles.ColorForeground;
-            };
-        }
-        if (this._styledAsReadOnlyFocusEvent) {
-            this._el.removeEventListener("focus", this._styledAsReadOnlyFocusEvent);
-        }
-        if (this._styledAsReadOnlyFocusoutEvent) {
-            this._el.removeEventListener("focusout", this._styledAsReadOnlyFocusoutEvent);
-        }
-        this._el.addEventListener("focus", this._styledAsEditableFocusEvent);
-        this._el.addEventListener("focusout", this._styledAsEditableFocusoutEvent);
+        QinSkin.styleAsEditable(this._el);
     }
 
     public styleAsReadOnly() {
-        this._el.style.backgroundColor = QinSkin.styles.ColorBlocked;
-        this._el.style.border = "1px solid " + QinSkin.styles.ColorForeground;
-        this._el.style.borderRadius = "3px";
-        this._el.style.outline = "none";
-        if (!this._styledAsReadOnlyFocusEvent) {
-            this._styledAsReadOnlyFocusEvent = () => {
-                this._el.style.backgroundColor = QinSkin.styles.ColorEntered;
-                this._el.style.border = "1px solid " + QinSkin.styles.ColorAttend;
-            };
-        }
-        if (!this._styledAsReadOnlyFocusoutEvent) {
-            this._styledAsReadOnlyFocusoutEvent = () => {
-                this._el.style.backgroundColor = QinSkin.styles.ColorBlocked;
-                this._el.style.border = "1px solid " + QinSkin.styles.ColorForeground;
-            };
-        }
-        if (this._styledAsEditableFocusEvent) {
-            this._el.removeEventListener("focus", this._styledAsEditableFocusEvent);
-        }
-        if (this._styledAsEditableFocusoutEvent) {
-            this._el.removeEventListener("focusout", this._styledAsEditableFocusoutEvent);
-        }
-        this._el.addEventListener("focus", this._styledAsReadOnlyFocusEvent);
-        this._el.addEventListener("focusout", this._styledAsReadOnlyFocusoutEvent);
+        QinSkin.styleAsReadOnly(this._el);
+    }
+
+    public styleAsActionable(styles: QinActionableStyles = QinStyles) {
+        QinSkin.styleAsActionable(this._el, styles);
     }
 
     public styleAsScroll() {
