@@ -30,13 +30,16 @@ export class QinBaseStyle {
         QinSkin.styleAsBase(this._el);
     }
 
+    public styleAsSpaced() {
+        QinSkin.styleAsSpaced(this._el);
+    }
+
     private _styledAsEditableFocusEvent = null;
     private _styledAsEditableFocusoutEvent = null;
     private _styledAsReadOnlyFocusEvent = null;
     private _styledAsReadOnlyFocusoutEvent = null;
 
     public styleAsEditable() {
-        this.styleAsBase();
         this._el.style.backgroundColor = QinSkin.styles.ColorInactive;
         this._el.style.border = "1px solid " + QinSkin.styles.ColorForeground;
         this._el.style.borderRadius = "3px";
@@ -64,7 +67,6 @@ export class QinBaseStyle {
     }
 
     public styleAsReadOnly() {
-        this.styleAsBase();
         this._el.style.backgroundColor = QinSkin.styles.ColorBlocked;
         this._el.style.border = "1px solid " + QinSkin.styles.ColorForeground;
         this._el.style.borderRadius = "3px";

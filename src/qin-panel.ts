@@ -8,8 +8,10 @@ export class QinPanel extends QinBase {
                 item.install(this);
             }
         }
-        this.styleAsDisplayFlex();
         this.styleAsPositionRelative();
+        this.styleAsDisplayFlex();
+        this.styleAsFlexDirectionRow();
+        this.styleAsFlexWrapNot();
     }
 
     public override castedQine(): HTMLDivElement {

@@ -17,6 +17,7 @@ export abstract class QinBase extends QinBaseStyle {
             qined.id = Qine.qinpel.ours.soul.body.makeQindredUID(qindred);
         }
         this._qined = qined;
+        this.styleAsBase();
     }
 
     public abstract castedQine(): HTMLElement | QinBase;

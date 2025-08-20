@@ -81,7 +81,6 @@ export class QinCombo extends QinEdit<string> {
         if (group) {
             group.appendChild(option);
         } else {
-            QinSkin.styleAsBase(option);
             this.qinedHTML.appendChild(option);
         }
         return this;
@@ -98,7 +97,6 @@ export class QinCombo extends QinEdit<string> {
         }
         let newGroup = document.createElement("optgroup");
         newGroup.label = label;
-        QinSkin.styleAsBase(newGroup);
         this._elGroups.push(newGroup);
         this.qinedHTML.appendChild(newGroup);
         return newGroup;

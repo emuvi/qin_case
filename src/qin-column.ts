@@ -6,6 +6,7 @@ export class QinColumn extends QinPanel {
         super(options, (isQindred ? isQindred + "_" : "") + "column");
         this.styleAsFlexDirectionColumn();
         this.styleAsFlexWrapNot();
+        this.styleAsAlignItemsStretch();
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinColumn {
