@@ -45,6 +45,8 @@ export { QinNumeric } from "./qin-numeric";
 export { QinNumericSet } from "./qin-numeric";
 export { QinPanel } from "./qin-panel";
 export { QinPanelSet } from "./qin-panel";
+export { QinPassword } from "./qin-password";
+export { QinPasswordSet } from "./qin-password";
 export { QinPopup } from "./qin-popup";
 export { QinRow } from "./qin-row";
 export { QinRows } from "./qin-rows";

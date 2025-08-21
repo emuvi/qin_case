@@ -13,17 +13,18 @@ import { QinSuggestion } from "./qin-suggestion";
 import { Qine } from "./qin-main";
 
 export enum QinMutants {
-    BOOLEAN = "boolean",
-    INTEGER = "integer",
-    NUMERIC = "numeric",
-    STRING = "string",
-    SUGGESTION = "suggestion",
-    DATE = "date",
-    COMBO = "combo",
-    ICON_PICK = "icon-pick",
-    FILE_PATH = "file-path",
-    FILE_PICK = "file-pick",
-    FILE_VIEW = "file-view",
+    BOOLEAN = "BOOLEAN",
+    INTEGER = "INTEGER",
+    NUMERIC = "NUMERIC",
+    STRING = "STRING",
+    PASSWORD = "PASSWORD",
+    SUGGESTION = "SUGGESTION",
+    DATE = "DATE",
+    COMBO = "COMBO",
+    ICON_PICK = "ICON_PICK",
+    FILE_PATH = "FILE_PATH",
+    FILE_PICK = "FILE_PICK",
+    FILE_VIEW = "FILE_VIEW",
 }
 
 function newEdit(kind: QinMutants, options: any): QinEdit<any> {

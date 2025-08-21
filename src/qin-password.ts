@@ -1,10 +1,10 @@
 import { Nature, QinSkin } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
-export class QinString extends QinEdit<string> {
-    public constructor(options?: QinStringSet, isQindred?: string) {
+export class QinPassword extends QinEdit<string> {
+    public constructor(options?: QinPasswordSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
-        this.castedQine().type = "text";
+        this.castedQine().type = "password";
         this.castedQine().value = "";
         this.styleAsEditable();
         if (options?.maxLength) {
@@ -23,7 +23,7 @@ export class QinString extends QinEdit<string> {
         return this.qinedHTML as HTMLInputElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinString {
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinPassword {
         super.styled(styles);
         return this;
     }
@@ -61,23 +61,9 @@ export class QinString extends QinEdit<string> {
     public override isEditable(): boolean {
         return !this.castedQine().readOnly;
     }
-
-    public insertAtCursor(data: string) {
-        if (!data) return;
-        let startPos = this.castedQine().selectionStart;
-        let endPos = this.castedQine().selectionEnd;
-        let oldVal = this.castedQine().value;
-        let newVal =
-            (startPos > 0 ? oldVal.substring(0, startPos) : "") +
-            data +
-            (endPos < oldVal.length ? oldVal.substring(endPos) : "");
-        this.value = newVal;
-        this.castedQine().selectionStart = startPos;
-        this.castedQine().selectionEnd = startPos + data.length;
-    }
 }
 
-export type QinStringSet = {
+export type QinPasswordSet = {
     initial?: string;
     maxLength?: number;
     readOnly?: boolean;
