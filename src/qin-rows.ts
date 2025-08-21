@@ -1,20 +1,19 @@
 import { QinBase } from "./qin-base";
 import { QinColumn } from "./qin-column";
-import { QinPanelSet } from "./qin-panel";
-import { QinRow } from "./qin-row";
+import { QinPanel, QinPanelSet } from "./qin-panel";
 
 export class QinRows extends QinColumn {
-    private _qinRows: QinRow[];
+    private _panelList: QinPanel[];
 
     public constructor(options?: QinRowsSet & QinPanelSet, isQindred?: string) {
         super(options, (isQindred ? isQindred + "_" : "") + "rows");
         if (options?.rows) {
-            this._qinRows = options.rows;
+            this._panelList = options.rows;
         } else {
-            this._qinRows = [];
+            this._panelList = [];
         }
         if (options?.size) {
-            while (this._qinRows.length < options.size) {
+            while (this._panelList.length < options.size) {
                 this.addRow();
             }
         }
@@ -31,21 +30,21 @@ export class QinRows extends QinColumn {
     }
 
     public putOn(row: number, item: QinBase): QinRows {
-        while (row >= this._qinRows.length) {
+        while (row >= this._panelList.length) {
             this.addRow();
         }
-        this._qinRows[row].put(item);
+        this._panelList[row].put(item);
         return this;
     }
 
     public addRow() {
-        let row = new QinRow();
+        let row = new QinPanel();
         row.install(this);
-        this._qinRows.push(row);
+        this._panelList.push(row);
     }
 }
 
 export type QinRowsSet = {
-    rows?: QinRow[];
+    rows?: QinPanel[];
     size?: number;
 };
