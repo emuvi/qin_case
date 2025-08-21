@@ -1,4 +1,4 @@
-import { QinActionableStyles, QinDimension, QinGrandeur, QinSkin, QinStyles } from "qin_soul";
+import { BorderStyle, QinActionableStyles, QinDimension, QinGrandeur, QinSkin, QinStyles } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
@@ -98,203 +98,180 @@ export class QinBaseStyle {
         QinSkin.styleAsPaddingRight(this._el, padding);
     }
 
-    public styleAsBorder(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
-        if (thick) {
-            this._el.style.border = thick + "px " + style + " " + color;
-        } else {
-            this._el.style.border = "none";
-        }
+    public styleAsBorder(thick?: number, color: string = QinSkin.styles.ColorForeground, style: BorderStyle = BorderStyle.SOLID) {
+        QinSkin.styleAsBorder(this._el, thick, color, style);
     }
 
-    public styleAsBorderTop(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
-        if (thick) {
-            this._el.style.borderTop = thick + "px " + style + " " + color;
-        } else {
-            this._el.style.borderTop = "none";
-        }
+    public styleAsBorderTop(thick?: number, color: string = QinSkin.styles.ColorForeground, style: BorderStyle = BorderStyle.SOLID) {
+        QinSkin.styleAsBorderTop(this._el, thick, color, style);
     }
 
-    public styleAsBorderBottom(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
-        if (thick) {
-            this._el.style.borderBottom = thick + "px " + style + " " + color;
-        } else {
-            this._el.style.borderBottom = "none";
-        }
+    public styleAsBorderBottom(thick?: number, color: string = QinSkin.styles.ColorForeground, style: BorderStyle = BorderStyle.SOLID) {
+        QinSkin.styleAsBorderBottom(this._el, thick, color, style);
     }
 
-    public styleAsBorderLeft(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
-        if (thick) {
-            this._el.style.borderLeft = thick + "px " + style + " " + color;
-        } else {
-            this._el.style.borderLeft = "none";
-        }
+    public styleAsBorderLeft(thick?: number, color: string = QinSkin.styles.ColorForeground, style: BorderStyle = BorderStyle.SOLID) {
+        QinSkin.styleAsBorderLeft(this._el, thick, color, style);
     }
 
-    public styleAsBorderRight( thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
-        if (thick) {
-            this._el.style.borderRight = thick + "px " + style + " " + color;
-        } else {
-            this._el.style.borderRight = "none";
-        }
+    public styleAsBorderRight(thick?: number, color: string = QinSkin.styles.ColorForeground, style: BorderStyle = BorderStyle.SOLID) {
+        QinSkin.styleAsBorderRight(this._el, thick, color, style);
     }
 
     public styleAsBorderRadius(radius: number) {
-        this._el.style.borderRadius = radius + "px";
+        QinSkin.styleAsBorderRadius(this._el, radius);
     }
 
     public styleAsBorderTopLeftRadius(radius: number) {
-        this._el.style.borderTopLeftRadius = radius + "px";
+        QinSkin.styleAsBorderTopLeftRadius(this._el, radius);
     }
 
     public styleAsBorderTopRightRadius(radius: number) {
-        this._el.style.borderTopRightRadius = radius + "px";
+        QinSkin.styleAsBorderTopRightRadius(this._el, radius);
     }
 
     public styleAsBorderBottomRightRadius(radius: number) {
-        this._el.style.borderBottomRightRadius = radius + "px";
+        QinSkin.styleAsBorderBottomRightRadius(this._el, radius);
     }
 
     public styleAsBorderBottomLeftRadius(radius: number) {
-        this._el.style.borderBottomLeftRadius = radius + "px";
+        QinSkin.styleAsBorderBottomLeftRadius(this._el, radius);
     }
 
     public styleAsDisplayFlex() {
-        this._el.style.display = "flex";
+        QinSkin.styleAsDisplayFlex(this._el);
     }
 
     public styleAsDisplayInline() {
-        this._el.style.display = "inline";
+        QinSkin.styleAsDisplayInline(this._el);
     }
 
     public styleAsDisplayInlineBlock() {
-        this._el.style.display = "inline-block";
+        QinSkin.styleAsDisplayInlineBlock(this._el);
     }
 
     public styleAsPositionStatic() {
-        this._el.style.position = "static";
+        QinSkin.styleAsPositionStatic(this._el);
     }
 
     public styleAsPositionAbsolute() {
-        this._el.style.position = "absolute";
+        QinSkin.styleAsPositionAbsolute(this._el);
     }
 
     public styleAsPositionFixed() {
-        this._el.style.position = "fixed";
+        QinSkin.styleAsPositionFixed(this._el);
     }
 
     public styleAsPositionRelative() {
-        this._el.style.position = "relative";
+        QinSkin.styleAsPositionRelative(this._el);
     }
 
     public styleAsPositionSticky() {
-        this._el.style.position = "sticky";
+        QinSkin.styleAsPositionSticky(this._el);
     }
 
     public styleAsPositionInitial() {
-        this._el.style.position = "initial";
+        QinSkin.styleAsPositionInitial(this._el);
     }
 
     public styleAsFlexDirectionRow() {
-        this._el.style.flexDirection = "row";
+        QinSkin.styleAsFlexDirectionRow(this._el);
     }
 
     public styleAsFlexDirectionRowReverse() {
-        this._el.style.flexDirection = "row-reverse";
+        QinSkin.styleAsFlexDirectionRowReverse(this._el);
     }
 
     public styleAsFlexDirectionColumn() {
-        this._el.style.flexDirection = "column";
+        QinSkin.styleAsFlexDirectionColumn(this._el);
     }
 
     public styleAsFlexDirectionColumnReverse() {
-        this._el.style.flexDirection = "column-reverse";
+        QinSkin.styleAsFlexDirectionColumnReverse(this._el);
     }
 
     public styleAsFlexWrap() {
-        this._el.style.flexWrap = "wrap";
+        QinSkin.styleAsFlexWrap(this._el);
     }
 
     public styleAsFlexWrapNot() {
-        this._el.style.flexWrap = "nowrap";
+        QinSkin.styleAsFlexWrapNot(this._el);
     }
 
     public styleAsFlexWrapReverse() {
-        this._el.style.flexWrap = "wrap-reverse";
+        QinSkin.styleAsFlexWrapReverse(this._el);
     }
 
     public styleAsFlexMin() {
-        this._el.style.flex = "none";
+        QinSkin.styleAsFlexMin(this._el);
     }
 
     public styleAsFlexMax() {
-        this._el.style.flex = "auto";
+        QinSkin.styleAsFlexMax(this._el);
     }
 
     public styleAsAllCentered() {
-        this._el.style.textAlign = "center";
-        this._el.style.alignItems = "center";
-        this._el.style.alignContent = "center";
-        this._el.style.verticalAlign = "middle";
+        QinSkin.styleAsAllCentered(this._el);
     }
 
     public styleAsJustifyContentFlexStart() {
-        this._el.style.justifyContent = "flex-start";
+        QinSkin.styleAsJustifyContentFlexStart(this._el);
     }
 
     public styleAsJustifyContentFlexEnd() {
-        this._el.style.justifyContent = "flex-end";
+        QinSkin.styleAsJustifyContentFlexEnd(this._el);
     }
 
     public styleAsJustifyContentCenter() {
-        this._el.style.justifyContent = "center";
+        QinSkin.styleAsJustifyContentCenter(this._el);
     }
 
     public styleAsJustifyContentSpaceBetween() {
-        this._el.style.justifyContent = "space-between";
+        QinSkin.styleAsJustifyContentSpaceBetween(this._el);
     }
 
     public styleAsJustifyContentSpaceAround() {
-        this._el.style.justifyContent = "space-around";
+        QinSkin.styleAsJustifyContentSpaceAround(this._el);
     }
 
     public styleAsJustifyContentSpaceEvenly() {
-        this._el.style.justifyContent = "space-evenly";
+        QinSkin.styleAsJustifyContentSpaceEvenly(this._el);
     }
 
     public styleAsJustifyContentInitial() {
-        this._el.style.justifyContent = "initial";
+        QinSkin.styleAsJustifyContentInitial(this._el);
     }
 
     public styleAsJustifyContentInherit() {
-        this._el.style.justifyContent = "inherit";
+        QinSkin.styleAsJustifyContentInherit(this._el);
     }
 
     public styleAsAlignItemsStretch() {
-        this._el.style.alignItems = "stretch";
+        QinSkin.styleAsAlignItemsStretch(this._el);
     }
 
     public styleAsAlignItemsCenter() {
-        this._el.style.alignItems = "center";
+        QinSkin.styleAsAlignItemsCenter(this._el);
     }
 
     public styleAsAlignItemsFlexStart() {
-        this._el.style.alignItems = "flex-start";
+        QinSkin.styleAsAlignItemsFlexStart(this._el);
     }
 
     public styleAsAlignItemsFlexEnd() {
-        this._el.style.alignItems = "flex-end";
+        QinSkin.styleAsAlignItemsFlexEnd(this._el);
     }
 
     public styleAsAlignItemsBaseline() {
-        this._el.style.alignItems = "baseline";
+        QinSkin.styleAsAlignItemsBaseline(this._el);
     }
 
     public styleAsAlignItemsInitial() {
-        this._el.style.alignItems = "initial";
+        QinSkin.styleAsAlignItemsInitial(this._el);
     }
 
     public styleAsAlignItemsInherit() {
-        this._el.style.alignItems = "inherit";
+        QinSkin.styleAsAlignItemsInherit(this._el);
     }
 
     public styleAsBounds(top: number, right: number, bottom: number, left: number) {
