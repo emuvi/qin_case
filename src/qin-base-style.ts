@@ -1,5 +1,5 @@
 import { BorderStyle, QinActionableStyles, QinDimension, QinGrandeur, QinSkin, QinStyles } from "qin_soul";
-import { QinAsset } from "./qin-assets";
+import { QinAsset, qinAssetUrl } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinBaseStyle {
@@ -315,58 +315,62 @@ export class QinBaseStyle {
     }
 
     public styleAsForeground(foreground: string) {
-        this._el.style.color = foreground;
+        QinSkin.styleAsForeground(this._el, foreground);
     }
 
     public styleAsBackground(background: string) {
-        this._el.style.background = background;
+        QinSkin.styleAsBackground(this._el, background);
     }
 
-    public styleAsBackAsset(asset: QinAsset) {
-        this._el.style.backgroundImage = "url('/pub/qin-desk/assets/" + asset + "')";
+    public styleAsBackgroundImage(imageURL: string) {
+        QinSkin.styleAsBackgroundImage(this._el, imageURL)
     }
 
-    public styleAsBackInitial() {
-        this._el.style.backgroundImage = "initial";
+    public styleAsBackgroundImageAsset(asset: QinAsset) {
+        QinSkin.styleAsBackgroundImage(this._el, qinAssetUrl(asset))
+    }
+
+    public styleAsBackgroundImageInitial() {
+        QinSkin.styleAsBackgroundImageInitial(this._el)
     }
 
     public styleAsZIndex(index: number) {
-        if (index == null || index == undefined) {
-            this._el.style.zIndex = "initial";
-        } else {
-            this._el.style.zIndex = index.toString();
-        }
+        QinSkin.styleAsZIndex(this._el, index);
     }
 
     public styleAsWhiteSpaceNormal() {
-        this._el.style.whiteSpace = "normal";
+        QinSkin.styleAsWhiteSpaceNormal(this._el);
     }
 
     public styleAsWhiteSpaceNoWrap() {
-        this._el.style.whiteSpace = "nowrap";
+        QinSkin.styleAsWhiteSpaceNoWrap(this._el);
     }
 
     public styleAsWhiteSpacePre() {
-        this._el.style.whiteSpace = "pre";
+        QinSkin.styleAsWhiteSpacePre(this._el);
     }
 
     public styleAsWhiteSpacePreLine() {
-        this._el.style.whiteSpace = "pre-line";
+        QinSkin.styleAsWhiteSpacePreLine(this._el);
     }
 
     public styleAsWhiteSpacePreWrap() {
-        this._el.style.whiteSpace = "pre-wrap";
+        QinSkin.styleAsWhiteSpacePreWrap(this._el);
     }
 
     public styleAsWhiteSpaceInitial() {
-        this._el.style.whiteSpace = "initial";
+        QinSkin.styleAsWhiteSpaceInitial(this._el);
     }
 
     public styleAsWhiteSpaceInherit() {
-        this._el.style.whiteSpace = "inherit";
+        QinSkin.styleAsWhiteSpaceInherit(this._el);
     }
 
     public disabledSelection() {
         QinSkin.disableSelection(this._el);
+    }
+
+    public clearSelection() {
+        QinSkin.clearSelection();
     }
 }
