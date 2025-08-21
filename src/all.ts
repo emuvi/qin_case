@@ -48,7 +48,6 @@ export { QinPanelSet } from "./qin-panel";
 export { QinPassword } from "./qin-password";
 export { QinPasswordSet } from "./qin-password";
 export { QinPopup } from "./qin-popup";
-export { QinRow } from "./qin-row";
 export { QinRows } from "./qin-rows";
 export { QinRowsSet } from "./qin-rows";
 export { QinScroll } from "./qin-scroll";

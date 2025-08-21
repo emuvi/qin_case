@@ -3,14 +3,10 @@ import { QinAsset, qinAssetUrl, qinUrlAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinIcon extends QinBase {
-    public constructor(
-        asset: QinAsset,
-        size: QinDimension | QinGrandeur = QinGrandeur.SMALL,
-        isQindred?: string
-    ) {
+    public constructor(asset: QinAsset, size: QinDimension | QinGrandeur = QinGrandeur.SMALL, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "icon", document.createElement("img"));
         this.castedQine().src = qinAssetUrl(asset);
-        QinSkin.styleSize(this.qinedHTML, size);
+        this.styleAsSize(size);
     }
 
     public override castedQine(): HTMLImageElement {

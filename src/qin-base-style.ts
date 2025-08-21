@@ -1,16 +1,20 @@
-import { QinActionableStyles, QinSkin, QinStyles } from "qin_soul";
+import { QinActionableStyles, QinDimension, QinGrandeur, QinSkin, QinStyles } from "qin_soul";
 import { QinAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinBaseStyle {
     private _el: HTMLElement;
 
-    public constructor(origin: HTMLElement | QinBase) {
-        if (origin instanceof QinBase) {
-            this._el = origin.qinedHTML;
+    public constructor(root: HTMLElement | QinBase) {
+        if (root instanceof QinBase) {
+            this._el = root.qinedHTML;
         } else {
-            this._el = origin;
+            this._el = root;
         }
+    }
+
+    public get rootEl() {
+        return this._el;
     }
 
     public putAsBody() {
@@ -46,48 +50,52 @@ export class QinBaseStyle {
         QinSkin.styleAsActionable(this._el, styles);
     }
 
+    public styleMaxSizeForNotOverFlow() {
+        QinSkin.styleMaxSizeForNotOverFlow(this._el);
+    }
+
     public styleAsScroll() {
-        this._el.style.overflow = "auto";
+        QinSkin.styleAsScroll(this._el);
     }
 
     public styleAsMargin(margin: number) {
-        this._el.style.margin = this.getPixelsOrInitial(margin);
+        QinSkin.styleAsMargin(this._el, margin);
     }
 
     public styleAsMarginTop(margin: number) {
-        this._el.style.marginTop = this.getPixelsOrInitial(margin);
+        QinSkin.styleAsMarginTop(this._el, margin);
     }
 
     public styleAsMarginBottom(margin: number) {
-        this._el.style.marginBottom = this.getPixelsOrInitial(margin);
+        QinSkin.styleAsMarginBottom(this._el, margin);
     }
 
     public styleAsMarginLeft(margin: number) {
-        this._el.style.marginLeft = this.getPixelsOrInitial(margin);
+        QinSkin.styleAsMarginLeft(this._el, margin);
     }
 
     public styleAsMarginRight(margin: number) {
-        this._el.style.marginRight = this.getPixelsOrInitial(margin);
+        QinSkin.styleAsMarginRight(this._el, margin);
     }
 
     public styleAsPadding(padding: number) {
-        this._el.style.padding = this.getPixelsOrInitial(padding);
+        QinSkin.styleAsPadding(this._el, padding);
     }
 
     public styleAsPaddingTop(padding: number) {
-        this._el.style.paddingTop = this.getPixelsOrInitial(padding);
+        QinSkin.styleAsPaddingTop(this._el, padding);
     }
 
     public styleAsPaddingBottom(padding: number) {
-        this._el.style.paddingBottom = this.getPixelsOrInitial(padding);
+        QinSkin.styleAsPaddingBottom(this._el, padding);
     }
 
     public styleAsPaddingLeft(padding: number) {
-        this._el.style.paddingLeft = this.getPixelsOrInitial(padding);
+        QinSkin.styleAsPaddingLeft(this._el, padding);
     }
 
     public styleAsPaddingRight(padding: number) {
-        this._el.style.paddingRight = this.getPixelsOrInitial(padding);
+        QinSkin.styleAsPaddingRight(this._el, padding);
     }
 
     public styleAsBorder(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
@@ -114,7 +122,7 @@ export class QinBaseStyle {
         }
     }
 
-    public styleAsBorderLeft( thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
+    public styleAsBorderLeft(thick: number, color: string = QinSkin.styles.ColorForeground, style: string = "solid") {
         if (thick) {
             this._el.style.borderLeft = thick + "px " + style + " " + color;
         } else {
@@ -290,49 +298,43 @@ export class QinBaseStyle {
     }
 
     public styleAsBounds(top: number, right: number, bottom: number, left: number) {
-        this._el.style.top = this.getPixelsOrInitial(top);
-        this._el.style.right = this.getPixelsOrInitial(right);
-        this._el.style.bottom = this.getPixelsOrInitial(bottom);
-        this._el.style.left = this.getPixelsOrInitial(left);
+        QinSkin.styleAsBounds(this._el, top, right, bottom, left);
     }
 
-    public styleAsWidth(width: number) {
-        this._el.style.width = this.getPixelsOrInitial(width);
+    public styleAsWidth(width: number | QinGrandeur) {
+        QinSkin.styleAsWidth(this._el, width);
     }
 
-    public styleAsHeight(height: number) {
-        this._el.style.height = this.getPixelsOrInitial(height);
+    public styleAsHeight(height: number | QinGrandeur) {
+        QinSkin.styleAsHeight(this._el, height);
     }
 
-    public styleAsSize(width: number, height: number) {
-        this._el.style.width = this.getPixelsOrInitial(width);
-        this._el.style.height = this.getPixelsOrInitial(height);
+    public styleAsSize(size: QinDimension | QinGrandeur) {
+        QinSkin.styleAsSize(this._el, size);
     }
 
-    public styleAsMinWidth(width: number) {
-        this._el.style.minWidth = this.getPixelsOrInitial(width);
+    public styleAsMinWidth(width: number | QinGrandeur) {
+        QinSkin.styleAsMinWidth(this._el, width);
     }
 
-    public styleAsMinHeight(height: number) {
-        this._el.style.minHeight = this.getPixelsOrInitial(height);
+    public styleAsMinHeight(height: number | QinGrandeur) {
+        QinSkin.styleAsMinHeight(this._el, height);
     }
 
-    public styleAsMinSize(width: number, height: number) {
-        this._el.style.minWidth = this.getPixelsOrInitial(width);
-        this._el.style.minHeight = this.getPixelsOrInitial(height);
+    public styleAsMinSize(size: QinDimension | QinGrandeur) {
+        QinSkin.styleAsMinSize(this._el, size);
     }
 
-    public styleAsMaxWidth(width: number) {
-        this._el.style.maxWidth = this.getPixelsOrInitial(width);
+    public styleAsMaxWidth(width: number | QinGrandeur) {
+        QinSkin.styleAsMaxWidth(this._el, width);
     }
 
-    public styleAsMaxHeight(height: number) {
-        this._el.style.maxHeight = this.getPixelsOrInitial(height);
+    public styleAsMaxHeight(height: number | QinGrandeur) {
+        QinSkin.styleAsMaxHeight(this._el, height);
     }
 
-    public styleAsMaxSize(width: number, height: number) {
-        this._el.style.maxWidth = this.getPixelsOrInitial(width);
-        this._el.style.maxHeight = this.getPixelsOrInitial(height);
+    public styleAsMaxSize(size: QinDimension | QinGrandeur) {
+        QinSkin.styleAsMaxSize(this._el, size);
     }
 
     public styleAsForeground(foreground: string) {
@@ -357,10 +359,6 @@ export class QinBaseStyle {
         } else {
             this._el.style.zIndex = index.toString();
         }
-    }
-
-    public styleAsDisabledSelection() {
-        QinSkin.disableSelection(this._el);
     }
 
     public styleAsWhiteSpaceNormal() {
@@ -391,10 +389,7 @@ export class QinBaseStyle {
         this._el.style.whiteSpace = "inherit";
     }
 
-    private getPixelsOrInitial(value: number): string {
-        if (value == null || value == undefined) {
-            return "initial";
-        }
-        return value + "px";
+    public disabledSelection() {
+        QinSkin.disableSelection(this._el);
     }
 }

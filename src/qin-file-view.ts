@@ -46,7 +46,7 @@ export class QinFileView extends QinEdit<string[]> {
                 this.cleanSelection();
             }
         });
-        this.qinedBase.styleAsDisabledSelection();
+        this.qinedBase.disabledSelection();
     }
 
     public override castedQine(): QinPanel {
