@@ -1,4 +1,4 @@
-import { Nature, NamedChars, QinHead, QinFoot } from "qin_soul";
+import { Nature, NamedChars, QinHead } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
 import { QinChars } from "./qin-chars";

@@ -6,7 +6,7 @@ import { QinFilePath } from "./qin-file-path";
 import { QinFilePick } from "./qin-file-pick";
 import { QinFileView } from "./qin-file-view";
 import { QinIconPick } from "./qin-icon-pick";
-import { QinInt as QinInt } from "./qin-int";
+import { QinInt } from "./qin-int";
 import { QinNumeric } from "./qin-numeric";
 import { QinChars } from "./qin-chars";
 import { QinSuggestion } from "./qin-suggestion";
