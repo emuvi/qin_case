@@ -21,13 +21,13 @@ export class QinValued extends QinEdit<Valued> {
     public constructor(options?: QinValuedSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "valued", new QinLine());
         if (options?.name) {
-            this._nameChars.value = options?.name;
+            this._nameChars.value = options.name;
         }
         if (options?.type) {
-            this._typeCombo.value = options?.type;
+            this._typeCombo.value = options.type;
         }
         if (options?.data) {
-            this._dataChars.value = JSON.stringify(options?.data);
+            this._dataChars.value = JSON.stringify(options.data);
         }
         if (options?.labels) {
             if (options?.labels?.name) {
