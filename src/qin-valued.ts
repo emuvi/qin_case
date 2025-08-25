@@ -8,12 +8,15 @@ import { QinCombo } from "./qin-combo";
 
 export class QinValued extends QinEdit<Valued> {
     
+    private _nameLabel = new QinLabel(QinHead.tr("Name"));
     private _nameChars = new QinChars();
-    private _nameTitled = new QinTitled({label: new QinLabel(QinHead.tr("Name")), items: [this._nameChars]});
+    private _nameTitled = new QinTitled({label: this._nameLabel, items: [this._nameChars]});
+    private _typeLabel = new QinLabel(QinHead.tr("Type"));
     private _typeCombo = new QinCombo({ofEnum: Nature});
-    private _typeTitled = new QinTitled({label: new QinLabel(QinHead.tr("Type")), items: [this._typeCombo]});
+    private _typeTitled = new QinTitled({label: this._typeLabel, items: [this._typeCombo]});
+    private _dataLabel = new QinLabel(QinHead.tr("Data"));
     private _dataChars = new QinChars();
-    private _dataTitled = new QinTitled({label: new QinLabel(QinHead.tr("Data")), items: [this._dataChars]});
+    private _dataTitled = new QinTitled({label: this._dataLabel, items: [this._dataChars]});
     
     public constructor(options?: QinValuedSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "valued", new QinLine());
@@ -26,6 +29,17 @@ export class QinValued extends QinEdit<Valued> {
         if (options?.data) {
             this._dataChars.value = JSON.stringify(options?.data);
         }
+        if (options?.labels) {
+            if (options?.labels?.name) {
+                this._nameLabel.title = QinHead.tr(options.labels.name);
+            }
+            if (options?.labels?.type) {
+                this._typeLabel.title = QinHead.tr(options.labels.type);
+            }
+            if (options?.labels?.data) {
+                this._dataLabel.title = QinHead.tr(options.labels.data);
+            }
+        }
         this._nameTitled.install(this);
         this._typeTitled.install(this);
         this._dataTitled.install(this);
@@ -36,7 +50,7 @@ export class QinValued extends QinEdit<Valued> {
     }
 
     public override getNature(): Nature {
-        return this._typeCombo.value as Nature;
+        return Nature.OBJECT;
     }
 
     public override mayChange(): HTMLElement[] {
@@ -79,4 +93,9 @@ export type QinValuedSet = {
     name?: string;
     type?: Nature;
     data?: any;
+    labels?: {
+        name?: string;
+        type?: string;
+        data?: string;
+    }
 };
