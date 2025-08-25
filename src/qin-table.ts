@@ -1,7 +1,7 @@
 import { QinScroll } from "./qin-scroll";
 import { Qine } from "./qin-main";
 
-// | TODO | Make the table from a QinPanel
+// | TODO | make the table extends from a QinPanel
 export class QinTable extends QinScroll {
     private _elTable = document.createElement("table");
     private _elTHead = document.createElement("thead");
