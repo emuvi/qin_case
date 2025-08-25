@@ -8,23 +8,23 @@ import { QinCombo } from "./qin-combo";
 
 export class QinValued extends QinEdit<Valued> {
     
-    private _nameString = new QinChars();
-    private _nameTitled = new QinTitled({label: new QinLabel(QinHead.tr("Name")), items: [this._nameString]});
+    private _nameChars = new QinChars();
+    private _nameTitled = new QinTitled({label: new QinLabel(QinHead.tr("Name")), items: [this._nameChars]});
     private _typeCombo = new QinCombo({ofEnum: Nature});
     private _typeTitled = new QinTitled({label: new QinLabel(QinHead.tr("Type")), items: [this._typeCombo]});
-    private _dataString = new QinChars();
-    private _dataTitled = new QinTitled({label: new QinLabel(QinHead.tr("Data")), items: [this._dataString]});
+    private _dataChars = new QinChars();
+    private _dataTitled = new QinTitled({label: new QinLabel(QinHead.tr("Data")), items: [this._dataChars]});
     
     public constructor(options?: QinValuedSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "valued", new QinLine());
         if (options?.name) {
-            this._nameString.value = options?.name;
+            this._nameChars.value = options?.name;
         }
         if (options?.type) {
             this._typeCombo.value = options?.type;
         }
         if (options?.data) {
-            this._dataString.value = JSON.stringify(options?.data);
+            this._dataChars.value = JSON.stringify(options?.data);
         }
         this._nameTitled.install(this);
         this._typeTitled.install(this);
@@ -40,38 +40,38 @@ export class QinValued extends QinEdit<Valued> {
     }
 
     public override mayChange(): HTMLElement[] {
-        return [...this._nameString.mayChange(), ...this._typeCombo.mayChange(), ...this._dataString.mayChange()];
+        return [...this._nameChars.mayChange(), ...this._typeCombo.mayChange(), ...this._dataChars.mayChange()];
     }
 
     public override turnReadOnly(): void {
-        this._nameString.turnReadOnly();
+        this._nameChars.turnReadOnly();
         this._typeCombo.turnReadOnly();
-        this._dataString.turnReadOnly();
+        this._dataChars.turnReadOnly();
     }
 
     public override turnEditable(): void {
-        this._nameString.turnEditable();
+        this._nameChars.turnEditable();
         this._typeCombo.turnEditable();
-        this._dataString.turnEditable();
+        this._dataChars.turnEditable();
     }
 
     public override isEditable(): boolean {
-        return this._dataString.isEditable();
+        return this._dataChars.isEditable();
     }
 
     protected override _getData(): Valued {
-        const name = this._nameString.value;
+        const name = this._nameChars.value;
         const type = this._typeCombo.value as Nature;
         return {
             name, type,
-            data: QinFoot.parseValued(type, this._dataString.value)
+            data: QinFoot.parseValued(type, this._dataChars.value)
         };
     }
 
     protected override _setData(data: Valued) {
-        this._nameString.value = data?.name;
+        this._nameChars.value = data?.name;
         this._typeCombo.value = data?.type;
-        this._dataString.value = JSON.stringify(data?.data);
+        this._dataChars.value = JSON.stringify(data?.data);
     }
 }
 
