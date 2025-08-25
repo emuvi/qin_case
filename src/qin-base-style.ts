@@ -138,8 +138,8 @@ export class QinBaseStyle {
         QinSkin.styleAsBorderBottomLeftRadius(this._el, radius);
     }
 
-    public styleAsDisplayFlex() {
-        QinSkin.styleAsDisplayFlex(this._el);
+    public styleAsDisplayBlock() {
+        QinSkin.styleAsDisplayBlock(this._el);
     }
 
     public styleAsDisplayInline() {
@@ -148,6 +148,66 @@ export class QinBaseStyle {
 
     public styleAsDisplayInlineBlock() {
         QinSkin.styleAsDisplayInlineBlock(this._el);
+    }
+
+    public styleAsDisplayFlex() {
+        QinSkin.styleAsDisplayFlex(this._el);
+    }
+
+    public styleAsDisplayInlineFlex() {
+        QinSkin.styleAsDisplayInlineFlex(this._el);
+    }
+
+    public styleAsDisplayGrid() {
+        QinSkin.styleAsDisplayGrid(this._el);
+    }
+
+    public styleAsDisplayInlineGrid() {
+        QinSkin.styleAsDisplayInlineGrid(this._el);
+    }
+
+    public styleAsDisplayFlowRoot() {
+        QinSkin.styleAsDisplayFlowRoot(this._el);
+    }
+
+    public styleAsDisplayNone() {
+        QinSkin.styleAsDisplayNone(this._el);
+    }
+
+    public styleAsDisplayContents() {
+        QinSkin.styleAsDisplayContents(this._el);
+    }
+
+    public styleAsDisplayTable() {
+        QinSkin.styleAsDisplayTable(this._el);
+    }
+
+    public styleAsDisplayTableRow() {
+        QinSkin.styleAsDisplayTableRow(this._el);
+    }
+
+    public styleAsDisplayListItem() {
+        QinSkin.styleAsDisplayListItem(this._el);
+    }
+
+    public styleAsDisplayInherit() {
+        QinSkin.styleAsDisplayInherit(this._el);
+    }
+
+    public styleAsDisplayInitial() {
+        QinSkin.styleAsDisplayInitial(this._el);
+    }
+
+    public styleAsDisplayRevert() {
+        QinSkin.styleAsDisplayRevert(this._el);
+    }
+
+    public styleAsDisplayRevertLayer() {
+        QinSkin.styleAsDisplayRevertLayer(this._el);
+    }
+
+    public styleAsDisplayUnset() {
+        QinSkin.styleAsDisplayUnset(this._el);
     }
 
     public styleAsPositionStatic() {
