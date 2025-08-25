@@ -20,14 +20,6 @@ export class QinRows extends QinColumn {
         }
     }
 
-    public putOn(row: number, item: QinBase): QinRows {
-        while (row >= this._panelList.length) {
-            this.newRow();
-        }
-        this._panelList[row].put(item);
-        return this;
-    }
-
     public newRow(): QinPanel {
         let row = new QinPanel();
         row.install(this);
@@ -63,6 +55,14 @@ export class QinRows extends QinColumn {
             return this.newRow();
         }
         return this._panelList[this._panelList.length - 1];
+    }
+
+    public putOn(row: number, item: QinBase): QinRows {
+        while (row >= this._panelList.length) {
+            this.newRow();
+        }
+        this._panelList[row].put(item);
+        return this;
     }
 
     public override put<T extends QinBase>(item: T): QinRows {
