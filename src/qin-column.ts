@@ -5,7 +5,6 @@ export class QinColumn extends QinPanel {
     public constructor(options?: QinPanelSet, isQindred?: string) {
         super(options, (isQindred ? isQindred + "_" : "") + "column");
         this.styleAsFlexDirectionColumn();
-        this.styleAsFlexWrapNot();
         this.styleAsAlignItemsStretch();
     }
 
