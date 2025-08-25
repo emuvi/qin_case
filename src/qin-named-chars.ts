@@ -15,7 +15,7 @@ export class QinNamedChars extends QinEdit<NamedChars> {
     private _dataTitled = new QinTitled({label: this._dataLabel, items: [this._dataChars]});
     
     public constructor(options?: QinNamedCharsSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "valued", new QinLine());
+        super((isQindred ? isQindred + "_" : "") + "named-chars", new QinLine());
         if (options?.name) {
             this._nameChars.value = options.name;
         }
