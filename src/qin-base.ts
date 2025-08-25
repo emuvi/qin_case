@@ -152,6 +152,10 @@ export abstract class QinBase extends QinBaseStyle {
         return this;
     }
 
+    public get baseChildren(): QinBase[] {
+        return this._baseChildren;
+    }
+
     public addChild<T extends QinBase>(child: T): QinBase {
         if (this._bodyBase) {
             this._bodyBase.addChild(child);
@@ -173,10 +177,6 @@ export abstract class QinBase extends QinBaseStyle {
             this.qinedHTML.removeChild(child.qinedHTML);
         }
         return this;
-    }
-
-    public children(): QinBase[] {
-        return this._baseChildren;
     }
 
     public styled(styles: Partial<CSSStyleDeclaration>): QinBase {
