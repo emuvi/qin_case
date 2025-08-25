@@ -12,16 +12,16 @@ export class QinHeader extends QinBase {
         return this.qinedHTML as HTMLHeadingElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinHeader {
-        super.styled(styles);
-        return this;
-    }
-
     public get title(): string | null {
         return this.qinedHTML.textContent;
     }
 
     public set title(title: string | null) {
         this.qinedHTML.textContent = title;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinHeader {
+        super.styled(styles);
+        return this;
     }
 }

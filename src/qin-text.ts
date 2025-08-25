@@ -1,4 +1,4 @@
-import { Nature, QinSoul } from "qin_soul";
+import { Nature, QinSkin, QinSoul } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
 export class QinText extends QinEdit<string> {
@@ -6,10 +6,7 @@ export class QinText extends QinEdit<string> {
         super((isQindred ? isQindred + "_" : "") + "string", document.createElement("textarea"));
         this.styleAsEditable();
         if (options?.maxLength) {
-            this.castedQine().maxLength = options.maxLength;
-            let position = Math.min(Math.max(options.maxLength - 10, 0), 90);
-            let width = Math.floor(90 + (position * 7) / 3);
-            this.qinedHTML.style.width = width + "px";
+            this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }
         if (options?.rows) {
             this.castedQine().rows = options?.rows;
@@ -18,37 +15,23 @@ export class QinText extends QinEdit<string> {
             this.castedQine().cols = options?.cols;
         }
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): HTMLTextAreaElement {
         return this.qinedHTML as HTMLTextAreaElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinText {
-        super.styled(styles);
-        return this;
-    }
-
     public override getNature(): Nature {
         return Nature.TEXT;
     }
 
-    protected override getData(): string {
-        return this.castedQine().value;
-    }
-
-    protected override setData(data: string) {
-        this.castedQine().value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [this.castedQine()];
+    public override mayChange(): HTMLElement[] {
+        return [this.qinedHTML];
     }
 
     public override turnReadOnly(): void {
@@ -63,6 +46,14 @@ export class QinText extends QinEdit<string> {
 
     public override isEditable(): boolean {
         return !this.castedQine().readOnly;
+    }
+
+    protected override _getData(): string {
+        return this.castedQine().value;
+    }
+
+    protected override _setData(data: string) {
+        this.castedQine().value = data;
     }
 
     public clear(): void {
@@ -94,6 +85,11 @@ export class QinText extends QinEdit<string> {
 
     public getLines(): string[] {
         return QinSoul.body.getTextLines(this.castedQine().value);
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinText {
+        super.styled(styles);
+        return this;
     }
 }
 

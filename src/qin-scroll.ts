@@ -7,16 +7,6 @@ export class QinScroll extends QinPanel {
         this.styleAsScroll();
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinScroll {
-        super.styled(styles);
-        return this;
-    }
-
-    public override put(item: QinBase): QinScroll {
-        item.install(this);
-        return this;
-    }
-
     public hasScroll() {
         return this.qinedHTML.scrollHeight > this.qinedHTML.clientHeight;
     }
@@ -35,5 +25,15 @@ export class QinScroll extends QinPanel {
 
     public get scrollWidth() {
         return this.qinedHTML.scrollWidth;
+    }
+
+    public override put(item: QinBase): QinScroll {
+        item.install(this);
+        return this;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinScroll {
+        super.styled(styles);
+        return this;
     }
 }

@@ -8,48 +8,25 @@ export class QinInteger extends QinEdit<number> {
         QinSkin.styleAsEditable(this.qinedHTML);
         this.qinedHTML.style.width = "120px";
         this.qinedHTML.addEventListener("focusout", () => {
-            this.setData(this.getData());
+            this._setData(this._getData());
         });
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): HTMLInputElement {
         return this.qinedHTML as HTMLInputElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinInteger {
-        super.styled(styles);
-        return this;
-    }
-
     public override getNature(): Nature {
         return Nature.INT;
     }
 
-    protected override getData(): number {
-        const value = this.castedQine().value;
-        if (value == null || value == undefined || value.length == 0) {
-            return null;
-        } else {
-            return parseInt(value, 10);
-        }
-    }
-
-    protected override setData(data: number) {
-        if (data == null || data == undefined) {
-            this.castedQine().value = "";
-        } else {
-            this.castedQine().value = data.toString();
-        }
-    }
-
-    protected override mayChange(): HTMLElement[] {
+    public override mayChange(): HTMLElement[] {
         return [this.castedQine()];
     }
 
@@ -65,6 +42,28 @@ export class QinInteger extends QinEdit<number> {
 
     public override isEditable(): boolean {
         return !this.castedQine().readOnly;
+    }
+
+    protected override _getData(): number {
+        const value = this.castedQine().value;
+        if (value == null || value == undefined || value.length == 0) {
+            return null;
+        } else {
+            return parseInt(value, 10);
+        }
+    }
+
+    protected override _setData(data: number) {
+        if (data == null || data == undefined) {
+            this.castedQine().value = "";
+        } else {
+            this.castedQine().value = data.toString();
+        }
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinInteger {
+        super.styled(styles);
+        return this;
     }
 }
 

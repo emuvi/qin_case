@@ -1,43 +1,29 @@
 import { Nature } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
-export class QinDate extends QinEdit<string> {
+export class QinDate extends QinEdit<Date> {
     public constructor(options?: QinDateSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "date", document.createElement("input"));
         this.castedQine().type = "date";
         this.styleAsEditable();
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): HTMLInputElement {
         return this.qinedHTML as HTMLInputElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinDate {
-        super.styled(styles);
-        return this;
-    }
-
     public override getNature(): Nature {
         return Nature.DATE;
     }
 
-    protected override getData(): string {
-        return this.castedQine().value;
-    }
-
-    protected override setData(data: string) {
-        this.castedQine().value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [this.castedQine()];
+    public override mayChange(): HTMLElement[] {
+        return [this.qinedHTML];
     }
 
     public override turnReadOnly(): void {
@@ -53,9 +39,22 @@ export class QinDate extends QinEdit<string> {
     public override isEditable(): boolean {
         return !this.castedQine().readOnly;
     }
+
+    protected override _getData(): Date {
+        return new Date(this.castedQine().value);
+    }
+
+    protected override _setData(data: Date) {
+        this.castedQine().value = data.toString();
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinDate {
+        super.styled(styles);
+        return this;
+    }
 }
 
 export type QinDateSet = {
-    initial?: string;
+    initial?: Date;
     readOnly?: boolean;
 };

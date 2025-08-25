@@ -6,69 +6,39 @@ import { QinIconCell } from "./qin-icon-cell";
 import { QinLine } from "./qin-line";
 
 export class QinIconPick extends QinEdit<QinAsset> {
+    
     private _readOnly = false;
 
     public constructor(options?: QinIconPickSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
         this.styleAsEditable();
         if (options?.initial) {
-            this.setData(options?.initial);
+            this._setData(options?.initial);
         }
-        if (options?.icons) {
-            for (const icon of options.icons) {
+        if (options?.iconList) {
+            for (const icon of options.iconList) {
                 this.addIcon(icon);
             }
         }
-        if (options?.cells) {
-            for (const cell of options.cells) {
+        if (options?.iconCellList) {
+            for (const cell of options.iconCellList) {
                 this.addCell(cell);
             }
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): QinLine {
         return this.qinedBase as QinLine;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinIconPick {
-        super.styled(styles);
-        return this;
-    }
-
     public override getNature(): Nature {
         return Nature.CHARS;
     }
 
-    protected override getData(): QinAsset {
-        for (let child of this.children()) {
-            if (child instanceof QinIconCell) {
-                if (child.selected) {
-                    return child.qinIcon.asset;
-                }
-            }
-        }
-        return null;
-    }
-
-    protected override setData(asset: QinAsset) {
-        let found = false;
-        for (let child of this.qinedBase.children()) {
-            if (child instanceof QinIconCell) {
-                if (child.qinIcon.asset == asset) {
-                    found = true;
-                    child.selected = true;
-                } else {
-                    child.selected = false;
-                }
-            }
-        }
-    }
-
-    protected override mayChange(): HTMLElement[] {
+    public override mayChange(): HTMLElement[] {
         return [];
     }
 
@@ -86,6 +56,31 @@ export class QinIconPick extends QinEdit<QinAsset> {
         return !this._readOnly;
     }
 
+    protected override _getData(): QinAsset {
+        for (let child of this.children()) {
+            if (child instanceof QinIconCell) {
+                if (child.selected) {
+                    return child.icon.asset;
+                }
+            }
+        }
+        return null;
+    }
+
+    protected override _setData(asset: QinAsset) {
+        let found = false;
+        for (let child of this.qinedBase.children()) {
+            if (child instanceof QinIconCell) {
+                if (child.icon.asset == asset) {
+                    found = true;
+                    child.selected = true;
+                } else {
+                    child.selected = false;
+                }
+            }
+        }
+    }
+
     public addIcon(icon: QinIcon) {
         this.addCell(new QinIconCell(icon));
     }
@@ -93,16 +88,21 @@ export class QinIconPick extends QinEdit<QinAsset> {
     public addCell(cell: QinIconCell) {
         cell.addActionMain((_) => {
             if (this.isEditable()) {
-                this.setData(cell.asset);
+                this._setData(cell.icon.asset);
             }
         });
         cell.install(this.qinedBase);
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinIconPick {
+        super.styled(styles);
+        return this;
     }
 }
 
 export type QinIconPickSet = {
     initial?: QinAsset;
-    icons?: QinIcon[];
-    cells?: QinIconCell[];
+    iconList?: QinIcon[];
+    iconCellList?: QinIconCell[];
     readOnly?: boolean;
 };

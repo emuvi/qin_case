@@ -11,41 +11,23 @@ export class QinPassword extends QinEdit<string> {
             this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): HTMLInputElement {
         return this.qinedHTML as HTMLInputElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinPassword {
-        super.styled(styles);
-        return this;
-    }
-
     public override getNature(): Nature {
         return Nature.CHARS;
     }
 
-    protected override getData(): string {
-        let value = this.castedQine().value;
-        if (value === null || value === undefined) {
-            value = "";
-        }
-        return value;
-    }
-
-    protected override setData(data: string) {
-        this.castedQine().value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [this.castedQine()];
+    public override mayChange(): HTMLElement[] {
+        return [this.qinedHTML];
     }
 
     public override turnReadOnly(): void {
@@ -60,6 +42,23 @@ export class QinPassword extends QinEdit<string> {
 
     public override isEditable(): boolean {
         return !this.castedQine().readOnly;
+    }
+
+    protected override _getData(): string {
+        let value = this.castedQine().value;
+        if (value === null || value === undefined) {
+            value = "";
+        }
+        return value;
+    }
+
+    protected override _setData(data: string) {
+        this.castedQine().value = data;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinPassword {
+        super.styled(styles);
+        return this;
     }
 }
 

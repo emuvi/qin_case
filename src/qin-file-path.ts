@@ -9,92 +9,77 @@ import { QinLine } from "./qin-line";
 import { QinString } from "./qin-string";
 
 export class QinFilePath extends QinEdit<string> {
-    private _qinPath = new QinString();
-    private _qinSearch = new QinButton({icon: new QinIcon(QinAsset.FaceFolder)});
-    private _qinPicker: QinFilePick;
-    private _qinPopup: QinFramePopup;
+    
+    private _pathString = new QinString();
+    private _searchButton = new QinButton({icon: new QinIcon(QinAsset.FaceFolder)});
+    private _filePick: QinFilePick;
+    private _framePopup: QinFramePopup;
+
     private _readOnly = false;
 
     public constructor(options?: QinFilePathSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "file-path", new QinLine());
-        this._qinPicker = new QinFilePick({
-            nature: options?.nature,
-            operation: options?.operation,
-            descriptors: options?.descriptors,
+        this._filePick = new QinFilePick({
+            filesNature: options?.nature,
+            fileOperation: options?.operation,
+            filesDescriptorList: options?.descriptors,
             singleSelection: true,
         });
-        this._qinPopup = this.qinpel.frame.newPopup(this._qinPicker.castedQine().castedQine());
-        this._qinPath.install(this.qinedBase);
-        this._qinSearch.install(this.qinedBase);
-        this._qinSearch.addActionMain((_) => this._qinPopup.show());
-        this._qinPicker.addOnChosen((chosen) => {
+        this._framePopup = this.qinpel.frame.newPopup(this._filePick.castedQine().castedQine());
+        this._pathString.install(this.qinedBase);
+        this._searchButton.install(this.qinedBase);
+        this._searchButton.addActionMain((_) => this._framePopup.show());
+        this._filePick.addOnChosen((chosen) => {
             if (chosen && chosen.length > 0) {
-                this._qinPath.value = chosen[0];
+                this._pathString.value = chosen[0];
             }
-            this._qinPopup.close();
+            this._framePopup.close();
         });
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): QinLine {
         return this.qinedBase as QinLine;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinFilePath {
-        super.styled(styles);
-        return this;
-    }
-
-    public getNature(): Nature {
+    public override getNature(): Nature {
         return Nature.CHARS;
     }
 
-    protected override getData(): string {
-        return this._qinPath.value;
-    }
-
-    protected override setData(data: string) {
-        this._qinPath.value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [...this._qinPath.getChangeable(), ...this._qinPicker.getChangeable()];
+    public override mayChange(): HTMLElement[] {
+        return [...this._pathString.mayChange(), ...this._filePick.mayChange()];
     }
 
     public override turnReadOnly(): void {
         this._readOnly = true;
-        this._qinPath.turnReadOnly();
+        this._pathString.turnReadOnly();
     }
 
     public override turnEditable(): void {
         this._readOnly = false;
-        this._qinPath.turnEditable();
+        this._pathString.turnEditable();
     }
 
     public override isEditable(): boolean {
         return !this._readOnly;
     }
 
-    public get qinPath(): QinString {
-        return this._qinPath;
+    protected override _getData(): string {
+        return this._pathString.value;
     }
 
-    public get qinSearch(): QinButton {
-        return this._qinSearch;
+    protected override _setData(data: string) {
+        this._pathString.value = data;
     }
 
-    public get qinChooser(): QinFilePick {
-        return this._qinPicker;
-    }
-
-    public get qinPopup(): QinFramePopup {
-        return this._qinPopup;
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinFilePath {
+        super.styled(styles);
+        return this;
     }
 }
 

@@ -11,6 +11,8 @@ import { QinNumeric } from "./qin-numeric";
 import { QinString } from "./qin-string";
 import { QinSuggestion } from "./qin-suggestion";
 import { Qine } from "./qin-main";
+import { QinPassword } from "./qin-password";
+import { QinText } from "./qin-text";
 
 export enum QinMutants {
     BOOLEAN = "BOOLEAN",
@@ -21,6 +23,7 @@ export enum QinMutants {
     SUGGESTION = "SUGGESTION",
     DATE = "DATE",
     COMBO = "COMBO",
+    TEXT = "TEXT",
     ICON_PICK = "ICON_PICK",
     FILE_PATH = "FILE_PATH",
     FILE_PICK = "FILE_PICK",
@@ -39,10 +42,14 @@ function newEdit(kind: QinMutants, options: any): QinEdit<any> {
             return new QinString(options);
         case QinMutants.SUGGESTION:
             return new QinSuggestion(options);
+        case QinMutants.PASSWORD:
+            return new QinPassword(options);
         case QinMutants.DATE:
             return new QinDate(options);
         case QinMutants.COMBO:
             return new QinCombo(options);
+        case QinMutants.TEXT:
+            return new QinText(options);
         case QinMutants.ICON_PICK:
             return new QinIconPick(options);
         case QinMutants.FILE_PATH:

@@ -65,6 +65,10 @@ export class QinSplitter extends QinBase {
         }
     }
 
+    public override castedQine(): HTMLDivElement {
+        return this.qinedHTML as HTMLDivElement;
+    }
+
     public setHorizontal() {
         this.qinedHTML.style.flexDirection = "row";
         this._elMover.style.flexDirection = "row";
@@ -78,10 +82,8 @@ export class QinSplitter extends QinBase {
         this._elMover.style.maxHeight = "initial";
         this._elMover.style.width = "24px";
         this._elMover.style.height = "100%";
-        this._elGrowA.style.background =
-            "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-        this._elGrowB.style.background =
-            "linear-gradient(270deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+        this._elGrowA.style.background = "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+        this._elGrowB.style.background = "linear-gradient(270deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
         this._isHorizontal = true;
     }
 
@@ -98,10 +100,8 @@ export class QinSplitter extends QinBase {
         this._elMover.style.maxHeight = "24px";
         this._elMover.style.width = "100%";
         this._elMover.style.height = "24px";
-        this._elGrowA.style.background =
-            "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-        this._elGrowB.style.background =
-            "linear-gradient(0deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+        this._elGrowA.style.background = "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
+        this._elGrowB.style.background = "linear-gradient(0deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
         this._isHorizontal = false;
     }
 
@@ -123,8 +123,28 @@ export class QinSplitter extends QinBase {
         this._elSideB.appendChild(side.qinedHTML);
     }
 
-    public override castedQine(): HTMLDivElement {
-        return this.qinedHTML as HTMLDivElement;
+    public addOnChanged(waiter: QinWaiter<QinSplitterBalance>) {
+        this._changedWaiters.put(waiter);
+    }
+
+    public setBalance(balance: QinSplitterBalance) {
+        let related = this._isHorizontal ? "width" : "height";
+        this._elSideA.style[related] = balance.sideA + "%";
+        this._elSideB.style[related] = balance.sideB + "%";
+    }
+
+    private balance(grow: HTMLDivElement, fall: HTMLDivElement) {
+        let related = this._isHorizontal ? "width" : "height";
+        let growAt = parseInt(grow.style[related]);
+        let fallAt = parseInt(fall.style[related]);
+        if (fallAt <= 10) {
+            return;
+        }
+        grow.style[related] = growAt + 10 + "%";
+        fall.style[related] = fallAt - 10 + "%";
+        let sideA = parseInt(this._elSideA.style[related]);
+        let sideB = parseInt(this._elSideB.style[related]);
+        this._changedWaiters.send({ sideA, sideB });
     }
 
     public override addChild(child: QinBase): QinSplitter {
@@ -161,30 +181,6 @@ export class QinSplitter extends QinBase {
     public override styled(styles: Partial<CSSStyleDeclaration>): QinSplitter {
         super.styled(styles);
         return this;
-    }
-
-    public addOnChanged(waiter: QinWaiter<QinSplitterBalance>) {
-        this._changedWaiters.put(waiter);
-    }
-
-    public setBalance(balance: QinSplitterBalance) {
-        let related = this._isHorizontal ? "width" : "height";
-        this._elSideA.style[related] = balance.sideA + "%";
-        this._elSideB.style[related] = balance.sideB + "%";
-    }
-
-    private balance(grow: HTMLDivElement, fall: HTMLDivElement) {
-        let related = this._isHorizontal ? "width" : "height";
-        let growAt = parseInt(grow.style[related]);
-        let fallAt = parseInt(fall.style[related]);
-        if (fallAt <= 10) {
-            return;
-        }
-        grow.style[related] = growAt + 10 + "%";
-        fall.style[related] = fallAt - 10 + "%";
-        let sideA = parseInt(this._elSideA.style[related]);
-        let sideB = parseInt(this._elSideB.style[related]);
-        this._changedWaiters.send({ sideA, sideB });
     }
 }
 

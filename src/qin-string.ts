@@ -11,41 +11,23 @@ export class QinString extends QinEdit<string> {
             this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): HTMLInputElement {
         return this.qinedHTML as HTMLInputElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinString {
-        super.styled(styles);
-        return this;
-    }
-
     public override getNature(): Nature {
         return Nature.CHARS;
     }
 
-    protected override getData(): string {
-        let value = this.castedQine().value;
-        if (value === null || value === undefined) {
-            value = "";
-        }
-        return value;
-    }
-
-    protected override setData(data: string) {
-        this.castedQine().value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [this.castedQine()];
+    public override mayChange(): HTMLElement[] {
+        return [this.qinedHTML];
     }
 
     public override turnReadOnly(): void {
@@ -62,6 +44,18 @@ export class QinString extends QinEdit<string> {
         return !this.castedQine().readOnly;
     }
 
+    protected override _getData(): string {
+        let value = this.castedQine().value;
+        if (value === null || value === undefined) {
+            value = "";
+        }
+        return value;
+    }
+
+    protected override _setData(data: string) {
+        this.castedQine().value = data;
+    }
+
     public insertAtCursor(data: string) {
         if (!data) return;
         let startPos = this.castedQine().selectionStart;
@@ -74,6 +68,11 @@ export class QinString extends QinEdit<string> {
         this.value = newVal;
         this.castedQine().selectionStart = startPos;
         this.castedQine().selectionEnd = startPos + data.length;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinString {
+        super.styled(styles);
+        return this;
     }
 }
 

@@ -11,17 +11,18 @@ import { QinPanel } from "./qin-panel";
 import { QinString } from "./qin-string";
 
 export class QinFilePick extends QinEdit<string[]> {
-    private _qinUpper = new QinLine();
-    private _qinConfirm = new QinButton({icon: new QinIcon(QinAsset.FaceConfirm)});
-    private _qinFolder = new QinString();
-    private _qinExtensions = new QinCombo();
-    private _qinSearch = new QinButton({icon: new QinIcon(QinAsset.FaceSearch)});
-    private _qinUnder = new QinPanel();
-    private _qinView = new QinFileView();
+    
+    private _upperLine = new QinLine();
+    private _confirmButton = new QinButton({icon: new QinIcon(QinAsset.FaceConfirm)});
+    private _folderString = new QinString();
+    private _extensionsCombo = new QinCombo();
+    private _searchButton = new QinButton({icon: new QinIcon(QinAsset.FaceSearch)});
+    private _underPanel = new QinPanel();
+    private _fileView = new QinFileView();
 
-    private _nature: FilesNature;
-    private _operation: FilesOperation;
-    private _descriptors: FilesDescriptor[];
+    private _filesNature: FilesNature;
+    private _filesOperation: FilesOperation;
+    private _fileDescriptorList: FilesDescriptor[];
     private _singleSelection: boolean;
     private _readOnly = false;
 
@@ -29,78 +30,15 @@ export class QinFilePick extends QinEdit<string[]> {
 
     public constructor(options?: QinFilePickSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "file-pick", new QinColumn());
-        this._nature = options?.nature ? options.nature : FilesNature.BOTH;
-        this._operation = options?.operation ? options.operation : FilesOperation.OPEN;
-        this._descriptors = options?.descriptors ? options.descriptors : [];
+        this._filesNature = options?.filesNature ? options.filesNature : FilesNature.BOTH;
+        this._filesOperation = options?.fileOperation ? options.fileOperation : FilesOperation.OPEN;
+        this._fileDescriptorList = options?.filesDescriptorList ? options.filesDescriptorList : [];
         this._singleSelection = options?.singleSelection ?? false;
         this.initMain();
         this.initUpper();
         this.initUnder();
         if (options?.readOnly) {
             this.turnReadOnly();
-        }
-        this.prepareEdit();
-    }
-
-    private initMain() {
-        this._qinUpper.install(this.qinedBase);
-        this._qinUnder.install(this.qinedBase);
-    }
-
-    private initUpper() {
-        this._qinUpper.styleAsFlexMin();
-        this._qinConfirm.install(this._qinUpper);
-        this._qinConfirm.addActionMain((_) => {
-            let data = this.getData();
-            for (const chosen of this._onChosen) {
-                chosen(data);
-            }
-        });
-        this._qinFolder.install(this._qinUpper);
-        this._qinFolder.styleAsMinWidth(100);
-        this._qinFolder.styleAsFlexMax();
-        this._qinFolder.addActionMain((_) => {
-            if (this.isEditable()) {
-                this.loadFolder();
-            }
-        });
-        this._qinExtensions.install(this._qinUpper);
-        this._qinExtensions.styleAsMinWidth(100);
-        this.initExtensions();
-        this._qinSearch.install(this._qinUpper);
-        this._qinSearch.addAction((_) => {
-            if (this.isEditable()) {
-                this.loadFolder();
-            }
-        });
-    }
-
-    private initUnder() {
-        this._qinUnder.styleAsScroll();
-        this._qinUnder.styleAsFlexMax();
-        this._qinView.install(this._qinUnder);
-        this._qinView.nature = this._nature;
-        this._qinView.singleSelection = this._singleSelection;
-    }
-
-    private initExtensions() {
-        if (this._descriptors.length == 0) {
-            this._qinExtensions.addItem({
-                title: this.qinpel.tr("All files") + " (*.*)",
-                value: "*",
-                selected: true,
-            });
-            this._qinView.extensions = [];
-        } else {
-            for (let index = 0; index < this._descriptors.length; index++) {
-                const descriptor = this._descriptors[index];
-                this._qinExtensions.addItem({
-                    title: descriptor.description,
-                    value: descriptor.extensions.join(";"),
-                    selected: index == 0,
-                });
-            }
-            this._qinView.extensions = this._descriptors[0].extensions;
         }
     }
 
@@ -112,87 +50,59 @@ export class QinFilePick extends QinEdit<string[]> {
         return Nature.CHARS;
     }
 
-    protected override getData(): string[] {
-        return this._qinView.value;
-    }
-
-    protected override setData(data: string[]) {
-        this._qinView.value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [...this._qinView.getChangeable()];
+    public override mayChange(): HTMLElement[] {
+        return [...this._fileView.mayChange()];
     }
 
     public override turnReadOnly(): void {
         this._readOnly = true;
-        this._qinFolder.turnReadOnly();
-        this._qinExtensions.turnReadOnly();
-        this._qinView.turnReadOnly();
+        this._folderString.turnReadOnly();
+        this._extensionsCombo.turnReadOnly();
+        this._fileView.turnReadOnly();
     }
 
     public override turnEditable(): void {
         this._readOnly = false;
-        this._qinFolder.turnEditable();
-        this._qinExtensions.turnEditable();
-        this._qinView.turnEditable();
+        this._folderString.turnEditable();
+        this._extensionsCombo.turnEditable();
+        this._fileView.turnEditable();
     }
 
     public override isEditable(): boolean {
         return !this._readOnly;
     }
 
-    public get qinUpper(): QinLine {
-        return this._qinUpper;
+    protected override _getData(): string[] {
+        return this._fileView.value;
     }
 
-    public get qinConfirm(): QinButton {
-        return this._qinConfirm;
+    protected override _setData(data: string[]) {
+        this._fileView.value = data;
     }
 
-    public get qinFolder(): QinString {
-        return this._qinFolder;
+    public get filesNature(): FilesNature {
+        return this._filesNature;
     }
 
-    public get qinExtensions(): QinCombo {
-        return this._qinExtensions;
+    public set filesNature(value: FilesNature) {
+        this._filesNature = value;
+        this._fileView.filesNature = value;
     }
 
-    public get qinSearch(): QinButton {
-        return this._qinSearch;
+    public get filesOperation(): FilesOperation {
+        return this._filesOperation;
     }
 
-    public get qinUnder(): QinPanel {
-        return this._qinUnder;
+    public set filesOperation(value: FilesOperation) {
+        this._filesOperation = value;
     }
 
-    public get qinExplorer(): QinFileView {
-        return this._qinView;
+    public get filesDescriptorList(): FilesDescriptor[] {
+        return this._fileDescriptorList;
     }
 
-    public get nature(): FilesNature {
-        return this._nature;
-    }
-
-    public set nature(value: FilesNature) {
-        this._nature = value;
-        this._qinView.nature = value;
-    }
-
-    public get operation(): FilesOperation {
-        return this._operation;
-    }
-
-    public set operation(value: FilesOperation) {
-        this._operation = value;
-    }
-
-    public get descriptors(): FilesDescriptor[] {
-        return this._descriptors;
-    }
-
-    public set descriptors(value: FilesDescriptor[]) {
-        this._descriptors = value;
+    public set filesDescriptorList(value: FilesDescriptor[]) {
+        this._fileDescriptorList = value;
     }
 
     public get singleSelection(): boolean {
@@ -201,7 +111,7 @@ export class QinFilePick extends QinEdit<string[]> {
 
     public set singleSelection(value: boolean) {
         this._singleSelection = value;
-        this._qinView.singleSelection = value;
+        this._fileView.singleSelection = value;
     }
 
     public addOnChosen(onChosen: QinFilePickChosen): QinFilePick {
@@ -214,17 +124,79 @@ export class QinFilePick extends QinEdit<string[]> {
         return this;
     }
 
+    private initMain() {
+        this._upperLine.install(this.qinedBase);
+        this._underPanel.install(this.qinedBase);
+    }
+
+    private initUpper() {
+        this._upperLine.styleAsFlexMin();
+        this._confirmButton.install(this._upperLine);
+        this._confirmButton.addActionMain((_) => {
+            let data = this._getData();
+            for (const chosen of this._onChosen) {
+                chosen(data);
+            }
+        });
+        this._folderString.install(this._upperLine);
+        this._folderString.styleAsMinWidth(100);
+        this._folderString.styleAsFlexMax();
+        this._folderString.addActionMain((_) => {
+            if (this.isEditable()) {
+                this.loadFolder();
+            }
+        });
+        this._extensionsCombo.install(this._upperLine);
+        this._extensionsCombo.styleAsMinWidth(100);
+        this.initExtensions();
+        this._searchButton.install(this._upperLine);
+        this._searchButton.addAction((_) => {
+            if (this.isEditable()) {
+                this.loadFolder();
+            }
+        });
+    }
+
+    private initUnder() {
+        this._underPanel.styleAsScroll();
+        this._underPanel.styleAsFlexMax();
+        this._fileView.install(this._underPanel);
+        this._fileView.filesNature = this._filesNature;
+        this._fileView.singleSelection = this._singleSelection;
+    }
+
+    private initExtensions() {
+        if (this._fileDescriptorList.length == 0) {
+            this._extensionsCombo.addItem({
+                title: this.qinpel.tr("All files") + " (*.*)",
+                value: "*",
+                selected: true,
+            });
+            this._fileView.filesExtensionList = [];
+        } else {
+            for (let index = 0; index < this._fileDescriptorList.length; index++) {
+                const descriptor = this._fileDescriptorList[index];
+                this._extensionsCombo.addItem({
+                    title: descriptor.description,
+                    value: descriptor.extensions.join(";"),
+                    selected: index == 0,
+                });
+            }
+            this._fileView.filesExtensionList = this._fileDescriptorList[0].extensions;
+        }
+    }
+
     private loadFolder() {
-        this._qinView.load(this._qinFolder.value, (loaded) => {
-            this._qinFolder.value = loaded;
+        this._fileView.load(this._folderString.value, (loaded) => {
+            this._folderString.value = loaded;
         });
     }
 }
 
 export type QinFilePickSet = {
-    nature?: FilesNature;
-    operation?: FilesOperation;
-    descriptors?: FilesDescriptor[];
+    filesNature?: FilesNature;
+    fileOperation?: FilesOperation;
+    filesDescriptorList?: FilesDescriptor[];
     singleSelection?: boolean;
     readOnly?: boolean;
 };

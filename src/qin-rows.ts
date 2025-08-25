@@ -19,16 +19,6 @@ export class QinRows extends QinColumn {
         }
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinRows {
-        super.styled(styles);
-        return this;
-    }
-
-    public override put(item: QinBase): QinRows {
-        item.install(this);
-        return this;
-    }
-
     public putOn(row: number, item: QinBase): QinRows {
         while (row >= this._panelList.length) {
             this.addRow();
@@ -41,6 +31,16 @@ export class QinRows extends QinColumn {
         let row = new QinPanel();
         row.install(this);
         this._panelList.push(row);
+    }
+
+    public override put(item: QinBase): QinRows {
+        item.install(this);
+        return this;
+    }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinRows {
+        super.styled(styles);
+        return this;
     }
 }
 

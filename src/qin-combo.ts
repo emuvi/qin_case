@@ -1,8 +1,9 @@
-import { Nature, QinSkin } from "qin_soul";
+import { Nature } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
 export class QinCombo extends QinEdit<string> {
-    private _elGroups = new Array<HTMLOptGroupElement>();
+    
+    private _optGroups = new Array<HTMLOptGroupElement>();
 
     public constructor(options?: QinComboSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "combo", document.createElement("select"));
@@ -19,37 +20,23 @@ export class QinCombo extends QinEdit<string> {
             }
         }
         if (options?.selected) {
-            this.setData(options.selected);
+            this._setData(options.selected);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): HTMLSelectElement {
         return this.qinedHTML as HTMLSelectElement;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinCombo {
-        super.styled(styles);
-        return this;
-    }
-
-    public getNature(): Nature {
+    public override getNature(): Nature {
         return Nature.CHARS;
     }
 
-    protected override getData(): string {
-        return this.castedQine().value;
-    }
-
-    protected override setData(data: string) {
-        this.castedQine().value = data;
-    }
-
-    protected override mayChange(): HTMLElement[] {
-        return [this.castedQine()];
+    public override mayChange(): HTMLElement[] {
+        return [this.qinedHTML];
     }
 
     public override turnReadOnly(): void {
@@ -64,6 +51,14 @@ export class QinCombo extends QinEdit<string> {
 
     public override isEditable(): boolean {
         return !this.castedQine().disabled;
+    }
+
+    protected override _getData(): string {
+        return this.castedQine().value;
+    }
+
+    protected override _setData(data: string) {
+        this.castedQine().value = data;
     }
 
     public addSame(titleAndValue: string) {
@@ -86,18 +81,23 @@ export class QinCombo extends QinEdit<string> {
         return this;
     }
 
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinCombo {
+        super.styled(styles);
+        return this;
+    }
+
     private getGroup(label: string): HTMLOptGroupElement {
         if (!label) {
             return null;
         }
-        for (let group of this._elGroups) {
+        for (let group of this._optGroups) {
             if (group.label == label) {
                 return group;
             }
         }
         let newGroup = document.createElement("optgroup");
         newGroup.label = label;
-        this._elGroups.push(newGroup);
+        this._optGroups.push(newGroup);
         this.qinedHTML.appendChild(newGroup);
         return newGroup;
     }

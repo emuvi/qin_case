@@ -4,6 +4,7 @@ import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
 
 export class QinBoolean extends QinEdit<boolean> {
+    
     private _value = false;
     private _readOnly = false;
 
@@ -12,12 +13,11 @@ export class QinBoolean extends QinEdit<boolean> {
         this.styleAsEditable();
         this.addActionMain((_) => this.toggle());
         if (options?.initial) {
-            this.setData(options.initial);
+            this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
     }
 
     public override castedQine(): QinIcon {
@@ -28,16 +28,7 @@ export class QinBoolean extends QinEdit<boolean> {
         return Nature.BOOL;
     }
 
-    protected override getData(): boolean {
-        return this._value;
-    }
-
-    protected override setData(data: boolean) {
-        this._value = data;
-        this.updateIcon();
-    }
-
-    protected override mayChange(): HTMLElement[] {
+    public override mayChange(): HTMLElement[] {
         return [];
     }
 
@@ -53,6 +44,15 @@ export class QinBoolean extends QinEdit<boolean> {
 
     public override isEditable(): boolean {
         return !this._readOnly;
+    }
+
+    protected override _getData(): boolean {
+        return this._value;
+    }
+
+    protected override _setData(data: boolean) {
+        this._value = data;
+        this.updateIcon();
     }
 
     private updateIcon() {

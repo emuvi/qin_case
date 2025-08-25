@@ -6,11 +6,12 @@ import { QinPanel } from "./qin-panel";
 import { QinColumn } from "./qin-column";
 
 export class QinFileView extends QinEdit<string[]> {
-    private _qinBody = new QinLine();
-    private _qinStretch = new QinPanel();
+    
+    private _bodyLine = new QinLine();
+    private _stretchPanel = new QinPanel();
 
-    private _nature: FilesNature;
-    private _extensions: string[];
+    private _filesNature: FilesNature;
+    private _filesExtensionList: string[];
     private _singleSelection: boolean;
     private _canNavigate: boolean;
     private _readOnly = false;
@@ -23,41 +24,47 @@ export class QinFileView extends QinEdit<string[]> {
 
     public constructor(options?: QinFileViewSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "file-view", new QinColumn());
-        this._nature = options?.nature ? options.nature : FilesNature.BOTH;
-        this._extensions = options?.extensions ? options.extensions : [];
+        this._filesNature = options?.filesNature ? options.filesNature : FilesNature.BOTH;
+        this._filesExtensionList = options?.filesExtensionList ? options.filesExtensionList : [];
         this._singleSelection = options?.singleSelection ?? false;
         this._canNavigate = options?.canNavigate ?? false;
         this.initMain();
         if (options?.readOnly) {
             this.turnReadOnly();
         }
-        this.prepareEdit();
-        this._qinStretch.styleAsWhole();
-        this._qinBody.install(this);
-        this._qinStretch.install(this);
-        this.bodyBase = this._qinBody;
-    }
-
-    private initMain() {
-        this.styleAsEditable();
-        styles.applyOnMain(this.qinedHTML);
-        this.qinedBase.addActionMain((_) => {
-            if (!this._readOnly) {
-                this.cleanSelection();
-            }
-        });
-        this.qinedBase.disabledSelection();
+        this._stretchPanel.styleAsWhole();
+        this._bodyLine.install(this);
+        this._stretchPanel.install(this);
+        this.bodyBase = this._bodyLine;
     }
 
     public override castedQine(): QinPanel {
         return this.qinedBase as QinPanel;
     }
 
-    public getNature(): Nature {
+    public override getNature(): Nature {
         return Nature.CHARS;
     }
 
-    protected override getData(): string[] {
+    public override mayChange(): HTMLElement[] {
+        return [];
+    }
+
+    public override turnReadOnly(): void {
+        this._readOnly = true;
+        this.styleAsReadOnly();
+    }
+
+    public override turnEditable(): void {
+        this._readOnly = false;
+        this.styleAsEditable();
+    }
+
+    public override isEditable(): boolean {
+        return !this._readOnly;
+    }
+
+    protected override _getData(): string[] {
         let result = [];
         this._items.forEach((item) => {
             if (item.isPicked()) {
@@ -67,7 +74,7 @@ export class QinFileView extends QinEdit<string[]> {
         return result;
     }
 
-    protected override setData(data: string[]) {
+    protected override _setData(data: string[]) {
         this.clean();
         if (data && data.length > 0) {
             let dataFolder = QinSoul.foot.getParent(data[0]);
@@ -93,38 +100,20 @@ export class QinFileView extends QinEdit<string[]> {
         }
     }
 
-    protected override mayChange(): HTMLElement[] {
-        return [];
+    public get filesNature(): FilesNature {
+        return this._filesNature;
     }
 
-    public override turnReadOnly(): void {
-        this._readOnly = true;
-        this.styleAsReadOnly();
+    public set filesNature(value: FilesNature) {
+        this._filesNature = value;
     }
 
-    public override turnEditable(): void {
-        this._readOnly = false;
-        this.styleAsEditable();
+    public get filesExtensionList(): string[] {
+        return this._filesExtensionList;
     }
 
-    public override isEditable(): boolean {
-        return !this._readOnly;
-    }
-
-    public get nature(): FilesNature {
-        return this._nature;
-    }
-
-    public set nature(value: FilesNature) {
-        this._nature = value;
-    }
-
-    public get extensions(): string[] {
-        return this._extensions;
-    }
-
-    public set extensions(value: string[]) {
-        this._extensions = value;
+    public set filesExtensionList(value: string[]) {
+        this._filesExtensionList = value;
     }
 
     public get singleSelection(): boolean {
@@ -138,6 +127,10 @@ export class QinFileView extends QinEdit<string[]> {
 
     public get canNavigate(): boolean {
         return this._canNavigate;
+    }
+
+    public set canNavigate(value: boolean) {
+        this._canNavigate = value;
     }
 
     public get folderSelected(): string {
@@ -160,15 +153,15 @@ export class QinFileView extends QinEdit<string[]> {
                 }
                 for (let inside of res.list) {
                     if (inside.kind === PathKind.FOLDER) {
-                        if (this._nature == FilesNature.BOTH || this._nature == FilesNature.DIRECTORIES) {
+                        if (this._filesNature == FilesNature.BOTH || this._filesNature == FilesNature.DIRECTORIES) {
                             this.newDir(inside.name);
                         }
                     } else if (inside.kind === PathKind.FILE) {
-                        if (this._nature == FilesNature.BOTH || this._nature == FilesNature.FILES) {
+                        if (this._filesNature == FilesNature.BOTH || this._filesNature == FilesNature.FILES) {
                             let extension = QinSoul.foot.getFileExtension(inside.name);
                             let passedExtension = true;
-                            if (this._extensions && this._extensions.length > 0) {
-                                passedExtension = this._extensions.indexOf(extension) > -1;
+                            if (this._filesExtensionList && this._filesExtensionList.length > 0) {
+                                passedExtension = this._filesExtensionList.indexOf(extension) > -1;
                             }
                             if (passedExtension) {
                                 this.newFile(inside.name, extension);
@@ -198,7 +191,7 @@ export class QinFileView extends QinEdit<string[]> {
     }
 
     public clean() {
-        this._qinBody.qinedHTML.innerHTML = "";
+        this._bodyLine.qinedHTML.innerHTML = "";
         this._items = [];
         this._folderSelected = "";
     }
@@ -234,6 +227,17 @@ export class QinFileView extends QinEdit<string[]> {
         return this;
     }
 
+    private initMain() {
+        this.styleAsEditable();
+        styles.applyOnMain(this.qinedHTML);
+        this.qinedBase.addActionMain((_) => {
+            if (!this._readOnly) {
+                this.cleanSelection();
+            }
+        });
+        this.qinedBase.disabledSelection();
+    }
+
     private newDir(name: string) {
         this.newItem(name, IconName.EXPLORER_DIR);
     }
@@ -244,7 +248,7 @@ export class QinFileView extends QinEdit<string[]> {
 
     private newItem(name: string, icon: IconName) {
         const item = new Item(this, name, icon);
-        item.install(this._qinBody.qinedHTML);
+        item.install(this._bodyLine.qinedHTML);
         this._items.push(item);
     }
 
@@ -274,8 +278,8 @@ export class QinFileView extends QinEdit<string[]> {
 }
 
 export type QinFileViewSet = {
-    nature?: FilesNature;
-    extensions?: string[];
+    filesNature?: FilesNature;
+    filesExtensionList?: string[];
     singleSelection?: boolean;
     readOnly?: boolean;
     canNavigate?: boolean;
@@ -362,12 +366,8 @@ class Item {
     }
 
     private updateStyles() {
-        this._styles.ColorInactiveAct = this._picked
-            ? QinStylesPicker.ColorPickedInactiveAct
-            : QinStylesPicker.ColorUnPickedInactiveAct;
-        this._styles.ColorActiveAct = this._picked
-            ? QinStylesPicker.ColorPickedActiveAct
-            : QinStylesPicker.ColorUnPickedActiveAct;
+        this._styles.ColorInactiveAct = this._picked ? QinStylesPicker.ColorPickedInactiveAct : QinStylesPicker.ColorUnPickedInactiveAct;
+        this._styles.ColorActiveAct = this._picked ? QinStylesPicker.ColorPickedActiveAct : QinStylesPicker.ColorUnPickedActiveAct;
         if (this._itemDiv == document.activeElement) {
             this._itemDiv.style.backgroundColor = this._styles.ColorActiveAct;
         } else {
