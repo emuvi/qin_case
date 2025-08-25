@@ -68,11 +68,9 @@ export class QinIconPick extends QinEdit<QinAsset> {
     }
 
     protected override _setData(asset: QinAsset) {
-        let found = false;
         for (let child of this.qinedBase.baseChildren) {
             if (child instanceof QinIconCell) {
                 if (child.icon.asset == asset) {
-                    found = true;
                     child.selected = true;
                 } else {
                     child.selected = false;
