@@ -18,7 +18,7 @@ export class QinPanel extends QinBase {
         return this.qinedHTML as HTMLDivElement;
     }
 
-    public override put(item: QinBase): QinPanel {
+    public override put<T extends QinBase>(item: T): QinPanel {
         item.install(this);
         return this;
     }
