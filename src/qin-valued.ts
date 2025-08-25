@@ -45,8 +45,8 @@ export class QinValued extends QinEdit<Valued> {
         this._dataTitled.install(this);
     }
     
-    public override castedQine(): HTMLInputElement {
-        return this.qinedHTML as HTMLInputElement;
+    public override castedQine(): QinLine {
+        return this.qinedBase as QinLine;
     }
 
     public override getNature(): Nature {
