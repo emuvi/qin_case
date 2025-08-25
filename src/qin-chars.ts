@@ -1,7 +1,7 @@
 import { Nature, QinSkin } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
-export class QinString extends QinEdit<string> {
+export class QinChars extends QinEdit<string> {
     public constructor(options?: QinStringSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
         this.castedQine().type = "text";
@@ -70,7 +70,7 @@ export class QinString extends QinEdit<string> {
         this.castedQine().selectionEnd = startPos + data.length;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinString {
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinChars {
         super.styled(styles);
         return this;
     }

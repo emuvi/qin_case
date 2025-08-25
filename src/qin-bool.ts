@@ -3,7 +3,7 @@ import { QinAsset } from "./qin-assets";
 import { QinEdit } from "./qin-edit";
 import { QinIcon } from "./qin-icon";
 
-export class QinBoolean extends QinEdit<boolean> {
+export class QinBool extends QinEdit<boolean> {
     
     private _value = false;
     private _readOnly = false;
@@ -67,7 +67,7 @@ export class QinBoolean extends QinEdit<boolean> {
         this.value = !this.value;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinBoolean {
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinBool {
         super.styled(styles);
         return this;
     }

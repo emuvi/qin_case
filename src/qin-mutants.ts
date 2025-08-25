@@ -1,4 +1,4 @@
-import { QinBoolean } from "./qin-boolean";
+import { QinBool } from "./qin-bool";
 import { QinCombo } from "./qin-combo";
 import { QinDate } from "./qin-date";
 import { QinEdit } from "./qin-edit";
@@ -6,19 +6,20 @@ import { QinFilePath } from "./qin-file-path";
 import { QinFilePick } from "./qin-file-pick";
 import { QinFileView } from "./qin-file-view";
 import { QinIconPick } from "./qin-icon-pick";
-import { QinInteger } from "./qin-integer";
+import { QinInt as QinInt } from "./qin-int";
 import { QinNumeric } from "./qin-numeric";
-import { QinString } from "./qin-string";
+import { QinChars } from "./qin-chars";
 import { QinSuggestion } from "./qin-suggestion";
 import { Qine } from "./qin-main";
 import { QinPassword } from "./qin-password";
 import { QinText } from "./qin-text";
+import { QinValued } from "./qin-valued";
 
 export enum QinMutants {
-    BOOLEAN = "BOOLEAN",
-    INTEGER = "INTEGER",
+    BOOL = "BOOLEAN",
+    INT = "INTEGER",
     NUMERIC = "NUMERIC",
-    STRING = "STRING",
+    CHARS = "STRING",
     PASSWORD = "PASSWORD",
     SUGGESTION = "SUGGESTION",
     DATE = "DATE",
@@ -28,18 +29,19 @@ export enum QinMutants {
     FILE_PATH = "FILE_PATH",
     FILE_PICK = "FILE_PICK",
     FILE_VIEW = "FILE_VIEW",
+    VALUED = "VALUED",
 }
 
 function newEdit(kind: QinMutants, options: any): QinEdit<any> {
     switch (kind) {
-        case QinMutants.BOOLEAN:
-            return new QinBoolean(options);
-        case QinMutants.INTEGER:
-            return new QinInteger(options);
+        case QinMutants.BOOL:
+            return new QinBool(options);
+        case QinMutants.INT:
+            return new QinInt(options);
         case QinMutants.NUMERIC:
             return new QinNumeric(options);
-        case QinMutants.STRING:
-            return new QinString(options);
+        case QinMutants.CHARS:
+            return new QinChars(options);
         case QinMutants.SUGGESTION:
             return new QinSuggestion(options);
         case QinMutants.PASSWORD:
@@ -58,6 +60,8 @@ function newEdit(kind: QinMutants, options: any): QinEdit<any> {
             return new QinFilePick(options);
         case QinMutants.FILE_VIEW:
             return new QinFileView(options);
+        case QinMutants.VALUED:
+            return new QinValued(options);
         default:
             throw new Error(Qine.qinpel.tr("Unknown kind of mutant to create: ") + kind);
     }

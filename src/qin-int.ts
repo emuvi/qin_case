@@ -1,12 +1,12 @@
 import { Nature, QinSkin } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
-export class QinInteger extends QinEdit<number> {
+export class QinInt extends QinEdit<number> {
     public constructor(options?: QinIntegerSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "integer", document.createElement("input"));
         this.castedQine().type = "number";
         QinSkin.styleAsEditable(this.qinedHTML);
-        this.qinedHTML.style.width = "120px";
+        this.qinedHTML.style.width = "90px";
         this.qinedHTML.addEventListener("focusout", () => {
             this._setData(this._getData());
         });
@@ -61,7 +61,7 @@ export class QinInteger extends QinEdit<number> {
         }
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinInteger {
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinInt {
         super.styled(styles);
         return this;
     }

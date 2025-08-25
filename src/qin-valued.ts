@@ -1,18 +1,18 @@
 import { Nature, Valued, QinHead, QinFoot } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 import { QinLine } from "./qin-line";
-import { QinString } from "./qin-string";
+import { QinChars } from "./qin-chars";
 import { QinTitled } from "./qin-titled";
 import { QinLabel } from "./qin-label";
 import { QinCombo } from "./qin-combo";
 
 export class QinValued extends QinEdit<Valued> {
     
-    private _nameString = new QinString();
+    private _nameString = new QinChars();
     private _nameTitled = new QinTitled({label: new QinLabel(QinHead.tr("Name")), items: [this._nameString]});
     private _typeCombo = new QinCombo({ofEnum: Nature});
     private _typeTitled = new QinTitled({label: new QinLabel(QinHead.tr("Type")), items: [this._typeCombo]});
-    private _dataString = new QinString();
+    private _dataString = new QinChars();
     private _dataTitled = new QinTitled({label: new QinLabel(QinHead.tr("Data")), items: [this._dataString]});
     
     public constructor(options?: QinValuedSet, isQindred?: string) {

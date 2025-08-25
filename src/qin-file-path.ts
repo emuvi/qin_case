@@ -6,11 +6,11 @@ import { QinEdit } from "./qin-edit";
 import { QinFilePick } from "./qin-file-pick";
 import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
-import { QinString } from "./qin-string";
+import { QinChars } from "./qin-chars";
 
 export class QinFilePath extends QinEdit<string> {
     
-    private _pathString = new QinString();
+    private _pathString = new QinChars();
     private _searchButton = new QinButton({icon: new QinIcon(QinAsset.FaceFolder)});
     private _filePick: QinFilePick;
     private _framePopup: QinFramePopup;

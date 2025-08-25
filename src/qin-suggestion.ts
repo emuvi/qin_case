@@ -1,7 +1,7 @@
 import { QinBody } from "qin_soul";
-import { QinString } from "./qin-string";
+import { QinChars } from "./qin-chars";
 
-export class QinSuggestion extends QinString {
+export class QinSuggestion extends QinChars {
     private _dataList = document.createElement("datalist");
 
     public constructor(options?: QinSuggestionSet, isQindred?: string) {

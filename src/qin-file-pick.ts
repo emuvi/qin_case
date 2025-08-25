@@ -8,13 +8,13 @@ import { QinFileView } from "./qin-file-view";
 import { QinIcon } from "./qin-icon";
 import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
-import { QinString } from "./qin-string";
+import { QinChars } from "./qin-chars";
 
 export class QinFilePick extends QinEdit<string[]> {
     
     private _upperLine = new QinLine();
     private _confirmButton = new QinButton({icon: new QinIcon(QinAsset.FaceConfirm)});
-    private _folderString = new QinString();
+    private _folderString = new QinChars();
     private _extensionsCombo = new QinCombo();
     private _searchButton = new QinButton({icon: new QinIcon(QinAsset.FaceSearch)});
     private _underPanel = new QinPanel();
