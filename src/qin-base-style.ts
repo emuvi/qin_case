@@ -370,11 +370,9 @@ export class QinBaseStyle {
         QinSkin.styleAsBottomLeft(this._el, bottom, left);
     }
 
-
     public styleAsBottom(bottom: number) {
         QinSkin.styleAsBottom(this._el, bottom);
     }
-
 
     public styleAsLeft(left: number) {
         QinSkin.styleAsLeft(this._el, left);
@@ -384,36 +382,396 @@ export class QinBaseStyle {
         QinSkin.styleAsWidth(this._el, width);
     }
 
+    public styleAsWidthPer(width: number) {
+        QinSkin.styleAsWidthPer(this._el, width);
+    }
+
+    public styleAsWidthMaxContent() {
+        QinSkin.styleAsWidthMaxContent(this._el);
+    }
+
+    public styleAsWidthMinContent() {
+        QinSkin.styleAsWidthMinContent(this._el);
+    }
+
+    public styleAsWidthFitContent() {
+        QinSkin.styleAsWidthFitContent(this._el);
+    }
+
+    public styleAsWidthStretch() {
+        QinSkin.styleAsWidthStretch(this._el);
+    }
+
+    public styleAsWidthInherit() {
+        QinSkin.styleAsWidthInherit(this._el);
+    }
+
+    public styleAsWidthInitial() {
+        QinSkin.styleAsWidthInitial(this._el);
+    }
+
+    public styleAsWidthRevert() {
+        QinSkin.styleAsWidthRevert(this._el);
+    }
+
+    public styleAsWidthRevertLayer() {
+        QinSkin.styleAsWidthRevertLayer(this._el);
+    }
+
+    public styleAsWidthUnset() {
+        QinSkin.styleAsWidthUnset(this._el);
+    }
+
     public styleAsHeight(height: number | QinGrandeur) {
         QinSkin.styleAsHeight(this._el, height);
+    }
+
+    public styleAsHeightPer(height: number) {
+        QinSkin.styleAsHeightPer(this._el, height);
+    }
+
+    public styleAsHeightMaxContent() {
+        QinSkin.styleAsHeightMaxContent(this._el);
+    }
+
+    public styleAsHeightMinContent() {
+        QinSkin.styleAsHeightMinContent(this._el);
+    }
+
+    public styleAsHeightFitContent() {
+        QinSkin.styleAsHeightFitContent(this._el);
+    }
+
+    public styleAsHeightStretch() {
+        QinSkin.styleAsHeightStretch(this._el);
+    }
+
+    public styleAsHeightInherit() {
+        QinSkin.styleAsHeightInherit(this._el);
+    }
+
+    public styleAsHeightInitial() {
+        QinSkin.styleAsHeightInitial(this._el);
+    }
+
+    public styleAsHeightRevert() {
+        QinSkin.styleAsHeightRevert(this._el);
+    }
+
+    public styleAsHeightRevertLayer() {
+        QinSkin.styleAsHeightRevertLayer(this._el);
+    }
+
+    public styleAsHeightUnset() {
+        QinSkin.styleAsHeightUnset(this._el);
     }
 
     public styleAsSize(size: QinDimension | QinGrandeur) {
         QinSkin.styleAsSize(this._el, size);
     }
 
+    public styleAsSizePer(size: QinDimension) {
+        QinSkin.styleAsSizePer(this._el, size);
+    }
+
+    public styleAsSizeMaxContent() {
+        QinSkin.styleAsSizeMaxContent(this._el);
+    }
+
+    public styleAsSizeMinContent() {
+        QinSkin.styleAsSizeMinContent(this._el);
+    }
+
+    public styleAsSizeFitContent() {
+        QinSkin.styleAsSizeFitContent(this._el);
+    }
+
+    public styleAsSizeStretch() {
+        QinSkin.styleAsSizeStretch(this._el);
+    }
+
+    public styleAsSizeInherit() {
+        QinSkin.styleAsSizeInherit(this._el);
+    }
+
+    public styleAsSizeInitial() {
+        QinSkin.styleAsSizeInitial(this._el);
+    }
+
+    public styleAsSizeRevert() {
+        QinSkin.styleAsSizeRevert(this._el);
+    }
+
+    public styleAsSizeRevertLayer() {
+        QinSkin.styleAsSizeRevertLayer(this._el);
+    }
+
+    public styleAsSizeUnset() {
+        QinSkin.styleAsSizeUnset(this._el);
+    }
+
     public styleAsMinWidth(width: number | QinGrandeur) {
         QinSkin.styleAsMinWidth(this._el, width);
+    }
+
+    public styleAsMinWidthPer(width: number) {
+        QinSkin.styleAsMinWidthPer(this._el, width);
+    }
+
+    public styleAsMinWidthMaxContent() {
+        QinSkin.styleAsMinWidthMaxContent(this._el);
+    }
+
+    public styleAsMinWidthMinContent() {
+        QinSkin.styleAsMinWidthMinContent(this._el);
+    }
+
+    public styleAsMinWidthFitContent() {
+        QinSkin.styleAsMinWidthFitContent(this._el);
+    }
+
+    public styleAsMinWidthStretch() {
+        QinSkin.styleAsMinWidthStretch(this._el);
+    }
+
+    public styleAsMinWidthInherit() {
+        QinSkin.styleAsMinWidthInherit(this._el);
+    }
+
+    public styleAsMinWidthInitial() {
+        QinSkin.styleAsMinWidthInitial(this._el);
+    }
+
+    public styleAsMinWidthRevert() {
+        QinSkin.styleAsMinWidthRevert(this._el);
+    }
+
+    public styleAsMinWidthRevertLayer() {
+        QinSkin.styleAsMinWidthRevertLayer(this._el);
+    }
+
+    public styleAsMinWidthUnset() {
+        QinSkin.styleAsMinWidthUnset(this._el);
     }
 
     public styleAsMinHeight(height: number | QinGrandeur) {
         QinSkin.styleAsMinHeight(this._el, height);
     }
 
+    public styleAsMinHeightPer(height: number) {
+        QinSkin.styleAsMinHeightPer(this._el, height);
+    }
+
+    public styleAsMinHeightMaxContent() {
+        QinSkin.styleAsMinHeightMaxContent(this._el);
+    }
+
+    public styleAsMinHeightMinContent() {
+        QinSkin.styleAsMinHeightMinContent(this._el);
+    }
+
+    public styleAsMinHeightFitContent() {
+        QinSkin.styleAsMinHeightFitContent(this._el);
+    }
+
+    public styleAsMinHeightStretch() {
+        QinSkin.styleAsMinHeightStretch(this._el);
+    }
+
+    public styleAsMinHeightInherit() {
+        QinSkin.styleAsMinHeightInherit(this._el);
+    }
+
+    public styleAsMinHeightInitial() {
+        QinSkin.styleAsMinHeightInitial(this._el);
+    }
+
+    public styleAsMinHeightRevert() {
+        QinSkin.styleAsMinHeightRevert(this._el);
+    }
+
+    public styleAsMinHeightRevertLayer() {
+        QinSkin.styleAsMinHeightRevertLayer(this._el);
+    }
+
+    public styleAsMinHeightUnset() {
+        QinSkin.styleAsMinHeightUnset(this._el);
+    }
+
     public styleAsMinSize(size: QinDimension | QinGrandeur) {
         QinSkin.styleAsMinSize(this._el, size);
+    }
+
+    public styleAsMinSizePer(size: QinDimension) {
+        QinSkin.styleAsMinSizePer(this._el, size);
+    }
+
+    public styleAsMinSizeMaxContent() {
+        QinSkin.styleAsMinSizeMaxContent(this._el);
+    }
+
+    public styleAsMinSizeMinContent() {
+        QinSkin.styleAsMinSizeMinContent(this._el);
+    }
+
+    public styleAsMinSizeFitContent() {
+        QinSkin.styleAsMinSizeFitContent(this._el);
+    }
+
+    public styleAsMinSizeStretch() {
+        QinSkin.styleAsMinSizeStretch(this._el);
+    }
+
+    public styleAsMinSizeInherit() {
+        QinSkin.styleAsMinSizeInherit(this._el);
+    }
+
+    public styleAsMinSizeInitial() {
+        QinSkin.styleAsMinSizeInitial(this._el);
+    }
+
+    public styleAsMinSizeRevert() {
+        QinSkin.styleAsMinSizeRevert(this._el);
+    }
+
+    public styleAsMinSizeRevertLayer() {
+        QinSkin.styleAsMinSizeRevertLayer(this._el);
+    }
+
+    public styleAsMinSizeUnset() {
+        QinSkin.styleAsMinSizeUnset(this._el);
     }
 
     public styleAsMaxWidth(width: number | QinGrandeur) {
         QinSkin.styleAsMaxWidth(this._el, width);
     }
 
+    public styleAsMaxWidthPer(width: number) {
+        QinSkin.styleAsMaxWidthPer(this._el, width);
+    }
+
+    public styleAsMaxWidthMaxContent() {
+        QinSkin.styleAsMaxWidthMaxContent(this._el);
+    }
+
+    public styleAsMaxWidthMinContent() {
+        QinSkin.styleAsMaxWidthMinContent(this._el);
+    }
+
+    public styleAsMaxWidthFitContent() {
+        QinSkin.styleAsMaxWidthFitContent(this._el);
+    }
+
+    public styleAsMaxWidthStretch() {
+        QinSkin.styleAsMaxWidthStretch(this._el);
+    }
+
+    public styleAsMaxWidthInherit() {
+        QinSkin.styleAsMaxWidthInherit(this._el);
+    }
+
+    public styleAsMaxWidthInitial() {
+        QinSkin.styleAsMaxWidthInitial(this._el);
+    }
+
+    public styleAsMaxWidthRevert() {
+        QinSkin.styleAsMaxWidthRevert(this._el);
+    }
+
+    public styleAsMaxWidthRevertLayer() {
+        QinSkin.styleAsMaxWidthRevertLayer(this._el);
+    }
+
+    public styleAsMaxWidthUnset() {
+        QinSkin.styleAsMaxWidthUnset(this._el);
+    }
+
     public styleAsMaxHeight(height: number | QinGrandeur) {
         QinSkin.styleAsMaxHeight(this._el, height);
     }
 
+    public styleAsMaxHeightPer(height: number) {
+        QinSkin.styleAsMaxHeightPer(this._el, height);
+    }
+
+    public styleAsMaxHeightMaxContent() {
+        QinSkin.styleAsMaxHeightMaxContent(this._el);
+    }
+
+    public styleAsMaxHeightMinContent() {
+        QinSkin.styleAsMaxHeightMinContent(this._el);
+    }
+
+    public styleAsMaxHeightFitContent() {
+        QinSkin.styleAsMaxHeightFitContent(this._el);
+    }
+
+    public styleAsMaxHeightStretch() {
+        QinSkin.styleAsMaxHeightStretch(this._el);
+    }
+
+    public styleAsMaxHeightInherit() {
+        QinSkin.styleAsMaxHeightInherit(this._el);
+    }
+
+    public styleAsMaxHeightInitial() {
+        QinSkin.styleAsMaxHeightInitial(this._el);
+    }
+
+    public styleAsMaxHeightRevert() {
+        QinSkin.styleAsMaxHeightRevert(this._el);
+    }
+
+    public styleAsMaxHeightRevertLayer() {
+        QinSkin.styleAsMaxHeightRevertLayer(this._el);
+    }
+
+    public styleAsMaxHeightUnset() {
+        QinSkin.styleAsMaxHeightUnset(this._el);
+    }
+
     public styleAsMaxSize(size: QinDimension | QinGrandeur) {
         QinSkin.styleAsMaxSize(this._el, size);
+    }
+
+    public styleAsMaxSizePer(size: QinDimension) {
+        QinSkin.styleAsMaxSizePer(this._el, size);
+    }
+
+    public styleAsMaxSizeMaxContent() {
+        QinSkin.styleAsMaxSizeMaxContent(this._el);
+    }
+
+    public styleAsMaxSizeMinContent() {
+        QinSkin.styleAsMaxSizeMinContent(this._el);
+    }
+
+    public styleAsMaxSizeFitContent() {
+        QinSkin.styleAsMaxSizeFitContent(this._el);
+    }
+
+    public styleAsMaxSizeStretch() {
+        QinSkin.styleAsMaxSizeStretch(this._el);
+    }
+
+    public styleAsMaxSizeInherit() {
+        QinSkin.styleAsMaxSizeInherit(this._el);
+    }
+
+    public styleAsMaxSizeInitial() {
+        QinSkin.styleAsMaxSizeInitial(this._el);
+    }
+
+    public styleAsMaxSizeRevert() {
+        QinSkin.styleAsMaxSizeRevert(this._el);
+    }
+
+    public styleAsMaxSizeRevertLayer() {
+        QinSkin.styleAsMaxSizeRevertLayer(this._el);
+    }
+
+    public styleAsMaxSizeUnset() {
+        QinSkin.styleAsMaxSizeUnset(this._el);
     }
 
     public styleAsForeground(foreground: string) {
