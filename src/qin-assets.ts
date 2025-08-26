@@ -92,6 +92,7 @@ export enum QinAsset {
     BackgroundNormal8 = "background-normal-8.png",
     BackgroundNormal9 = "background-normal-9.png",
     BackgroundNormal = "background-normal.png",
+    CaseSizer = "case-sizer.png",
     ExplorerApps = "explorer-apps.png",
     ExplorerCmds = "explorer-cmds.png",
     ExplorerDir = "explorer-dir.png",
