@@ -138,6 +138,46 @@ export class QinBaseStyle {
         QinSkin.styleAsBorderBottomLeftRadius(this._el, radius);
     }
 
+    public styleAsPositionStatic() {
+        QinSkin.styleAsPositionStatic(this._el);
+    }
+
+    public styleAsPositionRelative() {
+        QinSkin.styleAsPositionRelative(this._el);
+    }
+
+    public styleAsPositionAbsolute() {
+        QinSkin.styleAsPositionAbsolute(this._el);
+    }
+
+    public styleAsPositionFixed() {
+        QinSkin.styleAsPositionFixed(this._el);
+    }
+
+    public styleAsPositionSticky() {
+        QinSkin.styleAsPositionSticky(this._el);
+    }
+
+    public styleAsPositionInherit() {
+        QinSkin.styleAsPositionInherit(this._el);
+    }
+
+    public styleAsPositionInitial() {
+        QinSkin.styleAsPositionInitial(this._el);
+    }
+
+    public styleAsPositionRevert() {
+        QinSkin.styleAsPositionRevert(this._el);
+    }
+
+    public styleAsPositionRevertLayer() {
+        QinSkin.styleAsPositionRevertLayer(this._el);
+    }
+
+    public styleAsPositionUnset() {
+        QinSkin.styleAsPositionUnset(this._el);
+    }
+
     public styleAsDisplayBlock() {
         QinSkin.styleAsDisplayBlock(this._el);
     }
@@ -208,30 +248,6 @@ export class QinBaseStyle {
 
     public styleAsDisplayUnset() {
         QinSkin.styleAsDisplayUnset(this._el);
-    }
-
-    public styleAsPositionStatic() {
-        QinSkin.styleAsPositionStatic(this._el);
-    }
-
-    public styleAsPositionAbsolute() {
-        QinSkin.styleAsPositionAbsolute(this._el);
-    }
-
-    public styleAsPositionFixed() {
-        QinSkin.styleAsPositionFixed(this._el);
-    }
-
-    public styleAsPositionRelative() {
-        QinSkin.styleAsPositionRelative(this._el);
-    }
-
-    public styleAsPositionSticky() {
-        QinSkin.styleAsPositionSticky(this._el);
-    }
-
-    public styleAsPositionInitial() {
-        QinSkin.styleAsPositionInitial(this._el);
     }
 
     public styleAsFlexDirectionRow() {
