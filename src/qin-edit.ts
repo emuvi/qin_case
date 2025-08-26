@@ -2,8 +2,8 @@ import { Nature, QinWaiter, QinWaiters } from "qin_soul";
 import { QinBase } from "./qin-base";
 
 export abstract class QinEdit<T> extends QinBase {
-    public constructor(qindred: string, qined: HTMLElement | QinBase) {
-        super(qindred + "_" + "edit", qined);
+    public constructor(isQindred: string, qined: HTMLElement | QinBase) {
+        super((isQindred ? isQindred + "_" : "") + "edit", qined);
         this.styleAsEditable();
         this.qinedHTML.addEventListener("load", () => this.prepareEdit());
     }

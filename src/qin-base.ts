@@ -12,9 +12,9 @@ export abstract class QinBase extends QinBaseStyle {
         super(qined);
         this._qindred = qindred;
         if (qined instanceof QinBase) {
-            qined.qinedHTML.id = qindred + qined.qinedHTML.id;
+            qined.qinedHTML.id = qindred + "_" + qined.qinedHTML.id;
         } else {
-            qined.id = Qine.qinpel.ours.soul.body.makeQindredUID(qindred);
+            qined.id = QinBody.makeQindredUID(qindred);
         }
         this._qined = qined;
         this.styleAsBase();
