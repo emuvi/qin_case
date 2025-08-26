@@ -27,7 +27,7 @@ export class QinScroll extends QinPanel {
         return this.qinedHTML.scrollWidth;
     }
 
-    public override put(item: QinBase): QinScroll {
+    public override put<T extends QinBase>(item: T): QinScroll {
         item.install(this);
         return this;
     }
