@@ -354,6 +354,32 @@ export class QinBaseStyle {
         QinSkin.styleAsBounds(this._el, top, right, bottom, left);
     }
 
+    public styleAsTopRight(top: number, right: number) {
+        QinSkin.styleAsTopRight(this._el, top, right);
+    }
+
+    public styleAsTop(top: number) {
+        QinSkin.styleAsTop(this._el, top);
+    }
+
+    public styleAsRight(right: number) {
+        QinSkin.styleAsRight(this._el, right);
+    }
+
+    public styleAsBottomLeft(bottom: number, left: number) {
+        QinSkin.styleAsBottomLeft(this._el, bottom, left);
+    }
+
+
+    public styleAsBottom(bottom: number) {
+        QinSkin.styleAsBottom(this._el, bottom);
+    }
+
+
+    public styleAsLeft(left: number) {
+        QinSkin.styleAsLeft(this._el, left);
+    }
+
     public styleAsWidth(width: number | QinGrandeur) {
         QinSkin.styleAsWidth(this._el, width);
     }
