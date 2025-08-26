@@ -15,17 +15,17 @@ export class QinTitled extends QinColumn {
         } else {
             this._titleLabel = new QinLabel();
         }
-        this._titleLabel.install(this._headLine);
         if (options?.items) {
             options.items.forEach((item) => {
                 item.install(this._bodyLine);
                 this._titleLabel.qinLink(item);
             });
         }
+        this.styleAsMarginRight(3);
+        this._titleLabel.install(this._headLine);
         this._headLine.install(this);
         this._bodyLine.install(this);
         this.bodyBase = this._bodyLine;
-        this.styleAsMarginRight(3);
     }
 
     public get title(): string {
@@ -36,7 +36,7 @@ export class QinTitled extends QinColumn {
         this._titleLabel.title = title;
     }
 
-    public override put(item: QinBase): QinTitled {
+    public override put<T extends QinBase>(item: T): QinTitled {
         item.install(this._bodyLine);
         this._titleLabel.qinLink(item);
         return this;
