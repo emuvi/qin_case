@@ -38,6 +38,10 @@ export class QinBaseStyle {
         QinSkin.styleAsSpaced(this._el);
     }
 
+    public styleAsBordered() {
+        QinSkin.styleAsBordered(this._el);
+    }
+
     public styleAsEditable() {
         QinSkin.styleAsEditable(this._el);
     }
