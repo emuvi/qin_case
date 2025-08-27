@@ -10,12 +10,10 @@ export class QinSizer extends QinPanel {
     private _bodyScroll = new QinScroll();
     private _sizerIcon = new QinIcon(QinAsset.CaseSizer, QinGrandeur.MICRO);
     
-    public constructor(options?: QinSizerSet, isQindred?: string) {
+    public constructor(child?: QinBase, options?: QinSizerSet, isQindred?: string) {
         super(undefined, (isQindred ? isQindred + "_" : "") + "sizer");
-        if (options?.items) {
-            for (const item of options.items) {
-                item.install(this._bodyScroll);
-            }
+        if (child) {
+            child.install(this._bodyScroll);
         }
         this.styleAsBordered();
         this.styleAsDisplayInitial();
@@ -46,6 +44,5 @@ export class QinSizer extends QinPanel {
 }
 
 export type QinSizerSet = {
-    items?: QinBase[];
     size?: QinDimension | QinGrandeur;
 };
