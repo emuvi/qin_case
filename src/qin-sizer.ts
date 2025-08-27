@@ -34,7 +34,7 @@ export class QinSizer extends QinPanel {
         this.bodyBase = this._bodyScroll;
     }
 
-    public override put<T extends QinBase>(item: T): QinSizer {
+    public override put(item: QinBase): QinSizer {
         item.install(this._bodyScroll);
         return this;
     }

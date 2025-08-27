@@ -36,7 +36,7 @@ export class QinTitled extends QinColumn {
         this._titleLabel.title = title;
     }
 
-    public override put<T extends QinBase>(item: T): QinTitled {
+    public override put(item: QinBase): QinTitled {
         item.install(this._bodyLine);
         this._titleLabel.qinLink(item);
         return this;

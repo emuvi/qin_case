@@ -65,7 +65,7 @@ export class QinRows extends QinColumn {
         return this;
     }
 
-    public override put<T extends QinBase>(item: T): QinRows {
+    public override put(item: QinBase): QinRows {
         item.install(this.lastRow());
         return this;
     }

@@ -13,7 +13,7 @@ export class QinColumn extends QinPanel {
         return this;
     }
 
-    public override put<T extends QinBase>(item: T): QinColumn {
+    public override put(item: QinBase): QinColumn {
         item.install(this);
         return this;
     }

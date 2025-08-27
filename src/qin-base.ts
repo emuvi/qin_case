@@ -85,12 +85,12 @@ export abstract class QinBase extends QinBaseStyle {
     protected _baseDisplay: string = null;
     protected _baseVisibility: string = null;
 
-    public put<T extends QinBase>(item: T): QinBase {
+    public put(item: QinBase): QinBase {
         item.install(this);
         return this;
     }
 
-    public install<T extends QinBase>(onBase: T): QinBase {
+    public install(onBase: QinBase): QinBase {
         this.unInstall();
         this._baseParent = onBase;
         this._baseParent.addChild(this);
@@ -156,7 +156,7 @@ export abstract class QinBase extends QinBaseStyle {
         return this._baseChildren;
     }
 
-    public addChild<T extends QinBase>(child: T): QinBase {
+    public addChild(child: QinBase): QinBase {
         if (this._bodyBase) {
             this._bodyBase.addChild(child);
         } else {
@@ -166,7 +166,7 @@ export abstract class QinBase extends QinBaseStyle {
         return this;
     }
 
-    public delChild<T extends QinBase>(child: T): QinBase {
+    public delChild(child: QinBase): QinBase {
         if (this._bodyBase) {
             this._bodyBase.addChild(child);
         } else {

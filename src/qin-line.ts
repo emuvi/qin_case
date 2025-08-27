@@ -17,7 +17,7 @@ export class QinLine extends QinPanel {
         return this;
     }
 
-    public override put<T extends QinBase>(item: T): QinLine {
+    public override put(item: QinBase): QinLine {
         item.install(this);
         return this;
     }

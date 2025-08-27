@@ -6,7 +6,7 @@ export class QinStack extends QinPanel {
         super(options, (isQindred ? isQindred + "_" : "") + "stack");
     }
 
-    public stack<T extends QinBase>(child: T): QinStack {
+    public stack(child: QinBase): QinStack {
         return this.put(child);
     }
 
@@ -20,7 +20,7 @@ export class QinStack extends QinPanel {
         });
     }
 
-    public override put<T extends QinBase>(item: T): QinStack {
+    public override put(item: QinBase): QinStack {
         item.install(this);
         return this;
     }
