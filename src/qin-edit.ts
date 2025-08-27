@@ -43,7 +43,6 @@ export abstract class QinEdit<T> extends QinBase {
     }
 
     private prepareEdit() {
-        console.log(this.qindred, "prepared");
         for (let element of this.mayChange()) {
             element.addEventListener("focusin", () => {
                 this._enteredWaiters.send(this._getData());
