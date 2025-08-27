@@ -10,7 +10,6 @@ export class QinBool extends QinEdit<boolean> {
 
     public constructor(options?: QinBooleanSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "boolean", new QinIcon(QinAsset.FaceCheckRadio));
-        this.styleAsEditable();
         this.addActionMain((_) => this.toggle());
         if (options?.initial) {
             this._setData(options.initial);

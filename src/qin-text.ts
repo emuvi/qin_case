@@ -4,7 +4,6 @@ import { QinEdit } from "./qin-edit";
 export class QinText extends QinEdit<string> {
     public constructor(options?: QinTextSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "string", document.createElement("textarea"));
-        this.styleAsEditable();
         if (options?.maxLength) {
             this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }

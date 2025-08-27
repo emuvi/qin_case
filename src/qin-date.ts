@@ -5,7 +5,6 @@ export class QinDate extends QinEdit<Date> {
     public constructor(options?: QinDateSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "date", document.createElement("input"));
         this.castedQine().type = "date";
-        this.styleAsEditable();
         if (options?.initial) {
             this._setData(options.initial);
         }

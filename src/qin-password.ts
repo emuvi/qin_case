@@ -6,7 +6,6 @@ export class QinPassword extends QinEdit<string> {
         super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
         this.castedQine().type = "password";
         this.castedQine().value = "";
-        this.styleAsEditable();
         if (options?.maxLength) {
             this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }

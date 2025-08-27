@@ -6,7 +6,6 @@ export class QinChars extends QinEdit<string> {
         super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
         this.castedQine().type = "text";
         this.castedQine().value = "";
-        this.styleAsEditable();
         if (options?.maxLength) {
             this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }

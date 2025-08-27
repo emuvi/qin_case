@@ -7,7 +7,6 @@ export class QinCombo extends QinEdit<string> {
 
     public constructor(options?: QinComboSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "combo", document.createElement("select"));
-        this.styleAsEditable();
         if (options?.items) {
             for (let item of options.items) {
                 this.addItem(item);

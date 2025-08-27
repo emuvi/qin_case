@@ -5,9 +5,8 @@ export class QinNumeric extends QinEdit<number> {
     public constructor(options?: QinNumericSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "numeric", document.createElement("input"));
         this.castedQine().type = "number";
-        QinSkin.styleAsEditable(this.qinedHTML);
-        this.qinedHTML.style.width = "90px";
-        this.qinedHTML.addEventListener("focusout", () => {
+        this.castedQine().style.width = "90px";
+        this.castedQine().addEventListener("focusout", () => {
             this._setData(this._getData());
         });
         if (options?.initial) {
