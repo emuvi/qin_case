@@ -4,6 +4,7 @@ import { QinBaseStyle } from "./qin-base-style";
 import { Qine } from "./qin-main";
 
 export abstract class QinBase extends QinBaseStyle {
+    
     private _qindred: string;
     private _qined: HTMLElement | QinBase;
     private _bodyBase: QinBase = null;
@@ -14,7 +15,7 @@ export abstract class QinBase extends QinBaseStyle {
         if (qined instanceof QinBase) {
             qined.qinedHTML.id = qindred + "_" + qined.qinedHTML.id;
         } else {
-            qined.id = QinBody.makeQindredUID(qindred);
+            qined.id = "base_" + QinBody.makeQindredUID(qindred);
         }
         this._qined = qined;
         this.styleAsBase();
