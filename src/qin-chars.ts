@@ -9,11 +9,11 @@ export class QinChars extends QinEdit<string> {
         if (options?.maxLength) {
             this.qinedHTML.style.width = QinSkin.getWidthByMaxLength(options?.maxLength);
         }
-        if (options?.initial) {
-            this._setData(options.initial);
-        }
         if (options?.readOnly) {
             this.turnReadOnly();
+        }
+        if (options?.initial) {
+            this._setData(options.initial);
         }
     }
 
@@ -52,7 +52,11 @@ export class QinChars extends QinEdit<string> {
     }
 
     protected override _setData(data: string) {
-        this.castedQine().value = data;
+        if (data === null || data === undefined) {
+            this.castedQine().value = "";
+        } else {
+            this.castedQine().value = data;
+        }
     }
 
     public insertAtCursor(data: string) {
