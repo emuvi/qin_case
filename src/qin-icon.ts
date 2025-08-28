@@ -1,11 +1,11 @@
 import { QinDimension, QinGrandeur, QinSkin } from "qin_soul";
-import { QinAsset, qinAssetUrl, qinUrlAsset } from "./qin-assets";
+import { QinAsset, getUrlOfAsset, getAssetOfUrl } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinIcon extends QinBase {
     public constructor(asset: QinAsset, size: QinDimension | QinGrandeur = QinGrandeur.SMALL, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "icon", document.createElement("img"));
-        this.castedQine().src = qinAssetUrl(asset);
+        this.castedQine().src = getUrlOfAsset(asset);
         this.styleAsSize(size);
     }
 
@@ -14,11 +14,11 @@ export class QinIcon extends QinBase {
     }
 
     public get asset(): QinAsset {
-        return qinUrlAsset(this.castedQine().src);
+        return getAssetOfUrl(this.castedQine().src);
     }
 
     public set asset(asset: QinAsset) {
-        this.castedQine().src = qinAssetUrl(asset);
+        this.castedQine().src = getUrlOfAsset(asset);
     }
 
     public get dimension(): QinDimension {

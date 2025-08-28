@@ -1,5 +1,5 @@
 import { BorderStyle, QinActionableStyles, QinDimension, QinGrandeur, QinSkin, QinStyles } from "qin_soul";
-import { QinAsset, qinAssetUrl } from "./qin-assets";
+import { QinAsset, getUrlOfAsset } from "./qin-assets";
 import { QinBase } from "./qin-base";
 
 export class QinBaseStyle {
@@ -832,7 +832,7 @@ export class QinBaseStyle {
     }
 
     public styleAsBackgroundImageAsset(asset: QinAsset) {
-        QinSkin.styleAsBackgroundImage(this._el, qinAssetUrl(asset))
+        QinSkin.styleAsBackgroundImage(this._el, getUrlOfAsset(asset))
     }
 
     public styleAsBackgroundImageInitial() {

@@ -420,11 +420,11 @@ export enum QinAsset {
     SourceSerifPro = "source-serif-pro.ttf",
 }
 
-export function qinAssetUrl(asset: QinAsset): string {
+export function getUrlOfAsset(asset: QinAsset): string {
     return "/pub/qin_desk/assets/" + asset;
 }
 
-export function qinUrlAsset(url: string): QinAsset {
+export function getAssetOfUrl(url: string): QinAsset {
     const asset = url.substring(url.lastIndexOf("/") + 1);
     return asset as QinAsset;
 }
