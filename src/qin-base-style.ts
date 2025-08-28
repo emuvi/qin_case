@@ -326,32 +326,65 @@ export class QinBaseStyle {
         QinSkin.styleAsJustifyContentInherit(this._el);
     }
 
+    public styleAsAlignItemsNormal() {
+        QinSkin.styleAsAlignItemsNormal(this._el);
+    }
     public styleAsAlignItemsStretch() {
         QinSkin.styleAsAlignItemsStretch(this._el);
     }
-
     public styleAsAlignItemsCenter() {
         QinSkin.styleAsAlignItemsCenter(this._el);
     }
-
+    public styleAsAlignItemsStart() {
+        QinSkin.styleAsAlignItemsStart(this._el);
+    }
+    public styleAsAlignItemsEnd() {
+        QinSkin.styleAsAlignItemsEnd(this._el);
+    }
     public styleAsAlignItemsFlexStart() {
         QinSkin.styleAsAlignItemsFlexStart(this._el);
     }
-
     public styleAsAlignItemsFlexEnd() {
         QinSkin.styleAsAlignItemsFlexEnd(this._el);
     }
-
+    public styleAsAlignItemsSelfStart() {
+        QinSkin.styleAsAlignItemsSelfStart(this._el);
+    }
+    public styleAsAlignItemsSelfEnd() {
+        QinSkin.styleAsAlignItemsSelfEnd(this._el);
+    }
+    public styleAsAlignItemsAnchorCenter() {
+        QinSkin.styleAsAlignItemsAnchorCenter(this._el);
+    }
     public styleAsAlignItemsBaseline() {
         QinSkin.styleAsAlignItemsBaseline(this._el);
     }
-
+    public styleAsAlignItemsFirstBaseline() {
+        QinSkin.styleAsAlignItemsFirstBaseline(this._el);
+    }
+    public styleAsAlignItemsLastBaseline() {
+        QinSkin.styleAsAlignItemsLastBaseline(this._el);
+    }
+    public styleAsAlignItemsSafeCenter() {
+        QinSkin.styleAsAlignItemsSafeCenter(this._el);
+    }
+    public styleAsAlignItemsUnsafeCenter() {
+        QinSkin.styleAsAlignItemsUnsafeCenter(this._el);
+    }
+    public styleAsAlignItemsInherit() {
+        QinSkin.styleAsAlignItemsInherit(this._el);
+    }
     public styleAsAlignItemsInitial() {
         QinSkin.styleAsAlignItemsInitial(this._el);
     }
-
-    public styleAsAlignItemsInherit() {
-        QinSkin.styleAsAlignItemsInherit(this._el);
+    public styleAsAlignItemsRevert() {
+        QinSkin.styleAsAlignItemsRevert(this._el);
+    }
+    public styleAsAlignItemsRevertLayer() {
+        QinSkin.styleAsAlignItemsRevertLayer(this._el);
+    }
+    public styleAsAlignItemsUnset() {
+        QinSkin.styleAsAlignItemsUnset(this._el);
     }
 
     public styleAsBounds(top: number, right: number, bottom: number, left: number) {
