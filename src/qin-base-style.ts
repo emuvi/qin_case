@@ -970,29 +970,44 @@ export class QinBaseStyle {
     public styleAsWhiteSpaceNormal() {
         QinSkin.styleAsWhiteSpaceNormal(this._el);
     }
-
-    public styleAsWhiteSpaceNoWrap() {
-        QinSkin.styleAsWhiteSpaceNoWrap(this._el);
-    }
-
     public styleAsWhiteSpacePre() {
         QinSkin.styleAsWhiteSpacePre(this._el);
     }
-
-    public styleAsWhiteSpacePreLine() {
-        QinSkin.styleAsWhiteSpacePreLine(this._el);
-    }
-
     public styleAsWhiteSpacePreWrap() {
         QinSkin.styleAsWhiteSpacePreWrap(this._el);
     }
-
+    public styleAsWhiteSpacePreLine() {
+        QinSkin.styleAsWhiteSpacePreLine(this._el);
+    }
+    public styleAsWhiteSpaceNoWrap() {
+        QinSkin.styleAsWhiteSpaceNoWrap(this._el);
+    }
+    public styleAsWhiteSpaceWrap() {
+        QinSkin.styleAsWhiteSpaceWrap(this._el);
+    }
+    public styleAsWhiteSpaceBreakSpaces() {
+        QinSkin.styleAsWhiteSpaceBreakSpaces(this._el);
+    }
+    public styleAsWhiteSpaceCollapse() {
+        QinSkin.styleAsWhiteSpaceCollapse(this._el);
+    }
+    public styleAsWhiteSpacePreserveNowrap() {
+        QinSkin.styleAsWhiteSpacePreserveNowrap(this._el);
+    }
     public styleAsWhiteSpaceInitial() {
         QinSkin.styleAsWhiteSpaceInitial(this._el);
     }
-
     public styleAsWhiteSpaceInherit() {
         QinSkin.styleAsWhiteSpaceInherit(this._el);
+    }
+    public styleAsWhiteSpaceRevert() {
+        QinSkin.styleAsWhiteSpaceRevert(this._el);
+    }
+    public styleAsWhiteSpaceRevertLayer() {
+        QinSkin.styleAsWhiteSpaceRevertLayer(this._el);
+    }
+    public styleAsWhiteSpaceUnset() {
+        QinSkin.styleAsWhiteSpaceUnset(this._el);
     }
 
     public disabledSelection() {
