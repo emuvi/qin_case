@@ -810,6 +810,130 @@ export class QinBaseStyle {
         QinSkin.styleAsZIndex(this._el, index);
     }
 
+    public styleAsCursorAuto() {
+        QinSkin.styleAsCursorAuto(this._el);
+    }
+    public styleAsCursorDefault() {
+        QinSkin.styleAsCursorDefault(this._el);
+    }
+    public styleAsCursorNone() {
+        QinSkin.styleAsCursorNone(this._el);
+    }
+    public styleAsCursorContextMenu() {
+        QinSkin.styleAsCursorContextMenu(this._el);
+    }
+    public styleAsCursorHelp() {
+        QinSkin.styleAsCursorHelp(this._el);
+    }
+    public styleAsCursorPointer() {
+        QinSkin.styleAsCursorPointer(this._el);
+    }
+    public styleAsCursorProgress() {
+        QinSkin.styleAsCursorProgress(this._el);
+    }
+    public styleAsCursorWait() {
+        QinSkin.styleAsCursorWait(this._el);
+    }
+    public styleAsCursorCell() {
+        QinSkin.styleAsCursorCell(this._el);
+    }
+    public styleAsCursorCrosshair() {
+        QinSkin.styleAsCursorCrosshair(this._el);
+    }
+    public styleAsCursorText() {
+        QinSkin.styleAsCursorText(this._el);
+    }
+    public styleAsCursorVerticalText() {
+        QinSkin.styleAsCursorVerticalText(this._el);
+    }
+    public styleAsCursorAlias() {
+        QinSkin.styleAsCursorAlias(this._el);
+    }
+    public styleAsCursorCopy() {
+        QinSkin.styleAsCursorCopy(this._el);
+    }
+    public styleAsCursorMove() {
+        QinSkin.styleAsCursorMove(this._el);
+    }
+    public styleAsCursorNoDrop() {
+        QinSkin.styleAsCursorNoDrop(this._el);
+    }
+    public styleAsCursorNotAllowed() {
+        QinSkin.styleAsCursorNotAllowed(this._el);
+    }
+    public styleAsCursorGrab() {
+        QinSkin.styleAsCursorGrab(this._el);
+    }
+    public styleAsCursorGrabbing() {
+        QinSkin.styleAsCursorGrabbing(this._el);
+    }
+    public styleAsCursorAllScroll() {
+        QinSkin.styleAsCursorAllScroll(this._el);
+    }
+    public styleAsCursorColResize() {
+        QinSkin.styleAsCursorColResize(this._el);
+    }
+    public styleAsCursorRowResize() {
+        QinSkin.styleAsCursorRowResize(this._el);
+    }
+    public styleAsCursorNResize() {
+        QinSkin.styleAsCursorNResize(this._el);
+    }
+    public styleAsCursorEResize() {
+        QinSkin.styleAsCursorEResize(this._el);
+    }
+    public styleAsCursorSResize() {
+        QinSkin.styleAsCursorSResize(this._el);
+    }
+    public styleAsCursorWResize() {
+        QinSkin.styleAsCursorWResize(this._el);
+    }
+    public styleAsCursorNEResize() {
+        QinSkin.styleAsCursorNEResize(this._el);
+    }
+    public styleAsCursorNWResize() {
+        QinSkin.styleAsCursorNWResize(this._el);
+    }
+    public styleAsCursorSEResize() {
+        QinSkin.styleAsCursorSEResize(this._el);
+    }
+    public styleAsCursorSWResize() {
+        QinSkin.styleAsCursorSWResize(this._el);
+    }
+    public styleAsCursorEWResize() {
+        QinSkin.styleAsCursorEWResize(this._el);
+    }
+    public styleAsCursorNSResize() {
+        QinSkin.styleAsCursorNSResize(this._el);
+    }
+    public styleAsCursorNEWSResize() {
+        QinSkin.styleAsCursorNEWSResize(this._el);
+    }
+    public styleAsCursorNWSEResize() {
+        QinSkin.styleAsCursorNWSEResize(this._el);
+    }
+    public styleAsCursorZoomIn() {
+        QinSkin.styleAsCursorZoomIn(this._el);
+    }
+    public styleAsCursorZoomOut() {
+        QinSkin.styleAsCursorZoomOut(this._el);
+    }
+    public styleAsCursorInherit() {
+        QinSkin.styleAsCursorInherit(this._el);
+    }
+    public styleAsCursorInitial() {
+        QinSkin.styleAsCursorInitial(this._el);
+    }
+    public styleAsCursorRevert() {
+        QinSkin.styleAsCursorRevert(this._el);
+    }
+    public styleAsCursorRevertLayer() {
+        QinSkin.styleAsCursorRevertLayer(this._el);
+    }
+    public styleAsCursorUnset() {
+        QinSkin.styleAsCursorUnset(this._el);
+    }
+
     public styleAsWhiteSpaceNormal() {
         QinSkin.styleAsWhiteSpaceNormal(this._el);
     }
