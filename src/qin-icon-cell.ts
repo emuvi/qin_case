@@ -1,5 +1,4 @@
 import { QinSkin } from "qin_soul";
-import { QinAsset } from "./qin-assets";
 import { QinIcon } from "./qin-icon";
 import { QinPanel } from "./qin-panel";
 

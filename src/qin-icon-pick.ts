@@ -11,21 +11,21 @@ export class QinIconPick extends QinEdit<QinAsset> {
 
     public constructor(options?: QinIconPickSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
-        if (options?.initial) {
-            this._setData(options?.initial);
-        }
-        if (options?.iconList) {
-            for (const icon of options.iconList) {
+        if (options?.icons) {
+            for (const icon of options.icons) {
                 this.addIcon(icon);
             }
         }
-        if (options?.iconCellList) {
-            for (const cell of options.iconCellList) {
+        if (options?.cells) {
+            for (const cell of options.cells) {
                 this.addCell(cell);
             }
         }
         if (options?.readOnly) {
             this.turnReadOnly();
+        }
+        if (options?.initial) {
+            this._setData(options?.initial);
         }
     }
 
@@ -67,7 +67,7 @@ export class QinIconPick extends QinEdit<QinAsset> {
     }
 
     protected override _setData(asset: QinAsset) {
-        for (let child of this.qinedBase.baseChildren) {
+        for (const child of this.qinedBase.baseChildren) {
             if (child instanceof QinIconCell) {
                 if (child.icon.asset == asset) {
                     child.selected = true;
@@ -83,7 +83,7 @@ export class QinIconPick extends QinEdit<QinAsset> {
     }
 
     public addCell(cell: QinIconCell) {
-        cell.addActionMain((_) => {
+        cell.addActionMain(_ => {
             if (this.isEditable()) {
                 this._setData(cell.icon.asset);
             }
@@ -99,7 +99,7 @@ export class QinIconPick extends QinEdit<QinAsset> {
 
 export type QinIconPickSet = {
     initial?: QinAsset;
-    iconList?: QinIcon[];
-    iconCellList?: QinIconCell[];
+    icons?: QinIcon[];
+    cells?: QinIconCell[];
     readOnly?: boolean;
 };
