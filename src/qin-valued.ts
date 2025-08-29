@@ -78,7 +78,7 @@ export class QinValued extends QinEdit<Valued> {
         const type = this._typeCombo.value as Nature;
         return {
             name, type,
-            data: QinFoot.parseValued(type, this._dataChars.value)
+            data: QinFoot.getValued(type, this._dataChars.value)
         };
     }
 

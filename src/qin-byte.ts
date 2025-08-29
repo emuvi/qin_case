@@ -1,16 +1,16 @@
 import { Nature } from "qin_soul";
 import { QinEditNumber, QinNumberSet } from "./qin-edit-number";
 
-export class QinInt extends QinEditNumber {
+export class QinByte extends QinEditNumber {
     public constructor(options?: QinNumberSet, isQindred?: string) {
-        super(options, (isQindred ? isQindred + "_" : "") + "int");
+        super(options, (isQindred ? isQindred + "_" : "") + "byte");
     }
 
     public override getNature(): Nature {
-        return Nature.INT;
+        return Nature.BYTE;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinInt {
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinByte {
         super.styled(styles);
         return this;
     }
