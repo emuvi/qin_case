@@ -1,5 +1,5 @@
 import { QinScroll } from "./qin-scroll";
-import { Qine } from "./qin-main";
+import { Qine } from "./qin-tools";
 
 // | TODO | make the table extends from a QinPanel
 export class QinTable extends QinScroll {

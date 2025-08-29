@@ -6,7 +6,7 @@ import { QinIcon } from "./qin-icon";
 import { QinLabel } from "./qin-label";
 import { QinLine } from "./qin-line";
 import { QinTitled } from "./qin-titled";
-import { Qine, QinExpect, QinModule, QinSetup, QinTools } from "./qin-main";
+import { Qine, QinExpect, QinModule, QinSetup, QinTools } from "./qin-tools";
 
 export type QinMenuAct<T extends QinBase> = new (module: QinModule, expect?: QinExpect) => T;
 

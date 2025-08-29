@@ -10,7 +10,7 @@ import { QinInt } from "./qin-int";
 import { QinNumeric } from "./qin-numeric";
 import { QinChars } from "./qin-chars";
 import { QinSuggestion } from "./qin-suggestion";
-import { Qine } from "./qin-main";
+import { Qine } from "./qin-tools";
 import { QinPassword } from "./qin-password";
 import { QinText } from "./qin-text";
 import { QinValued } from "./qin-valued";

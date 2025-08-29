@@ -2,7 +2,7 @@ import { QinFramePopup } from "qin_desk/types/qin-frame-popup";
 import { QinBounds } from "qin_soul";
 import { QinBase } from "./qin-base";
 import { QinPanel } from "./qin-panel";
-import { Qine } from "./qin-main";
+import { Qine } from "./qin-tools";
 
 export class QinPopup {
     private _qinMain: QinFramePopup;
