@@ -140,9 +140,7 @@ export class QinMap<K, V> extends QinEdit<Map<K, V>> {
 
     private _updateList() {
         this._clearList();
-        if (!this._value) {
-            return;
-        }
+        if (!this._value) return;
         for (const [key, value] of this._value) {
             const panelItem = new QinPanel();
             const display = {};

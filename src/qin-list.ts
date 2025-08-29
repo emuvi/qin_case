@@ -114,9 +114,7 @@ export class QinList<T> extends QinEdit<Array<T>> {
 
     private _updateList() {
         this._clearList();
-        if (!this._value) {
-            return;
-        }
+        if (!this._value) return;
         for (let i = 0; i < this._value.length; i++) {
             const valueItem = this._value[i];
             const panelItem = new QinPanel();
