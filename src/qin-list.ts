@@ -52,6 +52,7 @@ export class QinList<T> extends QinEdit<Array<T>> {
         this.castedQine().stack(this._listColumn);
         if (options?.initial) {
             this._setData(options?.initial);
+            this._updateList();
         }
     }
 
