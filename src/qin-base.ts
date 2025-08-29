@@ -72,7 +72,7 @@ export abstract class QinBase extends QinBaseStyle {
     }
 
     public mustId(): string {
-        var result = this.id;
+        let result = this.id;
         if (!result) {
             result = QinBody.makeQinUID();
             this.id = result;
