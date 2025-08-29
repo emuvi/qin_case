@@ -23,7 +23,7 @@ export class QinFileView extends QinEdit<string[]> {
     private _items: Item[] = [];
 
     public constructor(options?: QinFileViewSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "file-view", new QinColumn());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "file-view", new QinColumn());
         this._filesNature = options?.filesNature ? options.filesNature : FilesNature.BOTH;
         this._filesExtensionList = options?.filesExtensionList ? options.filesExtensionList : [];
         this._singleSelection = options?.singleSelection ?? false;

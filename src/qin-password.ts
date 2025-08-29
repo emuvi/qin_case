@@ -3,7 +3,7 @@ import { QinEdit } from "./qin-edit";
 
 export class QinPassword extends QinEdit<string> {
     public constructor(options?: QinPasswordSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
+        super(undefined, (isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
         this.castedQine().type = "password";
         this.castedQine().value = "";
         if (options?.maxLength) {

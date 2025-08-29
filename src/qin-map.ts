@@ -40,7 +40,7 @@ export class QinMap<K, V> extends QinEdit<Map<K, V>> {
     private _editKey: K = null;
     
     public constructor(options?: QinMapSet<K, V>, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "list", new QinStack());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "list", new QinStack());
         if ((!options?.editorK && !options?.editorV) || options?.readonly) {
             this.turnReadOnly();
         }
@@ -119,6 +119,9 @@ export class QinMap<K, V> extends QinEdit<Map<K, V>> {
     }
 
     protected override _setData(data: Map<K, V>) {
+        if (data && !(data instanceof Map)) {
+            data = new Map(Object.keys(data).map(key => [key as K, data[key] as V]));
+        }
         this._value = data;
         this._updateList();
     }

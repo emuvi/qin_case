@@ -3,7 +3,7 @@ import { QinEdit } from "./qin-edit";
 
 export class QinChars extends QinEdit<string> {
     public constructor(options?: QinCharsSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
+        super(undefined, (isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
         this.castedQine().type = "text";
         this.castedQine().value = "";
         if (options?.maxLength) {

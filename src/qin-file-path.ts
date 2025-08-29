@@ -18,7 +18,7 @@ export class QinFilePath extends QinEdit<string> {
     private _readOnly = false;
 
     public constructor(options?: QinFilePathSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "file-path", new QinLine());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "file-path", new QinLine());
         this._filePick = new QinFilePick({
             filesNature: options?.nature,
             fileOperation: options?.operation,

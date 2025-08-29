@@ -34,7 +34,7 @@ export class QinList<T> extends QinEdit<Array<T>> {
     private _editIndex = -1;
     
     public constructor(options?: QinListSet<T>, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "list", new QinStack());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "list", new QinStack());
         if (!options?.editor || options?.readonly) {
             this.turnReadOnly();
         }

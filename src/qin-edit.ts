@@ -1,9 +1,13 @@
-import { Nature, QinWaiter, QinWaiters } from "qin_soul";
+import { Nature, QinArms, QinFoot, QinWaiter, QinWaiters } from "qin_soul";
 import { QinBase } from "./qin-base";
 
 export abstract class QinEdit<T> extends QinBase {
-    public constructor(isQindred: string, qined: HTMLElement | QinBase) {
+    
+    private readonly _specs;
+    
+    public constructor(specs: any, isQindred: string, qined: HTMLElement | QinBase) {
         super((isQindred ? isQindred + "_" : "") + "edit", qined);
+        this._specs = specs;
         this.styleAsEditable();
         this.qinedHTML.addEventListener("load", () => this.prepareEdit());
     }
@@ -17,6 +21,10 @@ export abstract class QinEdit<T> extends QinBase {
     protected abstract _getData(): T;
     protected abstract _setData(data: T): void;
 
+    public get specs(): any {
+        return this._specs;
+    }
+
     public get value(): T {
         return this._getData();
     }
@@ -24,6 +32,10 @@ export abstract class QinEdit<T> extends QinBase {
     public set value(data: T) {
         this._setData(data);
         this._changedWaiters.send(data);
+    }
+
+    public get valued(): any {
+        return QinFoot.getValued(this.getNature(), this.value, this.specs);
     }
 
     private _enteredWaiters = new QinWaiters<T>();
@@ -44,15 +56,17 @@ export abstract class QinEdit<T> extends QinBase {
 
     private prepareEdit() {
         for (let element of this.mayChange()) {
-            element.addEventListener("focusin", () => {
-                this._enteredWaiters.send(this._getData());
-            });
             element.addEventListener("change", () => {
                 this._changedWaiters.send(this._getData());
             });
-            element.addEventListener("focusout", () => {
-                this._exitedWaiters.send(this._getData());
-            });
         }
+        QinArms.putOnAllTabStop(this.qinedHTML,
+            () => {
+                this._enteredWaiters.send(this._getData());
+            },
+            () => {
+                this._exitedWaiters.send(this._getData());
+            }
+        );
     }
 }

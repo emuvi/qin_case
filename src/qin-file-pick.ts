@@ -29,7 +29,7 @@ export class QinFilePick extends QinEdit<string[]> {
     private _onChosen: QinFilePickChosen[] = [];
 
     public constructor(options?: QinFilePickSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "file-pick", new QinColumn());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "file-pick", new QinColumn());
         this._filesNature = options?.filesNature ? options.filesNature : FilesNature.BOTH;
         this._filesOperation = options?.fileOperation ? options.fileOperation : FilesOperation.OPEN;
         this._fileDescriptorList = options?.filesDescriptorList ? options.filesDescriptorList : [];

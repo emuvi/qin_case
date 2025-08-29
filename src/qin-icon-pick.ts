@@ -10,7 +10,7 @@ export class QinIconPick extends QinEdit<QinAsset> {
     private _readOnly = false;
 
     public constructor(options?: QinIconPickSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "icon-pick", new QinLine());
         if (options?.icons) {
             for (const icon of options.icons) {
                 this.addIcon(icon);

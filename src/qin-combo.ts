@@ -6,7 +6,7 @@ export class QinCombo extends QinEdit<string> {
     private _optGroups = new Array<HTMLOptGroupElement>();
 
     public constructor(options?: QinComboSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "combo", document.createElement("select"));
+        super(undefined, (isQindred ? isQindred + "_" : "") + "combo", document.createElement("select"));
         if (options?.items) {
             for (let item of options.items) {
                 this.addItem(item);

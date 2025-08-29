@@ -19,7 +19,7 @@ export class QinValued extends QinEdit<Valued> {
     private _dataTitled = new QinTitled({label: this._dataLabel, items: [this._dataChars]});
     
     public constructor(options?: QinValuedSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "valued", new QinLine());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "valued", new QinLine());
         if (options?.name) {
             this._nameChars.value = options.name;
         }

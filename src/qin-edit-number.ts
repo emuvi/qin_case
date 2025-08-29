@@ -3,16 +3,13 @@ import { QinEdit } from "./qin-edit";
 
 export abstract class QinEditNumber extends QinEdit<number> {
     
-    private readonly _specs;
-    
     public constructor(options?: QinNumberSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "number", document.createElement("input"));
+        super(options?.specs, (isQindred ? isQindred + "_" : "") + "number", document.createElement("input"));
         this.castedQine().type = "number";
         this.castedQine().style.width = "90px";
         this.castedQine().addEventListener("focusout", () => {
             this._setData(this._getData());
         });
-        this._specs = options?.specs;
         if (options?.readOnly) {
             this.turnReadOnly();
         }
@@ -44,7 +41,7 @@ export abstract class QinEditNumber extends QinEdit<number> {
     }
 
     protected override _getData(): number {
-        return QinFoot.getValued(this.getNature(), this.castedQine().value, this._specs);
+        return QinFoot.getValued(this.getNature(), this.castedQine().value, this.specs);
     }
 
     protected override _setData(data: number) {

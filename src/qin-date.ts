@@ -3,7 +3,7 @@ import { QinEdit } from "./qin-edit";
 
 export class QinDate extends QinEdit<Date> {
     public constructor(options?: QinDateSet, isQindred?: string) {
-        super((isQindred ? isQindred + "_" : "") + "date", document.createElement("input"));
+        super(undefined, (isQindred ? isQindred + "_" : "") + "date", document.createElement("input"));
         this.castedQine().type = "date";
         if (options?.initial) {
             this._setData(options.initial);
