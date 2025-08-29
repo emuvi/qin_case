@@ -7,6 +7,7 @@ import { QinButton } from "./qin-button";
 import { QinIcon } from "./qin-icon";
 import { QinAsset } from "./qin-assets";
 import { QinIconPick } from "./qin-icon-pick";
+import { QinTitled } from "./qin-titled";
 
 export class QinList<T> extends QinEdit<Array<T>> {
     
@@ -39,7 +40,11 @@ export class QinList<T> extends QinEdit<Array<T>> {
         }
         if (options?.editor) {
             this._editor = options.editor;
-            this._editor.install(this._editorPanel);
+            if (options.titled) {
+                options.titled.install(this._editorPanel);
+            } else {
+                this._editor.install(this._editorPanel);
+            }
             this._initEditor();
             this._actListPanel.install(this._listColumn);
             this.castedQine().stack(this._editorColumn);
@@ -212,6 +217,7 @@ export class QinList<T> extends QinEdit<Array<T>> {
 export type QinListSet<T> = {
     initial?: Array<T>;
     editor?: QinEdit<T>;
+    titled?: QinTitled;
     readonly?: boolean;
 }
 
