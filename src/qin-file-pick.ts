@@ -30,8 +30,8 @@ export class QinFilePick extends QinEdit<string[]> {
 
     public constructor(options?: QinFilePickSet, isQindred?: string) {
         super(undefined, (isQindred ? isQindred + "_" : "") + "file-pick", new QinColumn());
-        this._filesNature = options?.filesNature ? options.filesNature : FilesNature.BOTH;
-        this._filesOperation = options?.fileOperation ? options.fileOperation : FilesOperation.OPEN;
+        this._filesNature = options?.filesNature ? options.filesNature : FilesNature.Both;
+        this._filesOperation = options?.fileOperation ? options.fileOperation : FilesOperation.Open;
         this._fileDescriptorList = options?.filesDescriptorList ? options.filesDescriptorList : [];
         this._singleSelection = options?.singleSelection ?? false;
         this.initMain();
@@ -47,7 +47,7 @@ export class QinFilePick extends QinEdit<string[]> {
     }
 
     public override getNature(): Nature {
-        return Nature.CHARS;
+        return Nature.Chars;
     }
 
     public override mayChange(): HTMLElement[] {

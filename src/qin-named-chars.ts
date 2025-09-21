@@ -39,7 +39,7 @@ export class QinNamedChars extends QinEdit<NamedChars> {
     }
 
     public override getNature(): Nature {
-        return Nature.OBJECT;
+        return Nature.Object;
     }
 
     public override mayChange(): HTMLElement[] {

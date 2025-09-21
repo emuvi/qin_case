@@ -7,7 +7,7 @@ export class QinDouble extends QinEditNumber {
     }
 
     public override getNature(): Nature {
-        return Nature.DOUBLE;
+        return Nature.Double;
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinDouble {

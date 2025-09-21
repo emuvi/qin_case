@@ -7,7 +7,7 @@ export class QinBigSerial extends QinEditNumber {
     }
 
     public override getNature(): Nature {
-        return Nature.BIG_SERIAL;
+        return Nature.BigSerial;
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinBigSerial {

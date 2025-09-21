@@ -61,7 +61,7 @@ export class QinList<T> extends QinEdit<Array<T>> {
     }
 
     public override getNature(): Nature {
-        return Nature.OBJECT;
+        return Nature.Object;
     }
 
     public override mayChange(): HTMLElement[] {

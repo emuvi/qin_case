@@ -7,7 +7,7 @@ export class QinFloat extends QinEditNumber {
     }
 
     public override getNature(): Nature {
-        return Nature.FLOAT;
+        return Nature.Float;
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinFloat {

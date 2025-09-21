@@ -7,7 +7,7 @@ export class QinNumeric extends QinEditNumber {
     }
 
     public override getNature(): Nature {
-        return Nature.NUMERIC;
+        return Nature.Numeric;
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinNumeric {

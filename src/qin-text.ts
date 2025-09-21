@@ -26,7 +26,7 @@ export class QinText extends QinEdit<string> {
     }
 
     public override getNature(): Nature {
-        return Nature.TEXT;
+        return Nature.Text;
     }
 
     public override mayChange(): HTMLElement[] {

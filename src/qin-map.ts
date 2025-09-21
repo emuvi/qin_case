@@ -81,7 +81,7 @@ export class QinMap<K, V> extends QinEdit<Map<K, V>> {
     }
 
     public override getNature(): Nature {
-        return Nature.OBJECT;
+        return Nature.Object;
     }
 
     public override mayChange(): HTMLElement[] {

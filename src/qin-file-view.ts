@@ -24,7 +24,7 @@ export class QinFileView extends QinEdit<string[]> {
 
     public constructor(options?: QinFileViewSet, isQindred?: string) {
         super(undefined, (isQindred ? isQindred + "_" : "") + "file-view", new QinColumn());
-        this._filesNature = options?.filesNature ? options.filesNature : FilesNature.BOTH;
+        this._filesNature = options?.filesNature ? options.filesNature : FilesNature.Both;
         this._filesExtensionList = options?.filesExtensionList ? options.filesExtensionList : [];
         this._singleSelection = options?.singleSelection ?? false;
         this._canNavigate = options?.canNavigate ?? false;
@@ -43,7 +43,7 @@ export class QinFileView extends QinEdit<string[]> {
     }
 
     public override getNature(): Nature {
-        return Nature.CHARS;
+        return Nature.Chars;
     }
 
     public override mayChange(): HTMLElement[] {
@@ -152,12 +152,12 @@ export class QinFileView extends QinEdit<string[]> {
                     this.newDir("..");
                 }
                 for (let inside of res.list) {
-                    if (inside.kind === PathKind.FOLDER) {
-                        if (this._filesNature == FilesNature.BOTH || this._filesNature == FilesNature.DIRECTORIES) {
+                    if (inside.kind === PathKind.Folder) {
+                        if (this._filesNature == FilesNature.Both || this._filesNature == FilesNature.Directories) {
                             this.newDir(inside.name);
                         }
-                    } else if (inside.kind === PathKind.FILE) {
-                        if (this._filesNature == FilesNature.BOTH || this._filesNature == FilesNature.FILES) {
+                    } else if (inside.kind === PathKind.File) {
+                        if (this._filesNature == FilesNature.Both || this._filesNature == FilesNature.Files) {
                             let extension = QinSoul.foot.getFileExtension(inside.name);
                             let passedExtension = true;
                             if (this._filesExtensionList && this._filesExtensionList.length > 0) {

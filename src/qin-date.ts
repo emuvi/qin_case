@@ -18,7 +18,7 @@ export class QinDate extends QinEdit<Date> {
     }
 
     public override getNature(): Nature {
-        return Nature.DATE;
+        return Nature.Date;
     }
 
     public override mayChange(): HTMLElement[] {

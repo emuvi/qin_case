@@ -7,7 +7,7 @@ export class QinReal extends QinEditNumber {
     }
 
     public override getNature(): Nature {
-        return Nature.REAL;
+        return Nature.Real;
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinReal {

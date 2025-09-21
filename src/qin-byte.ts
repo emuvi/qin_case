@@ -7,7 +7,7 @@ export class QinByte extends QinEditNumber {
     }
 
     public override getNature(): Nature {
-        return Nature.BYTE;
+        return Nature.Byte;
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinByte {

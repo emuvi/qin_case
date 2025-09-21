@@ -24,7 +24,7 @@ export class QinBool extends QinEdit<boolean> {
     }
 
     public override getNature(): Nature {
-        return Nature.BOOL;
+        return Nature.Bool;
     }
 
     public override mayChange(): HTMLElement[] {

@@ -22,7 +22,7 @@ export class QinChars extends QinEdit<string> {
     }
 
     public override getNature(): Nature {
-        return Nature.CHARS;
+        return Nature.Chars;
     }
 
     public override mayChange(): HTMLElement[] {
