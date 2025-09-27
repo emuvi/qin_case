@@ -27,8 +27,7 @@ export class QinDivider extends QinBase {
         this.qinedHTML.style.minHeight = "6px";
         this.qinedHTML.style.maxHeight = "6px";
         this.qinedHTML.style.height = "6px";
-        this.qinedHTML.style.background =
-            "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 26%, rgba(24,0,39,0.8) 42%, rgba(24,0,39,0.8) 58%, rgba(255,250,239,0.1) 74%, rgba(255,250,239,0.1) 100%)";
+        this.qinedHTML.style.background = "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 26%, rgba(24,0,39,0.8) 42%, rgba(24,0,39,0.8) 58%, rgba(255,250,239,0.1) 74%, rgba(255,250,239,0.1) 100%)";
         this._isHorizontal = true;
     }
 
@@ -39,8 +38,7 @@ export class QinDivider extends QinBase {
         this.qinedHTML.style.minHeight = "initial";
         this.qinedHTML.style.maxHeight = "initial";
         this.qinedHTML.style.width = "6px";
-        this.qinedHTML.style.background =
-            "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 26%, rgba(24,0,39,0.8) 42%, rgba(24,0,39,0.8) 58%, rgba(255,250,239,0.1) 74%, rgba(255,250,239,0.1) 100%)";
+        this.qinedHTML.style.background = "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 26%, rgba(24,0,39,0.8) 42%, rgba(24,0,39,0.8) 58%, rgba(255,250,239,0.1) 74%, rgba(255,250,239,0.1) 100%)";
         this._isHorizontal = false;
     }
 

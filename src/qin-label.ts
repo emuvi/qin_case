@@ -1,10 +1,12 @@
+import { QinHead } from "qin_soul";
 import { QinBase } from "./qin-base";
 
 export class QinLabel extends QinBase {
+    
     public constructor(title?: string, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "label", document.createElement("label"));
         if (title) {
-            this.qinedHTML.textContent = title;
+            this.qinedHTML.textContent = QinHead.tr(title);
         }
     }
 
@@ -17,7 +19,7 @@ export class QinLabel extends QinBase {
     }
 
     public set title(title: string) {
-        this.qinedHTML.textContent = title;
+        this.qinedHTML.textContent = QinHead.tr(title);
     }
 
     public get link(): string {
@@ -36,4 +38,5 @@ export class QinLabel extends QinBase {
         super.styled(styles);
         return this;
     }
+
 }

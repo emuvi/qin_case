@@ -8,13 +8,13 @@ import { QinCombo } from "./qin-combo";
 
 export class QinValued extends QinEdit<Valued> {
     
-    private _nameLabel = new QinLabel(QinHead.tr("Name"));
+    private _nameLabel = new QinLabel("Name");
     private _nameChars = new QinChars();
     private _nameTitled = new QinTitled({label: this._nameLabel, items: [this._nameChars]});
-    private _typeLabel = new QinLabel(QinHead.tr("Type"));
+    private _typeLabel = new QinLabel("Type");
     private _typeCombo = new QinCombo({ofEnum: Nature});
     private _typeTitled = new QinTitled({label: this._typeLabel, items: [this._typeCombo]});
-    private _dataLabel = new QinLabel(QinHead.tr("Data"));
+    private _dataLabel = new QinLabel("Data");
     private _dataChars = new QinChars();
     private _dataTitled = new QinTitled({label: this._dataLabel, items: [this._dataChars]});
     
@@ -31,13 +31,13 @@ export class QinValued extends QinEdit<Valued> {
         }
         if (options?.labels) {
             if (options?.labels?.name) {
-                this._nameLabel.title = QinHead.tr(options.labels.name);
+                this._nameLabel.title = options.labels.name;
             }
             if (options?.labels?.type) {
-                this._typeLabel.title = QinHead.tr(options.labels.type);
+                this._typeLabel.title = options.labels.type;
             }
             if (options?.labels?.data) {
-                this._dataLabel.title = QinHead.tr(options.labels.data);
+                this._dataLabel.title = options.labels.data;
             }
         }
         this._nameTitled.install(this);

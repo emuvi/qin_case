@@ -7,10 +7,10 @@ import { QinLabel } from "./qin-label";
 
 export class QinNamedChars extends QinEdit<NamedChars> {
     
-    private _nameLabel = new QinLabel(QinHead.tr("Name"));
+    private _nameLabel = new QinLabel("Name");
     private _nameChars = new QinChars();
     private _nameTitled = new QinTitled({label: this._nameLabel, items: [this._nameChars]});
-    private _dataLabel = new QinLabel(QinHead.tr("Chars"));
+    private _dataLabel = new QinLabel("Chars");
     private _dataChars = new QinChars();
     private _dataTitled = new QinTitled({label: this._dataLabel, items: [this._dataChars]});
     
@@ -24,10 +24,10 @@ export class QinNamedChars extends QinEdit<NamedChars> {
         }
         if (options?.labels) {
             if (options?.labels?.name) {
-                this._nameLabel.title = QinHead.tr(options.labels.name);
+                this._nameLabel.title = options.labels.name;
             }
             if (options?.labels?.chars) {
-                this._dataLabel.title = QinHead.tr(options.labels.chars);
+                this._dataLabel.title = options.labels.chars;
             }
         }
         this._nameTitled.install(this);

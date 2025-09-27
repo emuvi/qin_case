@@ -5,22 +5,24 @@ import { QinIcon } from "./qin-icon";
 
 export class QinBool extends QinEdit<boolean> {
     
+    private _icon = new QinIcon(QinAsset.FaceCheckRadio);
     private _value = false;
     private _readOnly = false;
 
     public constructor(options?: QinBooleanSet, isQindred?: string) {
-        super(undefined, (isQindred ? isQindred + "_" : "") + "boolean", new QinIcon(QinAsset.FaceCheckRadio));
-        this.addActionMain((_) => this.toggle());
+        super(undefined, (isQindred ? isQindred + "_" : "") + "boolean", document.createElement("div"));
         if (options?.initial) {
             this._setData(options.initial);
         }
         if (options?.readOnly) {
             this.turnReadOnly();
         }
+        this.addActionMain((_) => this.toggle());
+        this._icon.install(this);
     }
 
-    public override castedQine(): QinIcon {
-        return this.qinedBase as QinIcon;
+    public override castedQine(): HTMLDivElement {
+        return this.qinedHTML as HTMLDivElement;
     }
 
     public override getNature(): Nature {
@@ -56,9 +58,9 @@ export class QinBool extends QinEdit<boolean> {
 
     private updateIcon() {
         if (this._value) {
-            this.castedQine().asset = QinAsset.FaceCheckedRadio;
+            this._icon.asset = QinAsset.FaceCheckedRadio;
         } else {
-            this.castedQine().asset = QinAsset.FaceCheckRadio;
+            this._icon.asset = QinAsset.FaceCheckRadio;
         }
     }
 

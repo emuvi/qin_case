@@ -1,7 +1,8 @@
 import { QinWaiter, QinWaiters } from "qin_soul";
 import { QinBase } from "./qin-base";
 
-export class QinSplitter extends QinBase {
+export class QinSplitter extends QinBase {    
+    
     private _elSideA = document.createElement("div");
     private _elMover = document.createElement("div");
     private _elGrowA = document.createElement("div");
@@ -38,18 +39,10 @@ export class QinSplitter extends QinBase {
         this._elSideB.style.display = "flex";
         this._elSideB.style.flexWrap = "nowrap";
         this._elSideB.style.overflow = "auto";
-        this._elGrowA.addEventListener("mousedown", (_) =>
-            this.balance(this._elSideA, this._elSideB)
-        );
-        this._elGrowA.addEventListener("touchstart", (_) =>
-            this.balance(this._elSideA, this._elSideB)
-        );
-        this._elGrowB.addEventListener("mousedown", (_) =>
-            this.balance(this._elSideB, this._elSideA)
-        );
-        this._elGrowB.addEventListener("touchstart", (_) =>
-            this.balance(this._elSideB, this._elSideA)
-        );
+        this._elGrowA.addEventListener("mousedown", (_) => this.balance(this._elSideA, this._elSideB));
+        this._elGrowA.addEventListener("touchstart", (_) => this.balance(this._elSideA, this._elSideB));
+        this._elGrowB.addEventListener("mousedown", (_) => this.balance(this._elSideB, this._elSideA));
+        this._elGrowB.addEventListener("touchstart", (_) => this.balance(this._elSideB, this._elSideA));
         if (options) {
             if (options.sideA) {
                 this.setSideA(options.sideA);
@@ -182,6 +175,7 @@ export class QinSplitter extends QinBase {
         super.styled(styles);
         return this;
     }
+
 }
 
 export type QinSplitterSet = {

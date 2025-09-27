@@ -4,6 +4,7 @@ import { QinIcon } from "./qin-icon";
 import { QinLabel } from "./qin-label";
 
 export class QinButton extends QinBase {
+    
     private _qinIcon: QinIcon = null;
     private _qinLabel: QinLabel = null;
 
@@ -22,11 +23,6 @@ export class QinButton extends QinBase {
 
     public override castedQine(): HTMLButtonElement {
         return this.qinedHTML as HTMLButtonElement;
-    }
-
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinButton {
-        super.styled(styles);
-        return this;
     }
 
     public get qinIcon(): QinIcon {
@@ -52,6 +48,12 @@ export class QinButton extends QinBase {
     public putAsColumnReverse() {
         this.styleAsFlexDirectionColumnReverse();
     }
+
+    public override styled(styles: Partial<CSSStyleDeclaration>): QinButton {
+        super.styled(styles);
+        return this;
+    }
+    
 }
 
 export type QinButtonSet = {
