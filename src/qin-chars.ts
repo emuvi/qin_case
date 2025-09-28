@@ -2,6 +2,7 @@ import { Nature, QinSkin } from "qin_soul";
 import { QinEdit } from "./qin-edit";
 
 export class QinChars extends QinEdit<string> {
+    
     public constructor(options?: QinCharsSet, isQindred?: string) {
         super(undefined, (isQindred ? isQindred + "_" : "") + "string", document.createElement("input"));
         this.castedQine().type = "text";
@@ -77,6 +78,7 @@ export class QinChars extends QinEdit<string> {
         super.styled(styles);
         return this;
     }
+    
 }
 
 export type QinCharsSet = {
