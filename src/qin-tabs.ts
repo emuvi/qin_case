@@ -7,10 +7,11 @@ import { QinLine } from "./qin-line";
 import { QinPanel } from "./qin-panel";
 
 export class QinTabs extends QinColumn {
+
     private _buttonsLine = new QinLine();
     private _bodyPanel = new QinPanel();
-
     private _tabsRef: QinTabRef[] = [];
+    private _selected: string = null;
 
     public constructor(options?: QinTabsSet, isQindred?: string) {
         super(null, (isQindred ? isQindred + "_" : "") + "tabs");
@@ -21,7 +22,7 @@ export class QinTabs extends QinColumn {
         this._bodyPanel.styleAsBorderRadius(3);
         this._bodyPanel.styleAsPadding(5);
         if (options?.initial) {
-            for (const tab of options?.initial) {
+            for (const tab of options.initial) {
                 this.addTab(tab);
             }
         }
@@ -37,6 +38,10 @@ export class QinTabs extends QinColumn {
         return this._bodyPanel;
     }
 
+    public get selected(): string {
+        return this._selected;
+    }
+
     public addTab(tab: QinTab): QinTabs {
         const button = new QinButtonPick({label: new QinLabel(tab.title)});
         button.styleAsMargin(0);
@@ -45,7 +50,7 @@ export class QinTabs extends QinColumn {
         button.styleAsBorderBottomLeftRadius(0);
         button.addActionMain((_) => this.showViewer(tab.viewer));
         button.install(this._buttonsLine);
-        let first = this._tabsRef.length == 0;
+        let first = this._tabsRef.length === 0;
         let tabRef = {
             title: tab.title,
             viewer: tab.viewer,
@@ -71,9 +76,11 @@ export class QinTabs extends QinColumn {
     public showViewer(viewer: QinBase): QinTabs {
         this._bodyPanel.unInstallChildren();
         viewer.install(this._bodyPanel);
+        this._selected = null;
         for (const tab of this._tabsRef) {
-            if (tab.viewer == viewer) {
+            if (tab.viewer === viewer) {
                 tab.button.pick();
+                this._selected = tab.title;
             } else {
                 tab.button.unPick();
             }
@@ -90,6 +97,7 @@ export class QinTabs extends QinColumn {
         super.styleAsWhole();
         this._bodyPanel.styleAsWhole();
     }
+
 }
 
 export type QinTabsSet = {
