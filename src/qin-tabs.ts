@@ -42,6 +42,12 @@ export class QinTabs extends QinColumn {
         return this._selected;
     }
 
+    public set selected(title: string) {
+        if (this._selected !== title) {
+            this.showTab(title);
+        }
+    }
+
     public addTab(tab: QinTab): QinTabs {
         const button = new QinButtonPick({label: new QinLabel(tab.title)});
         button.styleAsMargin(0);
