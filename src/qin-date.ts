@@ -44,7 +44,12 @@ export class QinDate extends QinEdit<Date> {
     }
 
     protected override _setData(data: Date) {
-        this.castedQine().value = data.toString();
+        if (data == null || data == undefined) {
+            this.castedQine().value = "";
+        }
+        else {
+            this.castedQine().value = data.toString();
+        }
     }
 
     public override styled(styles: Partial<CSSStyleDeclaration>): QinDate {
