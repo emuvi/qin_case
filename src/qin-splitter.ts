@@ -5,8 +5,6 @@ export class QinSplitter extends QinBase {
     
     private _elSideA = document.createElement("div");
     private _elMover = document.createElement("div");
-    private _elGrowA = document.createElement("div");
-    private _elGrowB = document.createElement("div");
     private _elSideB = document.createElement("div");
 
     private _isHorizontal = true;
@@ -16,33 +14,38 @@ export class QinSplitter extends QinBase {
 
     private _changedWaiters = new QinWaiters<QinSplitterBalance>();
 
+    private _dragStartPos: number = 0;
+    private _dragStartSizeA: number = 0;
+    private _dragHandler = this.onDrag.bind(this);
+    private _dragEndHandler = this.stopDrag.bind(this);
+
     public constructor(options?: QinSplitterSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "splitter", document.createElement("div"));
         this.qinedHTML.appendChild(this._elSideA);
         this.qinedHTML.appendChild(this._elMover);
-        this._elMover.appendChild(this._elGrowA);
-        this._elMover.appendChild(this._elGrowB);
         this.qinedHTML.appendChild(this._elSideB);
+        
         this.qinedHTML.style.display = "flex";
-        this.qinedHTML.style.flexWrap = "nowrap";
-        this._elSideA.style.display = "flex";
-        this._elSideA.style.flexWrap = "nowrap";
+        this.qinedHTML.style.width = "100%";
+        this.qinedHTML.style.height = "100%";
+        this.qinedHTML.style.overflow = "hidden";
+
+        this._elSideA.style.flex = "1 1 50%";
         this._elSideA.style.overflow = "auto";
-        this._elMover.style.display = "flex";
-        this._elMover.style.flexWrap = "nowrap";
-        this._elMover.style.borderRadius = "12px";
-        this._elMover.style.border = "1px solid rgba(255,250,239,0.1)";
-        this._elMover.style.overflow = "hidden";
-        this._elMover.style.flex = "0";
-        this._elGrowA.style.flex = "1";
-        this._elGrowB.style.flex = "1";
-        this._elSideB.style.display = "flex";
-        this._elSideB.style.flexWrap = "nowrap";
+        this._elSideA.style.position = "relative";
+
+        this._elSideB.style.flex = "1 1 50%";
         this._elSideB.style.overflow = "auto";
-        this._elGrowA.addEventListener("mousedown", (_) => this.balance(this._elSideA, this._elSideB));
-        this._elGrowA.addEventListener("touchstart", (_) => this.balance(this._elSideA, this._elSideB));
-        this._elGrowB.addEventListener("mousedown", (_) => this.balance(this._elSideB, this._elSideA));
-        this._elGrowB.addEventListener("touchstart", (_) => this.balance(this._elSideB, this._elSideA));
+        this._elSideB.style.position = "relative";
+
+        this._elMover.style.flex = "0 0 6px";
+        this._elMover.style.background = "rgba(255,250,239,0.1)";
+        this._elMover.style.userSelect = "none";
+        this._elMover.style.zIndex = "10";
+
+        this._elMover.addEventListener("mousedown", (e) => this.startDrag(e));
+        this._elMover.addEventListener("touchstart", (e) => this.startDrag(e));
+
         if (options) {
             if (options.sideA) {
                 this.setSideA(options.sideA);
@@ -63,39 +66,31 @@ export class QinSplitter extends QinBase {
     }
 
     public setHorizontal() {
+        this._isHorizontal = true;
         this.qinedHTML.style.flexDirection = "row";
-        this._elMover.style.flexDirection = "row";
+        
+        this._elMover.style.cursor = "col-resize";
+        this._elMover.style.width = "6px";
+        this._elMover.style.height = "100%";
+        
         this._elSideA.style.width = "50%";
         this._elSideA.style.height = "100%";
         this._elSideB.style.width = "50%";
         this._elSideB.style.height = "100%";
-        this._elMover.style.minWidth = "24px";
-        this._elMover.style.maxWidth = "24px";
-        this._elMover.style.minHeight = "initial";
-        this._elMover.style.maxHeight = "initial";
-        this._elMover.style.width = "24px";
-        this._elMover.style.height = "100%";
-        this._elGrowA.style.background = "linear-gradient(90deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-        this._elGrowB.style.background = "linear-gradient(270deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-        this._isHorizontal = true;
     }
 
     public setVertical() {
+        this._isHorizontal = false;
         this.qinedHTML.style.flexDirection = "column";
-        this._elMover.style.flexDirection = "column";
+        
+        this._elMover.style.cursor = "row-resize";
+        this._elMover.style.width = "100%";
+        this._elMover.style.height = "6px";
+
         this._elSideA.style.width = "100%";
         this._elSideA.style.height = "50%";
         this._elSideB.style.width = "100%";
         this._elSideB.style.height = "50%";
-        this._elMover.style.minWidth = "initial";
-        this._elMover.style.maxWidth = "initial";
-        this._elMover.style.minHeight = "24px";
-        this._elMover.style.maxHeight = "24px";
-        this._elMover.style.width = "100%";
-        this._elMover.style.height = "24px";
-        this._elGrowA.style.background = "linear-gradient(180deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-        this._elGrowB.style.background = "linear-gradient(0deg, rgba(255,250,239,0.1) 0%, rgba(255,250,239,0.1) 84%, rgba(24,0,39,0.8) 98%, rgba(24,0,39,0.8) 100%)";
-        this._isHorizontal = false;
     }
 
     public setSideA(side: QinBase) {
@@ -121,23 +116,74 @@ export class QinSplitter extends QinBase {
     }
 
     public setBalance(balance: QinSplitterBalance) {
-        let related = this._isHorizontal ? "width" : "height";
-        this._elSideA.style[related] = balance.sideA + "%";
-        this._elSideB.style[related] = balance.sideB + "%";
+        if (this._isHorizontal) {
+            this._elSideA.style.flex = `0 0 ${balance.sideA}%`;
+            this._elSideA.style.width = `${balance.sideA}%`;
+            this._elSideB.style.flex = `1 1 auto`;
+        } else {
+            this._elSideA.style.flex = `0 0 ${balance.sideA}%`;
+            this._elSideA.style.height = `${balance.sideA}%`;
+            this._elSideB.style.flex = `1 1 auto`;
+        }
     }
 
-    private balance(grow: HTMLDivElement, fall: HTMLDivElement) {
-        let related = this._isHorizontal ? "width" : "height";
-        let growAt = parseInt(grow.style[related]);
-        let fallAt = parseInt(fall.style[related]);
-        if (fallAt <= 10) {
-            return;
+    private startDrag(e: MouseEvent | TouchEvent) {
+        e.preventDefault();
+        const clientPos = this.getClientPos(e);
+        this._dragStartPos = this._isHorizontal ? clientPos.x : clientPos.y;
+        
+        const rectA = this._elSideA.getBoundingClientRect();
+        this._dragStartSizeA = this._isHorizontal ? rectA.width : rectA.height;
+
+        document.addEventListener("mousemove", this._dragHandler);
+        document.addEventListener("mouseup", this._dragEndHandler);
+        document.addEventListener("touchmove", this._dragHandler);
+        document.addEventListener("touchend", this._dragEndHandler);
+    }
+
+    private onDrag(e: MouseEvent | TouchEvent) {
+        const clientPos = this.getClientPos(e);
+        const currentPos = this._isHorizontal ? clientPos.x : clientPos.y;
+        const delta = currentPos - this._dragStartPos;
+        
+        const containerRect = this.qinedHTML.getBoundingClientRect();
+        const totalSize = this._isHorizontal ? containerRect.width : containerRect.height;
+        
+        let newSizeA = this._dragStartSizeA + delta;
+        let percentA = (newSizeA / totalSize) * 100;
+        
+        if (percentA < 5) percentA = 5;
+        if (percentA > 95) percentA = 95;
+
+        if (this._isHorizontal) {
+            this._elSideA.style.flex = `0 0 ${percentA}%`;
+            this._elSideA.style.width = `${percentA}%`;
+        } else {
+            this._elSideA.style.flex = `0 0 ${percentA}%`;
+            this._elSideA.style.height = `${percentA}%`;
         }
-        grow.style[related] = growAt + 10 + "%";
-        fall.style[related] = fallAt - 10 + "%";
-        let sideA = parseInt(this._elSideA.style[related]);
-        let sideB = parseInt(this._elSideB.style[related]);
-        this._changedWaiters.send({ sideA, sideB });
+    }
+
+    private stopDrag() {
+        document.removeEventListener("mousemove", this._dragHandler);
+        document.removeEventListener("mouseup", this._dragEndHandler);
+        document.removeEventListener("touchmove", this._dragHandler);
+        document.removeEventListener("touchend", this._dragEndHandler);
+
+        const rectA = this._elSideA.getBoundingClientRect();
+        const rectContainer = this.qinedHTML.getBoundingClientRect();
+        const total = this._isHorizontal ? rectContainer.width : rectContainer.height;
+        const sizeA = this._isHorizontal ? rectA.width : rectA.height;
+        const percentA = (sizeA / total) * 100;
+        
+        this._changedWaiters.send({ sideA: percentA, sideB: 100 - percentA });
+    }
+
+    private getClientPos(e: MouseEvent | TouchEvent) {
+        if ((e as TouchEvent).touches && (e as TouchEvent).touches.length > 0) {
+            return { x: (e as TouchEvent).touches[0].clientX, y: (e as TouchEvent).touches[0].clientY };
+        }
+        return { x: (e as MouseEvent).clientX, y: (e as MouseEvent).clientY };
     }
 
     public override addChild(child: QinBase): QinSplitter {
