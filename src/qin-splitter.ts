@@ -1,4 +1,4 @@
-import { QinWaiter, QinWaiters } from "qin_soul";
+import { QinStyles, QinWaiter, QinWaiters } from "qin_soul";
 import { QinBase } from "./qin-base";
 
 export class QinSplitter extends QinBase {    
@@ -39,7 +39,7 @@ export class QinSplitter extends QinBase {
         this._elSideB.style.position = "relative";
 
         this._elMover.style.flex = "0 0 6px";
-        this._elMover.style.background = "rgba(255,250,239,0.1)";
+        this._elMover.style.background = QinStyles.ColorResize;
         this._elMover.style.userSelect = "none";
         this._elMover.style.zIndex = "10";
 
