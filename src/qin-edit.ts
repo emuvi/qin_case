@@ -18,18 +18,18 @@ export abstract class QinEdit<T> extends QinBase {
     public abstract turnEditable(): void;
     public abstract isEditable(): boolean;
 
-    protected abstract _getData(): T;
-    protected abstract _setData(data: T): void;
+    protected abstract _getData(): T | null;
+    protected abstract _setData(data: T | null): void;
 
     public get specs(): any {
         return this._specs;
     }
 
-    public get value(): T {
+    public get value(): T | null {
         return this._getData();
     }
 
-    public set value(data: T) {
+    public set value(data: T | null) {
         this._setData(data);
         this._changedWaiters.send(data);
     }
@@ -38,9 +38,9 @@ export abstract class QinEdit<T> extends QinBase {
         return QinFoot.getValued(this.getNature(), this.value, this.specs);
     }
 
-    private _enteredWaiters = new QinWaiters<T>();
-    private _changedWaiters = new QinWaiters<T>();
-    private _exitedWaiters = new QinWaiters<T>();
+    private readonly _enteredWaiters = new QinWaiters<T>();
+    private readonly _changedWaiters = new QinWaiters<T>();
+    private readonly _exitedWaiters = new QinWaiters<T>();
 
     public addOnEntered(waiter: QinWaiter<T>) {
         this._enteredWaiters.put(waiter);

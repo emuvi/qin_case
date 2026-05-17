@@ -39,11 +39,14 @@ export class QinDate extends QinEdit<Date> {
         return !this.castedQine().readOnly;
     }
 
-    protected override _getData(): Date {
+    protected override _getData(): Date | null {
+        if (!this.castedQine().value) {
+            return null;
+        }
         return new Date(this.castedQine().value);
     }
 
-    protected override _setData(data: Date) {
+    protected override _setData(data: Date | null) {
         if (data == null || data == undefined) {
             this.castedQine().value = "";
         }
