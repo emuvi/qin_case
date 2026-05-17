@@ -3,21 +3,21 @@ import { QinBase } from "./qin-base";
 
 export class QinSplitter extends QinBase {    
     
-    private _elSideA = document.createElement("div");
-    private _elMover = document.createElement("div");
-    private _elSideB = document.createElement("div");
+    private readonly _elSideA = document.createElement("div");
+    private readonly _elMover = document.createElement("div");
+    private readonly _elSideB = document.createElement("div");
 
     private _isHorizontal = true;
 
-    private _qinSideA: QinBase = null;
-    private _qinSideB: QinBase = null;
+    private _qinSideA: QinBase | null = null;
+    private _qinSideB: QinBase | null = null;
 
-    private _changedWaiters = new QinWaiters<QinSplitterBalance>();
+    private readonly _changedWaiters = new QinWaiters<QinSplitterBalance>();
 
     private _dragStartPos: number = 0;
     private _dragStartSizeA: number = 0;
-    private _dragHandler = this.onDrag.bind(this);
-    private _dragEndHandler = this.stopDrag.bind(this);
+    private readonly _dragHandler = this.onDrag.bind(this);
+    private readonly _dragEndHandler = this.stopDrag.bind(this);
 
     public constructor(options?: QinSplitterSet, isQindred?: string) {
         super((isQindred ? isQindred + "_" : "") + "splitter", document.createElement("div"));
@@ -33,10 +33,14 @@ export class QinSplitter extends QinBase {
         this._elSideA.style.flex = "1 1 50%";
         this._elSideA.style.overflow = "auto";
         this._elSideA.style.position = "relative";
+        this._elSideA.style.minWidth = "0";
+        this._elSideA.style.minHeight = "0";
 
         this._elSideB.style.flex = "1 1 50%";
         this._elSideB.style.overflow = "auto";
         this._elSideB.style.position = "relative";
+        this._elSideB.style.minWidth = "0";
+        this._elSideB.style.minHeight = "0";
 
         this._elMover.style.flex = "0 0 6px";
         this._elMover.style.background = QinStyles.ColorResize;
@@ -186,7 +190,7 @@ export class QinSplitter extends QinBase {
         return { x: (e as MouseEvent).clientX, y: (e as MouseEvent).clientY };
     }
 
-    public override addChild(child: QinBase): QinSplitter {
+    public override addChild(child: QinBase): this {
         if (this._qinSideA === null) {
             this._qinSideA = child;
             this._elSideA.appendChild(child.qinedHTML);
@@ -202,22 +206,21 @@ export class QinSplitter extends QinBase {
         return this;
     }
 
-    public override delChild(child: QinBase): QinSplitter {
+    public override delChild(child: QinBase): this {
         let index = this._baseChildren.indexOf(child);
         if (index > -1) {
             this._baseChildren.splice(index, 1);
         }
+        child.qinedHTML.remove();
         if (this._qinSideA === child) {
-            this._elSideA.removeChild(child.qinedHTML);
             this._qinSideA = null;
         } else if (this._qinSideB === child) {
-            this._elSideB.removeChild(child.qinedHTML);
             this._qinSideB = null;
         }
         return this;
     }
 
-    public override styled(styles: Partial<CSSStyleDeclaration>): QinSplitter {
+    public override styled(styles: Partial<CSSStyleDeclaration>): this {
         super.styled(styles);
         return this;
     }
